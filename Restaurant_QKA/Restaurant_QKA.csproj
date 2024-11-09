@@ -483,15 +483,6 @@
     <Content Include="Areas\User\Views\Menu\Index.cshtml" />
     <Content Include="Areas\User\Views\Home\Contact.cshtml" />
     <Content Include="Areas\User\Views\Menu\DetailMenuItem.cshtml" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <Content Include="Areas\User\Views\Carts\Index.cshtml" />
-=======
-    <Content Include="Areas\User\Views\User\Register.cshtml" />
-    <Content Include="Areas\User\Views\User\Login.cshtml" />
->>>>>>> 32fb0fa7ce74dd3fcca53fcb89d2c1de2a114aa3
-=======
->>>>>>> parent of 32fb0fa (MA_PUSH)
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
