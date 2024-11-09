@@ -26,7 +26,7 @@
     <!-- Template Stylesheet -->
     <link href="~/Content/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body  style="background-color: #ffffff ">
 
     <!-- Spinner Start -->
     <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -34,8 +34,8 @@
     </div>
     <!-- Spinner End -->
     <!-- Navbar start -->
-    <div class="container-fluid fixed-top">
-        <div class="container topbar bg-primary d-none d-lg-block">
+    <div class="container-fluid fixed-top rounded-bottom">
+        <div class="container topbar bg-primary d-none d-lg-block" style="background-color: #DA8359">
             <div class="d-flex justify-content-between">
                 <div class="top-info ps-2">
                     <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Trần Văn Ơn, Phú Hòa, TPTDM, Bình Dương</a></small>
@@ -67,11 +67,11 @@
                         </button>
 
                         <!-- Giỏ hàng -->
-                        @if (Session["Account"] != null)
+                        @if (Session["Account"] == null)
                         {
                             <a href="#" class="position-relative me-4 d-flex align-items-center">
                                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
-                                @if (@ViewBag.TotalItemsInCart != null)
+                                @if (@ViewBag.TotalItemsInCart == null)
                                 {
                                     <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -10px; left: 17px; height: 20px; min-width: 20px;">@ViewBag.TotalItemsInCart</span>
                                 }
@@ -115,15 +115,15 @@
     <!-- Modal Search End -->
 
     <!-- Body -->
-    <div class="container-fluid fruite py-5" style="margin-top:100px">
-        <div class="container py-5">
+    <div class="container-fluid fruite py-5" style="margin-top:0px">
+        <div class="container py-0">
             @RenderBody()
         </div>    </div>
     
     <!-- Body -->
 
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 ">
         <div class="container py-5">
             <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
                 <div class="row g-4">

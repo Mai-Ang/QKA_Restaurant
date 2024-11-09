@@ -1,20 +1,40 @@
-﻿
+﻿@model Restaurant_QKA.Models.MenuItem
+
 @{
-    ViewBag.Title = "DetailMenuItem";
+    ViewBag.Title = "Chi Tiết Món";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
-<section>
-    <!-- Single Product Start -->
-    <div class="container-fluid py-5 mt-5">
-        <div class="container py-5">
-            <div class="row g-4 mb-5">
-                <div class="col-lg-8 col-xl-9">
-                    <div class="row g-4">
-                        <div class="col-lg-6">
-                            <div class="border rounded">
-                                <a href="#">
-                                    <img src="img/single-item.jpg" class="img-fluid rounded" alt="Image">
-                                </a>
+
+<div class="container py-5" style="margin-top: 100px">
+    <div class="row justify-content-center">
+        <!-- Column for Menu Item Details -->
+        <div class="col-lg-12 col-md-10">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="row g-0">
+                    <!-- Image Section -->
+                    <div class="col-md-6">
+                        <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" alt="@Model.Name" class="img-fluid rounded-start" />
+                    </div>
+                    <!-- Details Section -->
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h2 class="card-title text-dark mb-3 display-1" style="font-size:60px">@Model.Name</h2>
+
+                            <p class="card-text text-muted">@Model.Description</p>
+                            <p style="font-size:30px"><strong>Giá:</strong> <span class="text-success" style="font-weight:bold">@Model.Price.ToString()</span></p> <!-- Định dạng tiền tệ -->
+
+                            <div class="d-flex justify-content-between mt-4" style="font-size:30px">
+                                <!-- Add to Cart Button -->
+                                <a href="#" class="btn btn-primary btn-lg rounded-pill">Thêm vào giỏ</a>
+
+                                <!-- Rating Section -->
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-muted"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -22,5 +42,133 @@
             </div>
         </div>
     </div>
-</section>
 
+    <!-- Section for Comments -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-10">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-header d-flex justify-content-start">
+                        <!-- Button Mô Tả -->
+                        <button id="btnDescription" class="btn  me-2 w-auto">Mô Tả</button>
+
+                        <!-- Button Bình Luận -->
+                        <button id="btnComments" class="btn w-auto">Bình Luận</button>
+                    </div>
+
+                    <div class="card-body w-auto">
+                        <!-- Mô tả Món Ăn -->
+                        <div id="description" class="section-content ">
+                            <h3 class="mb-3">@Model.Name</h3>
+                            <p class="text-muted">@Model.Description</p>
+                            <p><strong>Giá:</strong> <span class="text-success">@Model.Price.ToString()</span></p> <!-- Định dạng tiền tệ -->
+                            <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" alt="@Model.Name" class="img-fluid rounded mx-lg-2 w-50 h-100 justify-content-center align-items-center" style="text-align:center">
+                        </div>
+
+                        <!-- Bình luận -->
+                        <div id="comments" class="section-content" style="display:none;">
+                            <h4 class="mb-3">Các Bình Luận:</h4>
+                            <div class="list-group">
+                                @foreach (var comment in Model.Comments)
+                                {
+                                    <div class="list-group-item">
+                                        <strong>@comment.Customer.Name</strong> <span class="text-muted">@comment.CreatedDate</span>
+                                        <p>@comment.Content</p>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Add Comment Form -->
+                            <form method="post" action="@Url.Action("AddComment", "Menu")" class="mt-4">
+                                <div class="mb-3">
+                                    <label for="commentText" class="form-label">Bình luận của bạn</label>
+                                    <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Chia sẻ cảm nhận của bạn về món ăn"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Gửi Bình Luận</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Add CSS for styling if needed -->
+<style>
+    .card {
+        background-color: #f8f9fa;
+    }
+
+    .card-title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+    }
+
+    .list-group-item {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+        .list-group-item p {
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+    .section-content {
+        display: none;
+    }
+
+        .section-content:first-of-type {
+            display: block;
+        }
+
+    .card-header button {
+        width: 50%;
+    }
+
+    .btn-outline-primary {
+        border: 1px solid #007bff;
+        color: #007bff;
+        background-color: white;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+    /* Make the two sections equal size */
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .section-content {
+        flex: 1;
+    }
+</style>
+
+<script>
+    // JavaScript to toggle between Description and Comments sections
+    document.getElementById("btnDescription").onclick = function () {
+        document.getElementById("description").style.display = "block";
+        document.getElementById("comments").style.display = "none";
+    }
+
+    document.getElementById("btnComments").onclick = function () {
+        document.getElementById("description").style.display = "none";
+        document.getElementById("comments").style.display = "block";
+    }
+</script>

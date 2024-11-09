@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Study\KTPM-TDMU\Semester VI(2024-2025)\5.Đồ Án Cơ Sở Ngành\DACSN_QKARes\QKA_Restaurant\Restaurant_QKA\Models\Restaurant.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Nguyen Tat Kiet\source\repos\Mai-Ang\QKA_Restaurant\Restaurant_QKA\Models\Restaurant.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

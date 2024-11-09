@@ -1,8 +1,133 @@
-﻿
-@{
-    ViewBag.Title = "Contact";
+﻿@{
+    ViewBag.Title = "Giới Thiệu Nhà Hàng";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Contact</h2>
+<div class="container py-5" style="margin-top: 100px;">
+    <!-- Introduction Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-10">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h2 class="card-title text-dark mb-4">Giới Thiệu Về Nhà Hàng QKA</h2>
 
+                    <p class="card-text text-muted">
+                        Chào mừng bạn đến với <strong>Nhà Hàng QKA</strong>, nơi mang đến những món ăn đậm đà hương vị, được chế biến từ nguyên liệu tươi ngon và chất lượng nhất. Với không gian ấm cúng và dịch vụ chuyên nghiệp, chúng tôi cam kết mang đến cho bạn một trải nghiệm ẩm thực tuyệt vời.
+                    </p>
+
+                    <p class="card-text text-muted">
+                        Tại Nhà Hàng QKA, bạn sẽ có cơ hội thưởng thức các món ăn đặc trưng từ nhiều nền văn hóa khác nhau. Mỗi món ăn tại nhà hàng đều được chế biến với sự tỉ mỉ và tình yêu dành cho ẩm thực. Hãy đến và trải nghiệm những hương vị mới lạ, đẳng cấp tại đây!
+                    </p>
+
+                    <h4 class="mt-4">Thông Tin Liên Hệ</h4>
+                    <p class="card-text">
+                        <strong>Địa chỉ:</strong> 123 Đường QKA, Quận QKA, Thành phố HCM<br>
+                        <strong>Số điện thoại:</strong> 0123456789<br>
+                        <strong>Giờ mở cửa:</strong> 10:00 AM - 10:00 PM (Mỗi ngày)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Map Section -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-12 col-md-10">
+            <h3 class="text-center mb-4">Vị Trí Của Nhà Hàng</h3>
+            <!-- Embed Google Map -->
+            <div class="map-container" style="position:relative; overflow:hidden; padding-bottom:56.25%; height:0; max-width:100%; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.210001658278!2d106.72179120000001!3d10.7952219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527c2f8f30911%3A0x36ac5073f8c91acd!2sLandmark%2081!5e0!3m2!1svi!2s!4v1731068519276!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="row justify-content-center py-4">
+        <div class="col-lg-12 col-md-10">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h2 class="card-title text-dark mb-4 text-center">Liên Hệ Cửa Hàng</h2>
+
+                    <!-- Contact Form -->
+                    <form method="post" action="@Url.Action("SendContact", "Contact")">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ và Tên</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Lời Nhắn</label>
+                            <textarea class="form-control form-control-lg" id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg w-100 py-2">Gửi Liên Hệ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add some CSS to improve the appearance -->
+<style>
+    .card {
+        background-color: #f8f9fa;
+    }
+
+    .card-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+    }
+
+    .map-container {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .form-control-lg {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #28a745;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+    .py-4 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+</style>

@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Restaurant_QKA</RootNamespace>
     <AssemblyName>Restaurant_QKA</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,11 +62,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -308,6 +305,46 @@
     <Content Include="Content\lib\owlcarousel\owl.carousel.min.js" />
     <Content Include="Content\lib\waypoints\links.php" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
+    <Content Include="Content\MenuItems\7up.jpg" />
+    <Content Include="Content\MenuItems\americano.jpg" />
+    <Content Include="Content\MenuItems\bbq_ribs.jpg" />
+    <Content Include="Content\MenuItems\beef_steak.jpg" />
+    <Content Include="Content\MenuItems\beef_stroganoff.jpg" />
+    <Content Include="Content\MenuItems\cappuchino.jpg" />
+    <Content Include="Content\MenuItems\caprese_salad.jpg" />
+    <Content Include="Content\MenuItems\ceasar_salad.jpg" />
+    <Content Include="Content\MenuItems\chicken_alfredo.jpg" />
+    <Content Include="Content\MenuItems\chicken_paramesan.jpg" />
+    <Content Include="Content\MenuItems\chicken_wings.jpg" />
+    <Content Include="Content\MenuItems\coca_cola.jpeg" />
+    <Content Include="Content\MenuItems\dr_pepper.jpg" />
+    <Content Include="Content\MenuItems\fried_calamari.jpg" />
+    <Content Include="Content\MenuItems\garlic_butter_shrimp.jpg" />
+    <Content Include="Content\MenuItems\greek_salad.jpg" />
+    <Content Include="Content\MenuItems\grilled_chicken.jpg" />
+    <Content Include="Content\MenuItems\grilled_pork_chops.jpg" />
+    <Content Include="Content\MenuItems\grilled_salmon.jpg" />
+    <Content Include="Content\MenuItems\grilled_shrimp_skewers.jpg" />
+    <Content Include="Content\MenuItems\grilled_vegetables.jpg" />
+    <Content Include="Content\MenuItems\iced_lemon_tea.jpg" />
+    <Content Include="Content\MenuItems\lamb_chops.jpg" />
+    <Content Include="Content\MenuItems\latte.jpg" />
+    <Content Include="Content\MenuItems\lemonade.jpg" />
+    <Content Include="Content\MenuItems\lobster_thermidor.jpg" />
+    <Content Include="Content\MenuItems\mojito.jpg" />
+    <Content Include="Content\MenuItems\mountain_dew.jpeg" />
+    <Content Include="Content\MenuItems\pepsi.jpg" />
+    <Content Include="Content\MenuItems\pina_colada.jpg" />
+    <Content Include="Content\MenuItems\pork_tenderloin.jpg" />
+    <Content Include="Content\MenuItems\seafood_alfredo.jpg" />
+    <Content Include="Content\MenuItems\seafood_paella.jpg" />
+    <Content Include="Content\MenuItems\spaghetti_carbonara.jpg" />
+    <Content Include="Content\MenuItems\spinach_salad.jpg" />
+    <Content Include="Content\MenuItems\spring_rolls.jpg" />
+    <Content Include="Content\MenuItems\sprite.jpg" />
+    <Content Include="Content\MenuItems\steamed_clams.jpg" />
+    <Content Include="Content\MenuItems\stuffed_mushrooms.jpg" />
+    <Content Include="Content\MenuItems\tomato_soup.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

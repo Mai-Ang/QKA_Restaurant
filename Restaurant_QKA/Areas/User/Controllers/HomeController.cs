@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant_QKA.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,14 @@ namespace Restaurant_QKA.Areas.User.Controllers
 {
     public class HomeController : Controller
     {
+        RestaurantEntities db = new RestaurantEntities();
         // GET: User/Home
         public ActionResult Index()
         {
-            return View();
+            var menuItems = db.MenuItems.Where(m => m.IsActive ?? false).ToList();
+            return View(menuItems); 
         }
+
         public ActionResult Contact()
         {
             return View();
