@@ -58,11 +58,12 @@
 
                     <div class="card-body w-auto">
                         <!-- Mô tả Món Ăn -->
-                        <div id="description" class="section-content ">
+                        <div id="description" class="section-content" style="display: block">
                             <h3 class="mb-3">@Model.Name</h3>
-                            <p class="text-muted">@Model.Description</p>
-                            <p><strong>Giá:</strong> <span class="text-success">@Model.Price.ToString()</span></p> <!-- Định dạng tiền tệ -->
-                            <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" alt="@Model.Name" class="img-fluid rounded mx-lg-2 w-50 h-100 justify-content-center align-items-center" style="text-align:center">
+                            <div class="" style="display:flex">
+                                <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" alt="@Model.Name" class="img-fluid rounded mx-2 w-50  justify-content-center align-items-center">
+                                <p class="text-muted">@Model.Description</p>
+                            </div>
                         </div>
 
                         <!-- Bình luận -->
@@ -72,8 +73,14 @@
                                 @foreach (var comment in Model.Comments)
                                 {
                                     <div class="list-group-item">
-                                        <strong>@comment.Customer.Name</strong> <span class="text-muted">@comment.CreatedDate</span>
-                                        <p>@comment.Content</p>
+                                        <div style="display:flex">
+                                            <img src="@Url.Content("~/Content/Cus/" + comment.Customer.ImageUrl)" class="rounded-circle" style="max-width: 10%; max-height: 5%"/>
+                                            <div class="mx-3" style="display:block">
+                                                <p class="text-muted my-0">@comment.CreatedDate</p>
+                                                <strong>@comment.Customer.Name</strong>
+                                                <p>@comment.Content</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 }
                             </div>
