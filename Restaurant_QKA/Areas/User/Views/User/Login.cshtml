@@ -1,0 +1,103 @@
+﻿@model Restaurant_QKA.Models.Customer
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login-section py-5" style="background-color: #eee; margin-top: 100px">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <p class="h1 fw-bold mb-4 rounded-5 text-bg-primary">Đăng Nhập</p>
+                                @if (ViewBag.Mess != null)
+                                {
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Lỗi:</strong> @ViewBag.Mess
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                }
+                            </div>
+                            @if (ViewBag.SuccessLogin == true)
+                            {
+                                <div class="alert alert-success">
+                                    Đăng nhập thành công! Đang chuyển hướng ...
+                                </div>
+
+                                <!-- JavaScript để delay 3 giây -->
+                                <script>
+                                setTimeout(function () {
+                                    window.location.href = '@Url.Action("Index", "Home")'; // Điều hướng sau 3 giây
+                                }, 1000); // 3000 milliseconds = 3 seconds
+                                </script>
+                            }
+                            else
+                            {
+                                <div class="col-md-6 order-2 order-lg-1">
+                                    <form method="post" class="mx-1 mx-md-2">
+                                        @Html.AntiForgeryToken()
+                                        <!-- Email input -->
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example1">Email address</label>
+                                            <input type="email" name="Email" id="form2Example1" class="form-control" required />
+                                        </div>
+
+                                        <!-- Password input -->
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example2">Password</label>
+                                            <input type="password" name="Matkhau" id="form2Example2" class="form-control" required />
+                                        </div>
+
+                                        <!-- 2 column grid layout for inline styling -->
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <!-- Checkbox -->
+                                                <div class="form-check">
+                                                    <label class="form-check" for="form2Example31">Remember me</label>
+                                                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <a href="#!">Forgot password?</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn btn-primary btn-block col-md-12">Đăng Nhập</button>
+
+                                        <!-- Register link -->
+                                        <div class="text-center">
+                                            <p>Chưa có tài khoản? <a href="@Url.Action("Register", "User")">Đăng Ký</a></p>
+                                            <p>Hoặc đăng nhập bằng:</p>
+                                            <!-- Social buttons -->
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-google"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-twitter"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-github"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+                            <div class="col-md-6 d-flex align-items-center order-1 order-lg-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                     class="img-fluid" alt="Sample image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
