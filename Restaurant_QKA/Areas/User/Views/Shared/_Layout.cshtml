@@ -67,7 +67,7 @@
                         </button>*@
 
                         <!-- Giỏ hàng -->
-                        @if (Session["Account"] == null)
+                        @if (Session["UserID"] != null)
                         {
                             <a href="#" class="position-relative me-4 d-flex align-items-center">
                                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
@@ -80,12 +80,14 @@
 
                         <!-- Tài khoản người dùng -->
                         <div class="nav-item dropdown d-flex align-items-center">
-                            <i class="fa-solid fa-user fa-xl"></i>
-                            @if (Session["Account"] != null)
+                            <a href="@Url.Action("Login", "User")">
+                                <i class="fa-solid fa-user fa-xl"></i>
+                            </a>
+                            @if (Session["UserID"] != null)
                             {
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     <a href="" class="dropdown-item">Thông Tin</a>
-                                    <a href="" class="dropdown-item">Đăng Xuất</a>
+                                    <a href="@Url.Action("Logout","User")" class="dropdown-item">Đăng Xuất</a>
                                 </div>
                             }
                         </div>
@@ -168,7 +170,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    @if (Session["Account"] != null)
+                    @if (Session["UserID"] != null)
                     {
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Tài Khoản</h4>
