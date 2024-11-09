@@ -69,7 +69,7 @@
                         <!-- Giỏ hàng -->
                         @if (Session["Account"] == null)
                         {
-                            <a href="#" class="position-relative me-4 d-flex align-items-center">
+                            <a href="@Url.Action("Index", "Carts", new { area = "User" })" class="position-relative me-4 d-flex align-items-center">
                                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
                                 @if (@ViewBag.TotalItemsInCart == null)
                                 {

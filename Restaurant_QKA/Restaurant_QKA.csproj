@@ -129,6 +129,7 @@
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
     <Compile Include="Areas\StaffWareHouse\StaffWareHouseAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\CartsController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
@@ -482,6 +483,7 @@
     <Content Include="Areas\User\Views\Menu\Index.cshtml" />
     <Content Include="Areas\User\Views\Home\Contact.cshtml" />
     <Content Include="Areas\User\Views\Menu\DetailMenuItem.cshtml" />
+    <Content Include="Areas\User\Views\Carts\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

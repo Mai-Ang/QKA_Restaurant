@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên món ăn</th>
+            <th>số lượng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null)
+        {
+            <h2>Hello</h2>
+        }
+        else
+        {
+            <h1>jjj</h1>
+        }
+
+    </tbody>
+</table>
