@@ -75,22 +75,62 @@ namespace Restaurant_QKA.Areas.User.Controllers
         public ActionResult Login(string email, string matkhau)
         {
             string hashPass = HashPassword(matkhau);
-            var user = db.Customers
-                .FirstOrDefault(kh => kh.Email == email && kh.HashPass == hashPass);
-
-            if (user != null)
+            var staff = db.Staffs.FirstOrDefault(x => x.UserName == email && x.Password == hashPass);
+            if (staff != null)
             {
-                // Đăng nhập thành công, có thể lưu thông tin người dùng vào Session
-                ViewBag.SuccessLogin = true;
-                Session["UserID"] = user.CusID;
-                Session["UserName"] = user.Name;
-                return View(); // Điều hướng đến trang chính hoặc trang khác
+                // Kiểm tra quyền admin
+                if (db.Managers.FirstOrDefault(x => x.ManagerID == staff.StaffID) != null)
+                {
+                    Session["UserID"] = staff.StaffID;
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    Session["UserName"] = staffname.Name;
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                }
+                // Kiểm tra quyền đầu bếp
+                else if (db.StaffChefs.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
+                {
+                    Session["UserID"] = staff.StaffID;
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    Session["UserName"] = staffname.Name;
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                }
+                // Kiểm tra quyền nhân viên order
+                else if (db.StaffOrders.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
+                {
+                    Session["UserID"] = staff.StaffID;
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    Session["UserName"] = staffname.Name;
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                }
+                // Kiểm tra quyền nhân viên kho
+                else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID != staff.StaffID) != null)
+                {
+                    Session["UserID"] = staff.StaffID;
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    Session["UserName"] = staffname.Name;
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                }
+                return View();
             }
             else
             {
-                // Đăng nhập không thành công
-                ViewBag.Mess = "Tài khoản hoặc mật khẩu không đúng.";
-                return View();
+                var user = db.Customers
+                .FirstOrDefault(kh => kh.Email == email && kh.HashPass == hashPass);
+
+                if (user != null)
+                {
+                    // Đăng nhập thành công, có thể lưu thông tin người dùng vào Session
+                    ViewBag.SuccessLogin = true;
+                    Session["UserID"] = user.CusID;
+                    Session["UserName"] = user.Name;
+                    return View(); // Điều hướng đến trang chính hoặc trang khác
+                }
+                else
+                {
+                    // Đăng nhập không thành công
+                    ViewBag.Mess = "Tài khoản hoặc mật khẩu không đúng.";
+                    return View();
+                }
             }
         }
 

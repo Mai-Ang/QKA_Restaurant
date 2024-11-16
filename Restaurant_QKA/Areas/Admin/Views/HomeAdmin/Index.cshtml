@@ -1,0 +1,91 @@
+﻿@model List<Restaurant_QKA.Models.Invoice>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Trang Chu</h2>
+
+<section class="container-fluid" style="width:1300px">
+    <div class="tab-content tab-content-basic w-100" style="width:1200px">
+        <div class="tab-pane fade show active w-100" id="overview" role="tabpanel" aria-labelledby="overview">
+            <div class="row w-100">
+                <div class="col-lg-12">
+                    <div class="statistics-details d-flex align-items-center justify-content-between w-100">
+                        <div>
+                            <p class="statistics-title">Total Orders:</p>
+                            <h3 class="rate-percentage">@ViewBag.CountTotalOrders</h3>
+                        </div>
+                        <div>
+                            <p class="statistics-title">Total Orders Success:</p>
+                            <h3 class="rate-percentage">@ViewBag.CountSuccessOrders</h3>
+                        </div>
+                        <div>
+                            <p class="statistics-title">Total Customers:</p>
+                            <h3 class="rate-percentage">@ViewBag.CountCus</h3>
+                        </div>
+                        <div class="d-none d-md-block">
+                            <p class="statistics-title">Total Products:</p>
+                            <h3 class="rate-percentage">@ViewBag.CountProducts</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row w-100">
+            <div class="col-lg-8 d-flex flex-column">
+                <div class="row flex-grow">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card card-rounded w-100">
+                            <div class="card-body">
+                                <div class="d-sm-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h4 class="card-title card-title-dash">Total Revenue:</h4>
+                                        <p class="card-subtitle card-subtitle-dash">this is a sum of all order where have status are success</p>
+                                    </div>
+                                </div>
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <h2 class="me-2 fw-bold">@ViewBag.Revenue</h2>
+                                        <h4 class="me-2">VND</h4>
+                                    </div>
+                                    <div class="me-3">
+                                        <div id="marketingOverview-legend"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>InvoiceID</th>
+                        <th>OrderID</th>
+                        <th>Total</th>
+                        <th>Payment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="max-width: 150px; word-wrap: break-word;">@item.InvoiceID</td>
+                            <td style="max-width: 150px; word-wrap: break-word;">@item.OrderID</td>
+                            <td style="max-width: 150px; word-wrap: break-word;">
+                                @((item.Total ?? 0).ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN")))
+                            </td>
+                            <td>@item.CreatedID.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

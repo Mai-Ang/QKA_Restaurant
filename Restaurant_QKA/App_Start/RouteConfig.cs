@@ -20,13 +20,19 @@ namespace Restaurant_QKA
                 defaults: new { area = "User", controller = "Home", action = "Index", id = UrlParameter.Optional }
             ).DataTokens["area"] = "User";
 
+            // Route mặc định cho Area Admin
+            routes.MapRoute(
+                name: "AdminAreaDefault",
+                url: "Admin/{controller}/{action}/{id}",
+                defaults: new { area = "Admin", controller = "Home", action = "Index", id = UrlParameter.Optional }
+            ).DataTokens["area"] = "Admin";
+
+            // Route mặc định cho Website
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-
-            
+                defaults: new { area = "User", controller = "Home", action = "Index", id = UrlParameter.Optional }
+            ).DataTokens["area"] = "User"; 
         }
     }
 }

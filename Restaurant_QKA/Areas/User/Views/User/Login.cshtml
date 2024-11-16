@@ -30,8 +30,8 @@
                                 <!-- JavaScript để delay 3 giây -->
                                 <script>
                                 setTimeout(function () {
-                                    window.location.href = '@Url.Action("Index", "Home")'; // Điều hướng sau 3 giây
-                                }, 1000); // 3000 milliseconds = 3 seconds
+                                    window.location.href = '@Url.Action("Index", "Home")'; // Điều hướng sau 1 giây
+                                }, 1000); // 1000 milliseconds = 1 seconds
                                 </script>
                             }
                             else
@@ -42,7 +42,7 @@
                                         <!-- Email input -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example1">Email address</label>
-                                            <input type="email" name="Email" id="form2Example1" class="form-control" required />
+                                            <input type="text" name="Email" id="form2Example1" class="form-control" required />
                                         </div>
 
                                         <!-- Password input -->
