@@ -19,18 +19,18 @@ namespace Restaurant_QKA.Models
         {
             this.CheckOrders = new HashSet<CheckOrder>();
             this.Invoices = new HashSet<Invoice>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
         public int OrderID { get; set; }
         public Nullable<int> CusID { get; set; }
-        public Nullable<int> ItemID { get; set; }
         public Nullable<int> CouponID { get; set; }
-        public Nullable<int> Quantity { get; set; }
         public Nullable<decimal> Total { get; set; }
         public string Status { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public string DeliveryAddress { get; set; }
+        public Nullable<int> PaymentID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckOrder> CheckOrders { get; set; }
@@ -38,6 +38,8 @@ namespace Restaurant_QKA.Models
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual MenuItem MenuItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual Payment Payment { get; set; }
     }
 }

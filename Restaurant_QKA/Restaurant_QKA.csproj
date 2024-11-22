@@ -132,6 +132,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CouponController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
@@ -149,6 +151,9 @@
       <DependentUpon>Restaurant.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CartItem.cs">
       <DependentUpon>Restaurant.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
@@ -191,6 +196,9 @@
       <DependentUpon>Restaurant.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
       <DependentUpon>Restaurant.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
@@ -1319,6 +1327,8 @@
     <Content Include="Areas\Admin\Views\MenuItem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MenuItem\ProductsByCategory.cshtml" />
     <Content Include="Areas\Admin\Views\MenuItem\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Search.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

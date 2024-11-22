@@ -19,7 +19,7 @@ namespace Restaurant_QKA.Models
         {
             this.CreditCards = new HashSet<CreditCard>();
             this.EWallets = new HashSet<EWallet>();
-            this.Invoices = new HashSet<Invoice>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int PaymentID { get; set; }
@@ -32,6 +32,6 @@ namespace Restaurant_QKA.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EWallet> EWallets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -33,11 +33,5 @@ namespace Restaurant_QKA.Areas.User.Controllers
 
             return View(menuItem);
         }
-
-
-
-
-
-
     }
 }

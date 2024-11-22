@@ -1,0 +1,114 @@
+﻿@model List<Restaurant_QKA.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- CSS -->
+<style>
+    .modal-backdrop {
+        backdrop-filter: blur(8px);
+    }
+</style>
+
+<section class="billboard container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tiêu đề và mô tả -->
+                    <div>
+                        <h4 class="card-title">Danh Sách Khách Hàng</h4>
+                        <p class="card-description text-muted">Tổng quan về toàn bộ khách hàng trong hệ thống</p>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm và chọn danh mục -->
+                <div class="d-flex justify-content-between mb-4">
+                    <!-- Tìm kiếm khách hàng -->
+                    <div class="search-container">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Customer")">
+                            <input type="search" class="form-control" name="query" placeholder="Tìm kiếm khách hàng..." title="Search here">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách người dùng  -->
+                <div class="table-responsive">
+                    <!-- Tiêu đề bảng -->
+                    <table class="table table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th>Tên Khách Hàng</th>
+                                <th>Avatar</th>
+                                <th>Email</th>
+                                <th>Điện Thoại</th>
+                                <th>Ngày Sinh</th>
+                                <th>Địa Chỉ</th>
+                                <th>Ngày Tạo Tài Khoản</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <!-- Giá trị từng dòng -->
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
+                                    <td class="py-md">
+                                        <img src="@Url.Content("~/Content/Images/User_Img/" + item.ImageUrl)" alt="Customer Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />
+                                    </td>
+                                    <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.DateOfBirth.ToString()</td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@item.Address</td>
+                                    <td>@item.CreatedDate.ToString()</td>
+                                    <!-- Các nút action -->
+                                    <td>
+                                        @Html.ActionLink("Reset Pass", "Edit", new { id = item.CusID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-warning editUserButton",
+                                                                             @data_id = item.CusID,
+                                                                             id = "editUserButton"
+                                                                         })
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.CusID },
+                                                                             new
+                                                                             {
+                                                                                 @class = "btn btn-danger deleteUserButton",
+                                                                                 @data_id = item.CusID,
+                                                                                 id = "deleteUserButton"
+                                                                             })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Product -->
+<div class="modal fade" id="UserModal" tabindex="-1" aria-labelledby="UserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalUserLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalUserContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

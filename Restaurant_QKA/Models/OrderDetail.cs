@@ -12,15 +12,16 @@ namespace Restaurant_QKA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Invoice
+    public partial class OrderDetail
     {
-        public int InvoiceID { get; set; }
-        public Nullable<int> OrderID { get; set; }
-        public Nullable<int> PaymentID { get; set; }
+        public int OrderDetailID { get; set; }
+        public Nullable<int> Quantity { get; set; }
         public Nullable<decimal> Total { get; set; }
-        public string Status { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<int> MenuItemID { get; set; }
+        public Nullable<int> OrderID { get; set; }
     
+        public virtual MenuItem MenuItem { get; set; }
         public virtual Order Order { get; set; }
     }
 }

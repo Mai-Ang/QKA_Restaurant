@@ -14,12 +14,19 @@ namespace Restaurant_QKA.Models
     
     public partial class Cart
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cart()
+        {
+            this.CartItems = new HashSet<CartItem>();
+        }
+    
         public int CartID { get; set; }
-        public Nullable<int> ItemID { get; set; }
-        public Nullable<int> Quantity { get; set; }
         public Nullable<int> CusID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual MenuItem MenuItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

@@ -4,8 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Trang Chu</h2>
-
 <section class="container-fluid" style="width:1300px">
     <div class="tab-content tab-content-basic w-100" style="width:1200px">
         <div class="tab-pane fade show active w-100" id="overview" role="tabpanel" aria-labelledby="overview">
@@ -81,7 +79,7 @@
                             <td style="max-width: 150px; word-wrap: break-word;">
                                 @((item.Total ?? 0).ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN")))
                             </td>
-                            <td>@item.CreatedID.ToString()</td>
+                            <td>@item.CreatedDate.ToString()</td>
                         </tr>
                     }
                 </tbody>
