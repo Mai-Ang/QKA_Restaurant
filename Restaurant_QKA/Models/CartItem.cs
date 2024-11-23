@@ -22,7 +22,7 @@ namespace Restaurant_QKA.Models
         public Nullable<decimal> Total { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
-        public virtual MenuItem MenuItem { get; set; }
         public virtual Cart Cart { get; set; }
+        public virtual MenuItem MenuItem { get; set; }
     }
 }

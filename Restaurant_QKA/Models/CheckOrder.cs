@@ -18,7 +18,7 @@ namespace Restaurant_QKA.Models
         public int StaffOrderID { get; set; }
         public Nullable<System.DateTime> CheckDate { get; set; }
     
-        public virtual StaffOrder StaffOrder { get; set; }
         public virtual Order Order { get; set; }
+        public virtual StaffOrder StaffOrder { get; set; }
     }
 }

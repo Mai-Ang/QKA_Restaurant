@@ -13,10 +13,10 @@ namespace Restaurant_QKA.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RestaurantEntities : DbContext
+    public partial class Restaurant_Entities : DbContext
     {
-        public RestaurantEntities()
-            : base("name=RestaurantEntities")
+        public Restaurant_Entities()
+            : base("name=Restaurant_Entities")
         {
         }
     
@@ -26,6 +26,8 @@ namespace Restaurant_QKA.Models
         }
     
         public virtual DbSet<BasicSalary> BasicSalaries { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CheckOrder> CheckOrders { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
@@ -36,8 +38,11 @@ namespace Restaurant_QKA.Models
         public virtual DbSet<DiscountDetail> DiscountDetails { get; set; }
         public virtual DbSet<EWallet> EWallets { get; set; }
         public virtual DbSet<InventoryTransaction> InventoryTransactions { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PersonnelFile> PersonnelFiles { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
@@ -49,10 +54,5 @@ namespace Restaurant_QKA.Models
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
-        public virtual DbSet<CartItem> CartItems { get; set; }
-        public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Cart> Carts { get; set; }
     }
 }

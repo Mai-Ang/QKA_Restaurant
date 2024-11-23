@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b8ba3432ccca4d09892a34fbd85bfc15" Name="Diagram1">
+        <EntityTypeShape EntityType="QKA_ResModel.BasicSalary" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Cart" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.CartItem" Width="1.5" PointX="9.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Category" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.CheckOrder" Width="1.5" PointX="15" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Comment" Width="1.5" PointX="12.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Coupon" Width="1.5" PointX="7.5" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.CreditCard" Width="1.5" PointX="12.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Customer" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.DirectPayment" Width="1.5" PointX="12.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.DiscountDetail" Width="1.5" PointX="9.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.EWallet" Width="1.5" PointX="12.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.InventoryTransaction" Width="1.5" PointX="7.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Invoice" Width="1.5" PointX="15" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Manager" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.MenuItem" Width="1.5" PointX="7.5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.OrderDetail" Width="1.5" PointX="18" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Order" Width="1.5" PointX="12.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Payment" Width="1.5" PointX="10.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.PersonnelFile" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Position" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Recipe" Width="1.5" PointX="9.75" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Staff" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.StaffChef" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.StaffOrder" Width="1.5" PointX="5.25" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.StaffWareHouse" Width="1.5" PointX="5.25" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.Supplier" Width="1.5" PointX="5.25" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QKA_ResModel.WareHouse" Width="1.5" PointX="7.5" PointY="30.375" IsExpanded="true" />
+        <AssociationConnector Association="QKA_ResModel.FK_Staff_BasicSalary" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Cart_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_CartItems_Cart" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_CartItems_MenuItems" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_DiscountDetail_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_MenuItems_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_CheckOrders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_CheckOrders_StaffOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Comment_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Comment_MenuItems" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Coupon_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_DiscountDetail_Coupon" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Orders_Coupon" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_CreditCard_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Orders_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_DirectPayment_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_EWallet_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_InventoryTransaction_StaffWareHouse" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_InventoryTransaction_WareHouse" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Invoice_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Manager_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_MenuItems_StaffChef" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_OrderDetails_MenuItems" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Recipe_MenuItems" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Orders_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_PersonnelFile_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Staff_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_Recipe_WareHouse" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_StaffChef_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_StaffOrder_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_StaffWareHouse_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="QKA_ResModel.FK_WareHouse_Supplier" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

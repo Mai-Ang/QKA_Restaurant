@@ -17,10 +17,10 @@ namespace Restaurant_QKA.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MenuItem()
         {
-            this.Comments = new HashSet<Comment>();
-            this.Recipes = new HashSet<Recipe>();
             this.CartItems = new HashSet<CartItem>();
+            this.Comments = new HashSet<Comment>();
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.Recipes = new HashSet<Recipe>();
         }
     
         public int ItemID { get; set; }
@@ -35,15 +35,15 @@ namespace Restaurant_QKA.Models
         public Nullable<int> CategoryID { get; set; }
         public Nullable<decimal> ProductionCost { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartItem> CartItems { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual StaffChef StaffChef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recipe> Recipes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

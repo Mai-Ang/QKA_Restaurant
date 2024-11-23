@@ -14,7 +14,7 @@ namespace Restaurant_QKA.Models
     
     public partial class PersonnelFile
     {
-        public int UserID { get; set; }
+        public int StaffID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
