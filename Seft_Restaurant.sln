@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seft_Restaurant", "Restaurant_QKA\Seft_Restaurant.csproj", "{7B4C79D2-8183-44D4-85FD-DEDB3F4BA325}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QKA_Restaurant", "Restaurant_QKA\QKA_Restaurant.csproj", "{7B4C79D2-8183-44D4-85FD-DEDB3F4BA325}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
