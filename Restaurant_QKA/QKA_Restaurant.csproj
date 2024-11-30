@@ -1338,6 +1338,7 @@
     <Content Include="Areas\Admin\Views\Shared\_EditPassUser.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditProduct.cshtml" />
     <Content Include="Areas\User\Views\User\UserProfile.cshtml" />
+    <Content Include="Areas\User\Views\Carts\Checkout.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

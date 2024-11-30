@@ -26,7 +26,7 @@
     <!-- Template Stylesheet -->
     <link href="~/Content/css/style.css" rel="stylesheet">
 </head>
-<body  style="background-color: #ffffff ">
+<body style="background-color: #ffffff ">
 
     <!-- Spinner Start -->
     <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -63,18 +63,29 @@
                     <div class="d-flex align-items-center m-3 me-0">
                         <!-- Nút tìm kiếm -->
                         @*<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search text-primary"></i>
-                        </button>*@
+                                <i class="fas fa-search text-primary"></i>
+                            </button>*@
 
                         <!-- Giỏ hàng -->
                         @if (Session["UserID"] != null)
                         {
                             <a href="@Url.Action("Index", "Carts", new { area = "User" })" class="position-relative me-4 d-flex align-items-center">
                                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
-                                @if (@ViewBag.TotalItemsInCart == null)
+                                @if (ViewBag.TotalItemsInCart > 0)
                                 {
-                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -10px; left: 17px; height: 20px; min-width: 20px;">@ViewBag.TotalItemsInCart</span>
+                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                        @ViewBag.TotalItemsInCart
+                                    </span>
                                 }
+                                else
+                                {
+                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                        0
+                                    </span>
+                                }
+
                             </a>
                         }
 
@@ -96,15 +107,33 @@
             </nav>
         </div>
     </div>
+    <!-- Navbar End -->
+    <!-- Modal Search Start -->
+    @*<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tìm Kiếm Món</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="Hãy Nhập Vào Từ Khóa Tìm Kiếm" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <!-- Modal Search End -->
     <!-- Body -->
-    <div class="container-fluid fruite py-5" style="margin-top:130px">
+    <div class="container-fluid fruite py-5" style="margin-top:0px">
         <div class="container py-0">
             @RenderBody()
-        </div>    
+        </div>
     </div>
-    
-    <!-- Body -->
 
+    <!-- Body -->
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 ">
         <div class="container py-5">
@@ -135,7 +164,7 @@
                     <div class="footer-item">
                         <h4 class="text-light mb-3">Về chúng tôi</h4>
                         <p class="mb-4">
-                            Thành lập từ năm 2024, với tinh thần sáng tạo, đổi mới, tâm huyết, 
+                            Thành lập từ năm 2024, với tinh thần sáng tạo, đổi mới, tâm huyết,
                             QKA_Res quyết tâm đem đến cho người dùng những trãi nghiệm tuyệt vời nhất,
                             xứng đáng với chất lượng phục vụ chuẩn 3 sao Michelin.
                         </p>
@@ -180,7 +209,6 @@
         </div>
     </div>
     <!-- Footer End -->
-
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
