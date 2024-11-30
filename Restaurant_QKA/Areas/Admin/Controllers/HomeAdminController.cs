@@ -9,7 +9,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
 {
     public class HomeAdminController : Controller
     {
-        RestaurantEntities db = new RestaurantEntities();
+        Restaurant_Entities db = new Restaurant_Entities();
         // GET: Admin/Home
         public ActionResult Index()
         {

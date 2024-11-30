@@ -75,27 +75,24 @@
                 {
                     foreach (var item in Model)
                     {
-                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
-                            <div class="rounded position-relative fruite-item shadow-sm bg-light">
-                                <div class="text-center p-3">
-                                    <img src="@Url.Content("~/Content/MenuItems/" + @item.ImageUrl)"
-                                         class="rounded-2 img-fluid"
-                                         style="width: 200px; height: 150px; object-fit: cover;"
-                                         alt="@item.Name">
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4 menu-item">
+                            <div class="card shadow-sm border-light rounded position-relative h-100">
+                                <div class="card-body text-center p-3">
+                                    <img src="@Url.Content("~/Content/MenuItems/" + item.ImageUrl)" class="rounded-2 img-fluid" style="width: 100%; height: 200px; object-fit: cover;" alt="@item.Name">
                                 </div>
-
-                                <div class="p-4 text-center">
-                                    <a href="#" class="h5 text-dark d-block mb-2">@item.Name</a>
+                                <div class="card-footer text-center">
+                                    <a href="/User/Menu/DetailMenuItem/@item.ItemID" class="h5 text-dark d-block mb-2" style="font-weight: bold;">@item.Name</a>
                                     <div class="d-flex justify-content-center my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-muted"></i>
                                     </div>
-                                    <h4 class="mb-3 text-success">@item.Price.ToString()</h4> <!-- Hiển thị giá dưới dạng tiền tệ -->
-                                    <a href="#" class="btn btn-outline-secondary rounded-pill px-3">
-                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                    <h4 class="mb-3 text-success" style="font-weight: bold; font-size: 1.2rem;">@item.Price.ToString()</h4> <!-- Hiển thị giá dưới dạng tiền tệ -->
+                                    <!-- Thêm vào giỏ hàng -->
+                                    <a href="@Url.Action("AddToCart", "Carts", new { menuItemId = item.ItemID, quantity = 1 })" class="btn btn-primary rounded-pill mt-3" style="font-size: 1rem; padding: 10px 20px;">
+                                        Thêm vào giỏ hàng
                                     </a>
                                 </div>
                             </div>
