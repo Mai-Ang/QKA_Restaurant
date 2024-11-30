@@ -155,6 +155,27 @@
     </div>
 </div>
 
+<script>
+    $('#newProductButton').on('click', function () {
+        $.ajax({
+            url: '/MenuItem/Create', // URL đến action Create trong controller
+            type: 'GET',
+            success: function (data) {
+                $('#modalProductLabel').text('Create Product');
+                $('#modalProductContent').html(data); // Load nội dung form vào modal
+                $('#ProductModal').modal('show'); // Hiển thị modal
+                bindCreateForm() // Gọi hàm bind lại sự kiện submit form
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to load create form.'
+                });
+            }
+        });
+    });
+</script>
 <style>
     .pagination-container {
         display: flex;

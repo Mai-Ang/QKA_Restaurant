@@ -11,7 +11,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
 {
     public class CouponController : Controller
     {
-        RestaurantEntities db = new RestaurantEntities();
+        Restaurant_Entities db = new Restaurant_Entities();
         // GET: Admin/Coupon
         public ActionResult Index()
         {

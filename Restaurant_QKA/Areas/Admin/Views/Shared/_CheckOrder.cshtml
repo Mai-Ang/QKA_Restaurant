@@ -1,0 +1,93 @@
+﻿@model D.Anthony_Restaurant_MVC.Models.Order
+
+@using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { @id = "editOrderForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Hidden field to store OrderDetail ID -->
+    @Html.HiddenFor(m => m.OrderID)
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header text-white" style="background-color: #AA2B1D">
+                <h5>Order Details</h5>
+            </div>
+            <div class="card-body">
+                <!-- OrderID -->
+                <div class="form-row d-flex justify-content-between">
+                    <div class="form-group col-md-3 text-center" style="background-color: #AA2B1D; color:#ffff">
+                        OrderID: @Model.OrderID
+                    </div>
+                    <div class="form-group col-md-3 text-center" style="background-color: #AA2B1D; color:#ffff">
+                        Total: @((Model.Total ?? 0).ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN")))
+                    </div>
+                </div>
+
+                <!-- Order Details Table -->
+                @if (ViewBag.OrderDetails != null)
+                {
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width: 25%;">Product Name</th>
+                                    <th style="width: 25%;">Price</th>
+                                    <th style="width: 25%;">Quantity</th>
+                                    <th style="width: 25%;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.OrderDetails)
+                                {
+                                    <tr>
+                                        <!-- Name Product -->
+                                        <td>
+                                            @foreach (var name in ViewBag.NameProducts)
+                                            {
+                                                if (item.ProductID == name.ProductID)
+                                                {
+                                                    @name.Name
+                                                }
+                                            }
+                                        </td>
+
+                                        <!-- Price Product -->
+                                        <td>@item.Price.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+
+                                        <!-- Quantity Product -->
+                                        <td>@item.Quantity</td>
+
+                                        <!-- Total Of Product -->
+                                        <td>@((item.Quantity * item.Price).ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN")))</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+                <!-- Submit button -->
+            <div class="form-group mt-4 d-flex justify-content-between">
+                @if (Model.Status == false && Model.DeliveryDate == null)
+                {
+                    <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancel Order</button>
+                    <button type="submit" name="action" value="accept" class="btn" style="background-color: #88C273; color: #ffff;">Accept Order</button>
+                }
+                else
+                {
+                    <a class="btn disabled" style="background-color: #AA2B1D; color: #ffff;">Cancel Order</a>
+                    <a class="btn disabled" style="background-color: #88C273; color: #ffff;">Accept Order</a>
+                }
+            </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .btn.disabled {
+        pointer-events: none;
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+</style>

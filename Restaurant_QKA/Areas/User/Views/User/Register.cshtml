@@ -5,109 +5,90 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<section class="login-section py-5" style="background-color: #eee; margin-top: 100px">
-    <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-                <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12 text-center">
-                                <p class="h1 fw-bold mb-4 rounded-5 text-bg-primary">Đăng ký</p>
-
-                                @if (ViewBag.Mess != null)
-                                {
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Lỗi:</strong> @ViewBag.Mess
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                }
-                                <div class="col-md-6 order-2 order-lg-1">
-                                    <form class="mx-1 mx-md-2" method="post">
-                                        @Html.AntiForgeryToken()
-
-                                        <!-- Họ tên -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="Name">Họ tên</label>
-                                                <input type="text" id="Name" name="Name" class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                        <!-- Tài khoản -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="UserName">Tài khoản</label>
-                                                <input type="text" id="UserName" name="UserName" class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                        <!-- Mật khẩu -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="HashPass">Mật khẩu</label>
-                                                <input type="password" id="HashPass" name="HashPass" class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                        <!-- Email -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="Email">Email</label>
-                                                <input type="email" id="Email" name="Email" class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                        <!-- Địa chỉ -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-home fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="Address">Địa chỉ</label>
-                                                <input type="text" id="Address" name="Address" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <!-- Điện thoại -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="Phone">Điện thoại</label>
-                                                <input type="text" id="Phone" name="Phone" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <!-- Ngày sinh -->
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-calendar-alt fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="DateOfBirth">Ngày sinh</label>
-                                                <input type="date" id="DateOfBirth" name="DateOfBirth" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <!-- Đồng ý điều khoản -->
-                                        <div class="form-check d-flex justify-content-center mb-5">
-                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                            <p> Tôi đồng ý với </p><a href="#!"> Điều khoản dịch vụ</a>
-                                            <label class="form-check-label" for="form2Example3">
-                                            </label>
-                                        </div>
-
-                                        <!-- Nút đăng ký -->
-                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="submit" class="btn btn-primary btn-block col-md-12">Đăng ký</button>
-                                        </div>
-                                    </form>
+<section class="vh-150">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3 margin-top: 100px">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-8">
+                    <!-- Mở rộng chiều rộng -->
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Đăng Ký</h2>
+                            @if (ViewBag.Mess != null)
+                            {
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Lỗi:</strong> @ViewBag.Mess
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                            </div>
-                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                     class="img-fluid" alt="Sample image">
-                            </div>
+                            }
+                            <form onsubmit="return validatePasswordBeforeSubmit()" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <!-- Các trường form -->
+                                <div class="form-group d-flex">
+                                    <div data-mdb-input-init class="form-outline mb-4 w-100">
+                                        <input type="text" id="Name" name="Name" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="Name">Tên</label>
+                                    </div>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="text" id="UserName" name="UserName" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="UserName">Tên Tài Khoản</label>
+
+                                    <div id="error-message-username" class="text-danger text-center mb-3"></div>
+                                </div>
+
+                                <div class="form-group d-flex">
+                                    <div data-mdb-input-init class="form-outline mb-4 me-5 w-75">
+                                        <input type="text" id="Phone" name="Phone" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="Phone">Số Điện Thoại</label>
+
+                                        <div id="error-message-tel" class="text-danger text-center mb-3"></div>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4 w-25">
+                                        <input type="date" id="DateOfBirth" name="DateOfBirth" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="DateOfBirth">Ngày Sinh</label>
+
+                                        <div id="error-message-dob" class="text-danger text-center mb-3"></div>
+                                    </div>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4 w-100">
+                                    <input type="email" id="Email" name="Email" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="Email">Email</label>
+                                </div>
+
+                                <div class="form-group d-flex">
+                                    <div data-mdb-input-init class="form-outline mb-4 me-3 w-50">
+                                        <input type="password" id="HashPass" name="HashPass" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="HashPass">Mật Khẩu</label>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4 w-50">
+                                        <input type="password" id="NhapLaiMatKhau" name="NhapLaiMatKhau" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="NhapLaiMatKhau">Nhập Lại Mật Khẩu</label>
+
+                                        <div id="error-message-pass" class="text-danger text-center mb-3"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check d-flex justify-content-center mb-5">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" required />
+                                    <label class="form-check-label" for="form2Example3g">
+                                        Tôi Đã Đọc Và Đồng Ý Với <a href="#!" class="text-primary"><u>Điều Khoản Và Dịch Vụ</u></a>
+                                    </label>
+                                </div>
+                                <!-- Button submit -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-block btn-lg" style="background-color: #C5705D; color:white"> Đăng Ký</button>
+                                </div>
+
+                                <p class="text-center text-muted mt-5 mb-0">
+                                    Have already an account? <a href="@Url.Action("Login","User")" class="fw-bold link-success"><u>Login here</u></a>
+                                </p>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -115,4 +96,92 @@
         </div>
     </div>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (@ViewBag.Success == true)
+    {
+        <text>
+        Swal.fire({
+            title: 'Đăng ký thành công!',
+            text: 'Chào mừng đến với Seft_Restaurant!',
+            icon: 'success',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: 'OK',
+            timer: 2000,
+        }).then((result) => {
+                window.location.href = '@Url.Action("Login", "User")';
+        });
+        </text>
+    }
+    function validatePasswordBeforeSubmit()
+    {
+        const UserName = document.getElementById("UserName").value.trim();
+        const Phone = document.getElementById("Phone").value.trim();
+        const DateOfBirthInput = document.getElementById("DateOfBirth").value.trim();
+        const HashPass = document.getElementById("HashPass").value.trim();
+        const nhapLaiHashPass = document.getElementById("NhapLaiHashPass").value.trim();
+
+        const errorMessageUser = document.getElementById("error-message-username");
+        const errorMessageTel = document.getElementById("error-message-tel");
+        const errorMessageDob = document.getElementById("error-message-dob");
+        const errorMessagePass = document.getElementById("error-message-pass");
+
+        // Kiểm tra số điện thoại
+        if (UserName.length < 5 || UserName.length > 20) {
+            errorMessageUser.innerText = "Tên đăng nhập có độ dài từ 5 đến 20 kí tự. Vui lòng nhập lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else
+        {
+            errorMessageUser.innerText = "";
+        }
+
+        if (Phone.length !== 10 || isNaN(Phone))
+        {
+            errorMessageTel.innerText = "Phone phải đủ 10 số và chỉ chứa ký tự số. Vui lòng nhập lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else
+        {
+            errorMessageTel.innerText = ""; // Xóa lỗi nếu kiểm tra đúng
+        }
+
+        // Kiểm tra ngày sinh
+        const DateOfBirth = new Date(DateOfBirthInput);
+        if (isNaN(DateOfBirth.getTime()))
+        {
+            errorMessageDob.innerText = "Ngày sinh không hợp lệ. Vui lòng nhập đúng định dạng.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else if (Date.now() - DateOfBirth.getTime() < 18 * 365.25 * 24 * 60 * 60 * 1000)
+        {
+            errorMessageDob.innerText = "Bạn phải đủ 18 tuổi. Vui lòng thử lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else if (Date.now() - DateOfBirth.getTime() > 200 * 365.25 * 24 * 60 * 60 * 1000)
+        {
+            errorMessageDob.innerText = "Bạn không còn là con người. Vui lòng thử lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else
+        {
+            errorMessageDob.innerText = ""; // Xóa lỗi nếu kiểm tra đúng
+        }
+
+        // Kiểm tra mật khẩu
+        if (HashPass !== nhapLaiHashPass)
+        {
+            errorMessagePass.innerText = "Mật khẩu không trùng khớp. Vui lòng nhập lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else
+        {
+            errorMessagePass.innerText = ""; // Xóa lỗi nếu kiểm tra đúng
+        }
+
+        return true; // Cho phép gửi form nếu tất cả kiểm tra đều hợp lệ
+    }
+</script>
 

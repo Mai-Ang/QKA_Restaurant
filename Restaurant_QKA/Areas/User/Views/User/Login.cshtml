@@ -4,100 +4,73 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<section class="login-section py-5" style="background-color: #eee; margin-top: 100px">
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8">
-                <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12 text-center">
-                                <p class="h1 fw-bold mb-4 rounded-5 text-bg-primary">Đăng Nhập</p>
-                                @if (ViewBag.Mess != null)
-                                {
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Lỗi:</strong> @ViewBag.Mess
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                }
-                            </div>
-                            @if (ViewBag.SuccessLogin == true)
-                            {
-                                <div class="alert alert-success">
-                                    Đăng nhập thành công! Đang chuyển hướng ...
-                                </div>
-
-                                <!-- JavaScript để delay 3 giây -->
-                                <script>
-                                setTimeout(function () {
-                                    window.location.href = '@Url.Action("Index", "Home")'; // Điều hướng sau 1 giây
-                                }, 1000); // 1000 milliseconds = 1 seconds
-                                </script>
-                            }
-                            else
-                            {
-                                <div class="col-md-6 order-2 order-lg-1">
-                                    <form method="post" class="mx-1 mx-md-2">
-                                        @Html.AntiForgeryToken()
-                                        <!-- Email input -->
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label" for="form2Example1">Email address</label>
-                                            <input type="text" name="Email" id="form2Example1" class="form-control" required />
-                                        </div>
-
-                                        <!-- Password input -->
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label" for="form2Example2">Password</label>
-                                            <input type="password" name="Matkhau" id="form2Example2" class="form-control" required />
-                                        </div>
-
-                                        <!-- 2 column grid layout for inline styling -->
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <!-- Checkbox -->
-                                                <div class="form-check">
-                                                    <label class="form-check" for="form2Example31">Remember me</label>
-                                                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" />
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <a href="#!">Forgot password?</a>
-                                            </div>
-                                        </div>
-
-                                        <!-- Submit button -->
-                                        <button type="submit" class="btn btn-primary btn-block col-md-12">Đăng Nhập</button>
-
-                                        <!-- Register link -->
-                                        <div class="text-center">
-                                            <p>Chưa có tài khoản? <a href="@Url.Action("Register", "User")">Đăng Ký</a></p>
-                                            <p>Hoặc đăng nhập bằng:</p>
-                                            <!-- Social buttons -->
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="fab fa-google"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="fab fa-twitter"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="fab fa-github"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            }
-                            <div class="col-md-6 d-flex align-items-center order-1 order-lg-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                     class="img-fluid" alt="Sample image">
-                            </div>
-                        </div>
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="~/Content/Image_Login.png"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <h2 class="text-uppercase text-center mb-5">Đăng Nhập</h2>
+                @if (ViewBag.Mess != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Lỗi:</strong> @ViewBag.Mess
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                </div>
+                }
+                <form method="post">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="Email" name="Email" class="form-control form-control-lg" placeholder="Nhập email của bạn" required />
+                        <label class="form-label" for="Email">Email</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="password" id="HashPass" name="HashPass" class="form-control form-control-lg" placeholder="Nhập mật khẩu" required />
+                        <label class="form-label" for="HashPass">Mật Khẩu</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-0">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <label class="form-check-label" for="form2Example3">Ghi Nhớ Tôi</label>
+                        </div>
+                        <a href="#!" class="text-warning">Quên Mật Khẩu?</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2 justify-content-between align-items-center">
+                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: #C5705D; color: white">
+                            Đăng Nhập
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0"> Bạn Chưa Có Tài Khoản? <a href="@Url.Action("Register","User")" class="link-danger">Đăng Ký</a></p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (@ViewBag.Success == true)
+{
+    <text>
+    Swal.fire({
+        title: 'Đăng nhập thành công!',
+        text: 'Chào mừng đến với Seft_Restaurant!',
+        icon: 'success',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        confirmButtonText: 'OK',
+        timer: 3000,
+    });
+    </text>
+}
+</script>
 

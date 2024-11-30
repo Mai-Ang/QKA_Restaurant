@@ -2,7 +2,7 @@
     // Khi nhấn vào nút "New Product", modal sẽ hiện ra và load form qua Ajax
     $('#newProductButton').on('click', function () {
         $.ajax({
-            url: '/Products/Create', // URL đến action Create trong controller
+            url: '/MenuItem/Create', // URL đến action Create trong controller
             type: 'GET',
             success: function (data) {
                 $('#modalProductLabel').text('Create Product');
@@ -30,7 +30,7 @@
 
         // Gọi Ajax để tải form xóa sản phẩm
         $.ajax({
-            url: '/Products/Delete/' + productId, // URL đến action Delete trong controller
+            url: '/MenuItem/Delete/' + productId, // URL đến action Delete trong controller
             type: 'GET',
             success: function (data) {
                 $('#modalProductLabel').text('Delete Product'); // Cập nhật tiêu đề modal
@@ -58,7 +58,7 @@
 
         // Gọi Ajax để tải form xóa sản phẩm
         $.ajax({
-            url: '/Products/Edit/' + productId, // URL đến action Edit trong controller
+            url: '/MenuItem/Edit/' + productId, // URL đến action Edit trong controller
             type: 'GET',
             success: function (data) {
                 $('#modalProductLabel').text('Edit Product'); // Cập nhật tiêu đề modal

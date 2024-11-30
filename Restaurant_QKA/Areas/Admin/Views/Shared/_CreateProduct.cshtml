@@ -1,0 +1,82 @@
+﻿@model Restaurant_QKA.Models.MenuItem
+
+@using (Html.BeginForm("Create", "MenuItem", FormMethod.Post, new { @id = "createProductForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="billboard">
+        <div class="form-row row">
+            <!-- Category Dropdown -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.CategoryID, "Category", htmlAttributes: new { @class = "control-label" })
+
+                @if (ViewBag.Category != null)
+                {
+                    @Html.DropDownList("CategoryId", new SelectList(ViewBag.Category, "CategoryID", "Name"), "Select a category", new { @class = "form-control" })
+                }
+                else
+                {
+                    <p>No Categories Available</p>
+                }
+            </div>
+
+            <!-- Name -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-row row">
+            <!-- Description -->
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @cols = 30, @rows = 2 }) <!-- Giảm số rows -->
+                @Html.ValidationMessageFor(m => m.Description, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-row row">
+            <!-- Price -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Price, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Price, " ", new { @class = "text-danger" })
+            </div>
+
+            <!-- Quantity -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Quantity, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Quantity, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-row row">
+            <!-- Image Upload -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.ImageUrl, htmlAttributes: new { @class = "control-label" })
+                <input type="file" name="ImageFile" class="form-control" />
+                @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- IsActive Dropdown -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.IsActive, new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Not Set", Value = "" },
+                    new SelectListItem { Text = "Active", Value = "true" },
+                    new SelectListItem { Text = "Inactive", Value = "false" }
+                }, "Value", "Text"), "Select Status", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Create</button>
+        </div>
+    </div>
+
+}
+

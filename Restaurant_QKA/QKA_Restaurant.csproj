@@ -1329,6 +1329,16 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Shared\_CheckOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_CreateCoupont.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_CreateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DeleteCoupont.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DeleteProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DeleteUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditCoupont.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditPassUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditProduct.cshtml" />
+    <Content Include="Areas\User\Views\User\UserProfile.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
