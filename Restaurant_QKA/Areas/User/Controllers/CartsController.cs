@@ -9,7 +9,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 {
     public class CartsController : Controller
     {
-        RestaurantEntities db = new RestaurantEntities();
+        Restaurant_Entities db = new Restaurant_Entities();
         // GET: User/Carts
         public ActionResult Index(int? cusId)
         {
@@ -22,9 +22,6 @@ namespace Restaurant_QKA.Areas.User.Controllers
                               .Select(c => new
                               {
                                   c.CartID,
-                                  c.ItemID,
-                                  c.Quantity,
-                                  c.CusID
                               })
                               .ToList();
 

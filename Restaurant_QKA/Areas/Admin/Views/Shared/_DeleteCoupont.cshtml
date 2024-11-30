@@ -1,0 +1,44 @@
+﻿@model D.Anthony_Restaurant_MVC.Models.Coupont
+
+<div class="card shadow-sm p-4 mb-4 bg-white rounded">
+    <!-- Name -->
+    <h3 class="card-title text-center">@Model.CoupontName</h3>
+
+    <div class="row">
+        <!-- Description -->
+        <div class="form-group col-md-12">
+            <strong>Description:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Description)</p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Value -->
+        <div class="form-group col-md-6">
+            <strong>Value:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Value)</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- StartDate -->
+        <div class="form-group col-md-6">
+            <strong>StartDate:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.StartDate)</p>
+        </div>
+        <!-- EndDate -->
+        <div class="form-group col-md-6">
+            <strong>StartDate:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.EndDate)</p>
+        </div>
+    </div>
+
+    <!-- Form Delete -->
+    @using (Html.BeginForm("Delete", "Coupont", FormMethod.Post, new { id = "deleteCoupontForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-danger">Delete Coupont</button>
+        </div>
+    }
+</div>
+

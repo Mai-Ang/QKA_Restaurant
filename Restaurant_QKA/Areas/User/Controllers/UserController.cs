@@ -11,7 +11,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 {
     public class UserController : Controller
     {
-        RestaurantEntities db = new RestaurantEntities();
+        Restaurant_Entities db = new Restaurant_Entities();
         private string HashPassword(string password)
         {
             // Chuyển đổi mật khẩu sang mảng byte
@@ -57,7 +57,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 // Thêm mới khách hàng vào cơ sở dữ liệu
                 db.Customers.Add(cus);
                 db.SaveChanges();
-                ViewBag.Mess = "Đăng ký thành công";
+                ViewBag.Success = true;
                 // Chuyển hướng đến trang đăng nhập
                 return RedirectToAction("Login", "User");
             }
@@ -82,7 +82,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 if (db.Managers.FirstOrDefault(x => x.ManagerID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -90,7 +90,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffChefs.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -98,7 +98,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffOrders.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -106,7 +106,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID != staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -134,20 +134,21 @@ namespace Restaurant_QKA.Areas.User.Controllers
             }
         }
 
-        public ActionResult InforUser()
+        //*********** User Profile ***********
+        public ActionResult UserProfile()
         {
-            if (Session["UserName"] != null)
+            if (Session["UserID"] == null)
             {
-                // Lấy tên người dùng từ Session
-                string userName = Session["UserName"].ToString();
-                // Lấy thông tin người dùng từ cơ sở dữ liệu (giả sử bạn có hàm để làm việc này)
-                var user = db.Customers.FirstOrDefault(x => x.UserName == userName);
-                return View(user);
+                return RedirectToAction("Login");
             }
-            else
+
+            int userId = (int)Session["UserID"];
+            Customer user = db.Customers.Find(userId);
+            if (user == null)
             {
-                return RedirectToAction("Login", "User");
+                return HttpNotFound();
             }
+            return View(user);
         }
 
         public ActionResult Logout()

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b8ba3432ccca4d09892a34fbd85bfc15" Name="Diagram1">
+      <Diagram DiagramId="b8ba3432ccca4d09892a34fbd85bfc15" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="QKA_ResModel.BasicSalary" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Cart" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.CartItem" Width="1.5" PointX="9.75" PointY="17.5" IsExpanded="true" />

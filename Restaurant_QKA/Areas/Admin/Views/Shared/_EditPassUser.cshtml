@@ -1,0 +1,44 @@
+﻿@model D.Anthony_Restaurant_MVC.Models.User
+
+@using (Html.BeginForm("Edit", "Customer", FormMethod.Post, new { @id = "editUserForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Hidden field to store Product ID -->
+    @Html.HiddenFor(m => m.UserID)
+
+    <div class="billboard">
+        <div class="form-row row">
+            <!-- Name -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+            </div>
+            <!-- ResetPass Dropdown -->
+            <div class="form-group">
+                <label for="HashPass">New Password</label>
+                <input type="password" class="form-control" id="HashPass" name="HashPass" placeholder="Enter new password" />
+            </div>
+        </div>
+
+        <div class="form-row row">
+            <!-- Image -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.ImageUrl, htmlAttributes: new { @class = "control-label" })
+                <div class="text-center">
+                    <img src="@Url.Content("~/Content/Images/Products_Img/" + Model.ImageUrl)" class="img-fluid rounded" alt="Product Image" />
+                </div>
+                <input type="file" name="ImageFile" class="form-control" />
+                @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Save Change</button>
+        </div>
+    </div>
+
+}
+

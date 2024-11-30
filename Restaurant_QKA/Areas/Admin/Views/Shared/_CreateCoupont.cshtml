@@ -1,0 +1,58 @@
+﻿@model D.Anthony_Restaurant_MVC.Models.Coupont
+
+@using (Html.BeginForm("Create", "Coupont", FormMethod.Post, new { @id = "createCoupontForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="billboard">
+    <div class="form-row row">
+        <!-- Name -->
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.CoupontName, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.CoupontName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CoupontName, " ", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row row">
+        <!-- Description -->
+        <div class="form-group col-md-12">
+            @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "control-label" })
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @cols = 30, @rows = 2 }) <!-- Giảm số rows -->
+            @Html.ValidationMessageFor(m => m.Description, " ", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row row">
+        <!-- Value -->
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Value, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Value, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Value, " ", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row row">
+        <!-- StartDate -->
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.StartDate, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.StartDate, " ", new { @class = "text-danger" })
+        </div>
+
+        <!-- EndDate -->
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.EndDate, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EndDate, " ", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-warning btn-block">Create</button>
+    </div>
+</div>
+
+}
+
+

@@ -1,0 +1,53 @@
+﻿
+@model D.Anthony_Restaurant_MVC.Models.User
+
+<div class="card shadow-sm p-4 mb-4 bg-white rounded">
+    <!-- Name -->
+    <h3 class="card-title text-center">@Model.Name</h3>
+
+    <div class="row">
+        <!-- Image -->
+        <div class="form-group col-md-8">
+            <strong>User Image:</strong><br />
+            <div class="text-center">
+                <img src="@Url.Content("~/Content/Images/User_Img/" + Model.ImageUrl)" class="img-fluid rounded" alt="Product Image" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Email -->
+        <div class="form-group col-md-12">
+            <strong>Email:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Email)</p>
+        </div>
+        <!-- Address -->
+        <div class="form-group col-md-12">
+            <strong>Address:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Address)</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Phone -->
+        <div class="form-group col-md-6">
+            <strong>Phone:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Phone)</p>
+        </div>
+
+        <!-- Birthday -->
+        <div class="form-group col-md-6">
+            <strong>Birthday:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Birthday)</p>
+        </div>
+    </div>
+
+    <!-- Form Delete -->
+    @using (Html.BeginForm("Delete", "Customer", FormMethod.Post, new { id = "deleteUserForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-danger">Delete User</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,51 @@
+﻿@model D.Anthony_Restaurant_MVC.Models.Product
+
+<div class="card shadow-sm p-4 mb-4 rounded">
+    <!-- Product Title -->
+    <div class="card-header text-white text-center" style="background-color: #AA2B1D">
+        <h3 class="mb-0">@Model.Name</h3>
+    </div>
+
+    <div class="card-body">
+        <div class="row mb-4">
+            <!-- Product Image -->
+            <div class="col-md-6 text-center">
+                <strong>Product Image:</strong><br />
+                <img src="@Url.Content("~/Content/Images/Products_Img/" + Model.ImageUrl)" class="img-fluid rounded shadow" alt="Product Image" style="max-height: 300px;" />
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-6">
+                <strong>Description:</strong>
+                <p class="form-control-plaintext text-muted">@Html.DisplayFor(m => m.Description)</p>
+
+                <!-- Status -->
+                <strong>Status:</strong>
+                @if (Model.IsActive == true)
+                {
+                    <span class="badge bg-success">Active</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Inactive</span>
+                }
+                <br />
+                <!-- Price -->
+                <strong>Price:</strong>
+                <p class="form-control-plaintext text-muted">@Html.DisplayFor(m => m.Price)</p>
+                <!-- Quantity -->
+                <strong>Quantity:</strong>
+                <p class="form-control-plaintext text-muted">@Html.DisplayFor(m => m.Quantity)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Form -->
+    <div class="card-footer text-center">
+        @using (Html.BeginForm("Delete", "Products", FormMethod.Post, new { id = "deleteProductForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Delete Product</button>
+        }
+    </div>
+</div>

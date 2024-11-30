@@ -9,7 +9,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 {
     public class HomeController : Controller
     {
-        RestaurantEntities db = new RestaurantEntities();
+        Restaurant_Entities db = new Restaurant_Entities();
         // GET: User/Home
         public ActionResult Index()
         {
