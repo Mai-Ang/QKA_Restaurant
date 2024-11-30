@@ -139,7 +139,6 @@
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
     <Compile Include="Areas\StaffWareHouse\StaffWareHouseAreaRegistration.cs" />
-    <Compile Include="Areas\User\Controllers\CartsController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />

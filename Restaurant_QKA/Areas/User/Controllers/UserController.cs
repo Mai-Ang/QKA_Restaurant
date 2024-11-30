@@ -59,7 +59,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 db.SaveChanges();
                 ViewBag.Success = true;
                 // Chuyển hướng đến trang đăng nhập
-                return RedirectToAction("Login", "User");
+                return View();
             }
             return View(cus);
         }
@@ -72,9 +72,9 @@ namespace Restaurant_QKA.Areas.User.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string email, string matkhau)
+        public ActionResult Login(string email, string hashpass)
         {
-            string hashPass = HashPassword(matkhau);
+            string hashPass = HashPassword(hashpass);
             var staff = db.Staffs.FirstOrDefault(x => x.UserName == email && x.Password == hashPass);
             if (staff != null)
             {
