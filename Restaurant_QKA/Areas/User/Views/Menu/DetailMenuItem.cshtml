@@ -25,7 +25,7 @@
 
                             <div class="d-flex justify-content-between mt-4" style="font-size:30px">
                                 <!-- Add to Cart Button -->
-                                <a href="@Url.Action("AddToCart", "Carts", new { menuItemId = Model.ItemID, quantity = 1 })" class="btn btn-primary btn-lg rounded-pill">Thêm vào giỏ</a>
+                                <a href="#" class="btn btn-primary btn-lg rounded-pill">Thêm vào giỏ</a>
 
                                 <!-- Rating Section -->
                                 <div class="d-flex align-items-center">
@@ -67,21 +67,16 @@
                         </div>
 
                         <!-- Bình luận -->
-                        <!-- Section để hiển thị Bình luận -->
-                        <div id="comments" class="section-content">
+                        <div id="comments" class="section-content" style="display:none;">
                             <h4 class="mb-3">Các Bình Luận:</h4>
                             <div class="list-group">
                                 @foreach (var comment in Model.Comments)
                                 {
                                     <div class="list-group-item">
-                                        <div style="display: flex;">
-                                            <!-- Hiển thị hình ảnh người dùng -->
-                                            <img src="@Url.Content("~/Content/Cus/" + comment.Customer.ImageUrl)"
-                                                 class="rounded-circle"
-                                                 style="max-width: 10%; max-height: 5%;" />
+                                        <div style="display:flex">
+                                            <img src="@Url.Content("~/Content/Cus/" + comment.Customer.ImageUrl)" class="rounded-circle" style="max-width: 10%; max-height: 5%"/>
                                             <div class="mx-3" style="display:block">
-                                                <!-- Hiển thị thông tin người dùng và bình luận -->
-                                                <p class="text-muted my-0">@comment.CreatedDate.ToString()</p>
+                                                <p class="text-muted my-0">@comment.CreatedDate</p>
                                                 <strong>@comment.Customer.Name</strong>
                                                 <p>@comment.Content</p>
                                             </div>
@@ -89,22 +84,16 @@
                                     </div>
                                 }
                             </div>
-                            <!-- Form để Thêm Bình luận -->
-                            <h3>Thêm Bình luận</h3>
-                            @using (Html.BeginForm("AddComment", "Menu", FormMethod.Post, new { area = "User" }))
-                            {
-                                @Html.Hidden("itemId", Model.ItemID)
-                                <div class="form-group">
-                                    <label for="commentContent">Nội dung bình luận:</label>
-                                    <textarea id="commentContent" name="content" class="form-control" rows="4" required></textarea>
+
+                            <!-- Add Comment Form -->
+                            <form method="post" action="@Url.Action("AddComment", "Menu")" class="mt-4">
+                                <div class="mb-3">
+                                    <label for="commentText" class="form-label">Bình luận của bạn</label>
+                                    <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Chia sẻ cảm nhận của bạn về món ăn"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Gửi Bình luận</button>
-                            }
+                                <button type="submit" class="btn btn-success">Gửi Bình Luận</button>
+                            </form>
                         </div>
-
-                        
-
-
                     </div>
                 </div>
             </div>

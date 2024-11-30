@@ -71,21 +71,10 @@
                         {
                             <a href="@Url.Action("Index", "Carts", new { area = "User" })" class="position-relative me-4 d-flex align-items-center">
                                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
-                                @if (ViewBag.TotalItemsInCart > 0)
+                                @if (@ViewBag.TotalItemsInCart == null)
                                 {
-                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
-                                        @ViewBag.TotalItemsInCart
-                                    </span>
+                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -10px; left: 17px; height: 20px; min-width: 20px;">@ViewBag.TotalItemsInCart</span>
                                 }
-                                else
-                                {
-                                    <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
-                                        0
-                                    </span>
-                                }
-
                             </a>
                         }
 

@@ -13,7 +13,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
 {
     public class CustomerController : Controller
     {
-        Restaurant_Entities db = new Restaurant_Entities();
+        RestaurantEntities db = new RestaurantEntities();
         //HashPass SHA-256
         private string HashPassword(string password)
         {

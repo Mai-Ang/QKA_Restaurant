@@ -32,14 +32,7 @@ namespace Restaurant_QKA
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { area = "User", controller = "Home", action = "Index", id = UrlParameter.Optional }
-            ).DataTokens["area"] = "User";
-
-            routes.MapRoute(
-                name: "Thanh-Toan",
-                url: "{controller}/{action}/{id}",
-                defaults: new { area = "User", controller = "Carts", action = "Checkout", id = UrlParameter.Optional }
-            ).DataTokens["area"] = "User";
-            
+            ).DataTokens["area"] = "User"; 
         }
     }
 }

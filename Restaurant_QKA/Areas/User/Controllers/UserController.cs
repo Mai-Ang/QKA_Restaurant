@@ -11,7 +11,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 {
     public class UserController : Controller
     {
-        Restaurant_Entities db = new Restaurant_Entities();
+        RestaurantEntities db = new RestaurantEntities();
         private string HashPassword(string password)
         {
             // Chuyển đổi mật khẩu sang mảng byte
@@ -82,7 +82,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 if (db.Managers.FirstOrDefault(x => x.ManagerID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -90,7 +90,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffChefs.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -98,7 +98,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffOrders.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
@@ -106,7 +106,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID != staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
-                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
+                    var staffname = db.PersonnelFiles.FirstOrDefault(x => x.UserID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }

@@ -13,7 +13,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
 {
     public class MenuItemController : Controller
     {
-        Restaurant_Entities db = new Restaurant_Entities();
+        RestaurantEntities db = new RestaurantEntities();
         // Hiển thị danh sách tất cả sản phẩm
         public ActionResult Index(int? page)
         {
