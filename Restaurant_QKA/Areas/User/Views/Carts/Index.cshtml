@@ -1,28 +1,233 @@
-﻿
+﻿@model Restaurant_QKA.Models.Cart
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Giỏ hàng";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
+<h2 style="margin-top: 50px; text-align: center;">Giỏ hàng</h2>
 
-<h2>Index</h2>
+@if (Model.CartItems.Any())
+{
+    <div class="cart-container">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>@item.MenuItem.Name</td>
+                        <td>@string.Format("{0:C}", item.Price)</td>
+                        <td>
+                            @Html.Hidden("CartItemID", item.CartItemID)
+                            <input type="number"
+                                   name="Quantity"
+                                   value="@item.Quantity"
+                                   min="1"
+                                   class="quantity-input"
+                                   onchange="updateCartItem(@item.CartItemID, this.value)" />
+                        </td>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên món ăn</th>
-            <th>số lượng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model == null)
-        {
-            <h2>Hello</h2>
+                        <td id="total-@item.CartItemID">@string.Format("{0:C}", item.Total)</td>
+
+                        <td>
+                            @using (Html.BeginForm("RemoveFromCart", "Carts", new { area = "User" }, FormMethod.Post))
+                            {
+                                @Html.Hidden("cartItemId", item.CartItemID)
+                                <input type="submit" value="Xóa" class="btn-remove" />
+                            }
+
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <p><strong>Tổng cộng: <span id="cart-total">@string.Format("{0:C}", Model.CartItems.Sum(ci => ci.Total))</span></strong></p>
+
+
+            @if (Session["UserID"] != null)
+            {
+                <a href="@Url.Action("Checkout", "Carts", new { iduser = Session["UserID"] })">Thanh toán</a>
+            }
+            else
+            {
+                <p>Bạn cần đăng nhập để thanh toán.</p>
+            }
+
+
+
+        </div>
+
+
+    </div>
+}
+else
+{
+    <p class="empty-cart">Giỏ hàng của bạn trống.</p>
+}
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function updateCartItem(cartItemId, quantity) {
+        if (quantity < 1) {
+            alert("Số lượng không hợp lệ.");
+            return;
         }
-        else
-        {
-            <h1>Kiệt đẹp trai</h1>
+
+        $.ajax({
+            url: '/User/Carts/UpdateCart', // Đường dẫn tới action trong controller
+            type: 'POST',
+            data: {
+                cartItemId: cartItemId,
+                quantity: quantity
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Cập nhật Total của dòng hiện tại
+                    $('#total-' + cartItemId).text(response.updatedTotal);
+
+                    // Cập nhật tổng cộng của giỏ hàng
+                    $('#cart-total').text(response.newCartTotal);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+            }
+        });
+    }
+
+
+
+
+    function removeFromCart(cartItemId) {
+        $.ajax({
+            url: '/User/Carts/RemoveFromCart',
+            type: 'POST',
+            data: { cartItemId: cartItemId },
+            success: function (response) {
+                if (response.success) {
+                    // Xóa sản phẩm khỏi giao diện
+                    $('#cart-item-' + cartItemId).remove();  // Giả sử mỗi dòng trong bảng có id là "cart-item-<CartItemID>"
+
+                    // Nếu cần, bạn có thể cập nhật lại tổng giá trị giỏ hàng hoặc thông báo cho người dùng.
+                    alert("Sản phẩm đã được xóa khỏi giỏ hàng.");
+                } else {
+                    alert("Không thể xóa sản phẩm. Lỗi: " + response.message);
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi xóa sản phẩm.");
+            }
+        });
+    }
+
+
+</script>
+
+
+<style>
+    /* CSS cho giỏ hàng */
+    .cart-container {
+        max-width: 800px;
+        margin: 20px auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        background: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .cart-table th, .cart-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
         }
 
-    </tbody>
-</table>
+        .cart-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cart-table td {
+            vertical-align: middle;
+        }
+
+    .quantity-input {
+        width: 50px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .btn-update, .btn-remove, .btn-checkout {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn-update {
+        background-color: #4CAF50;
+    }
+
+    .btn-remove {
+        background-color: #e74c3c;
+    }
+
+    .btn-checkout {
+        background-color: #007bff;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-update:hover {
+        background-color: #45a049;
+    }
+
+    .btn-remove:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-checkout:hover {
+        background-color: #0056b3;
+    }
+
+    .cart-summary {
+        text-align: right;
+    }
+
+    .empty-cart {
+        text-align: center;
+        font-size: 1.2em;
+        color: #666;
+        margin-top: 50px;
+    }
+</style>
