@@ -145,6 +145,7 @@
     <Compile Include="Areas\User\Controllers\CartsController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
+    <Compile Include="Areas\User\Controllers\OrderHistoryController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
@@ -1344,6 +1345,7 @@
     <Content Include="Areas\Admin\Views\Shared\_EditProduct.cshtml" />
     <Content Include="Areas\User\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\User\Views\Carts\Checkout.cshtml" />
+    <Content Include="Areas\User\Views\OrderHistory\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

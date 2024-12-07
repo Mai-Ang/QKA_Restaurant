@@ -4,7 +4,7 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top: 20px">Checkout</h2>
+
 <div>
     <h3>Thông tin giỏ hàng</h3>
     <table class="table table-bordered">
@@ -63,9 +63,9 @@
             <label for="paymentMethod">Phương thức thanh toán</label>
             <select name="paymentMethod" id="paymentMethod" class="form-control" required>
                 <option value="">-- Chọn phương thức thanh toán --</option>
-                <option value="1">Ví điện tử</option>
-                <option value="2">Thanh toán trực tiếp</option>
-                <option value="3">Thẻ tín dụng</option>
+                <option value="1">Thẻ tín dụng</option>
+                <option value="2">Ví điện tử</option>
+                <option value="3">Thanh toán trực tiếp</option>
             </select>
         </div>
 
@@ -78,10 +78,16 @@
             <input type="text" name="valuecoupon" id="valuecoupon" class="form-control" placeholder="Nhập mã giảm giá nếu có" />
         </div>
 
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="" value="Thủ Dầu Một, Bình Dương" required />
+        </div>
+
+
         <!-- Hiển thị nút thanh toán nếu người dùng đã đăng nhập -->
         @if (Session["UserID"] != null)
         {
-            <button type="button" class="btn btn-primary" id="btnCheckout">Thanh toán</button>
+            <button type="button" class="btn btn-primary my-2" id="btnCheckout">Thanh toán</button>
         }
         else
         {
@@ -341,6 +347,7 @@
     async function handleCheckout(paymentMethod) {
         const iduser = document.querySelector('input[name="iduser"]').value;
         const valuecoupon = document.querySelector('input[name="valuecoupon"]').value;
+        const address = document.querySelector('input[name="address"]').value;
 
         const response = await fetch('/Carts/Checkout', {
             method: 'POST',
@@ -352,7 +359,8 @@
                 iduser: iduser,
                 paymentMethod: paymentMethod,
                 valuecoupon: valuecoupon,
-                idcoupon: null // Add coupon code if needed
+                idcoupon: null, // Add coupon code if needed
+                address: address,
             })
         });
 
@@ -406,7 +414,7 @@
 
 
 <!-- Thêm CSS của Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">*@
 
 <!-- Thêm jQuery đầy đủ (không phải slim) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -415,7 +423,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">*@
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

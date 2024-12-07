@@ -74,14 +74,14 @@
                                 @if (ViewBag.TotalItemsInCart > 0)
                                 {
                                     <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                          style="top: -18px; left: 17px; height: 20px; min-width: 20px;">
                                         @ViewBag.TotalItemsInCart
                                     </span>
                                 }
                                 else
                                 {
                                     <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                          style="top: -18px; left: 17px; height: 20px; min-width: 20px;">
                                         0
                                     </span>
                                 }
@@ -97,7 +97,8 @@
                             @if (Session["UserID"] != null)
                             {
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="" class="dropdown-item">Thông Tin</a>
+                                    <a href="@Url.Action("UserProfile", "User")" class="dropdown-item">Thông Tin</a>
+                                    <a href="@Url.Action("Index", "OrderHistory")" class="dropdown-item">Lịch sử đơn hàng</a>
                                     <a href="@Url.Action("Logout", "User")" class="dropdown-item">Đăng Xuất</a>
                                 </div>
                             }
@@ -127,7 +128,7 @@
         </div>*@
     <!-- Modal Search End -->
     <!-- Body -->
-    <div class="container-fluid fruite py-5" style="margin-top:0px">
+    <div class="container-fluid fruite py-5" style="margin-top:100px">
         <div class="container py-0">
             @RenderBody()
         </div>

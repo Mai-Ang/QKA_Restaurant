@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Restaurant_QKA.Services;
+using System.Net;
 
 namespace Restaurant_QKA.Areas.User.Controllers
 {
@@ -216,7 +217,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 
 
         [HttpPost]
-        public ActionResult Checkout(int? iduser, string paymentMethod, string valuecoupon, int? idcoupon)
+        public ActionResult Checkout(int? iduser, string paymentMethod, string valuecoupon, int? idcoupon, string address)
         {
             if (iduser == null) return RedirectToAction("Login", "User");
 
@@ -258,7 +259,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                         Status = "0",
                         OrderDate = DateTime.Now,
                         DeliveryDate = null,
-                        DeliveryAddress = null,
+                        DeliveryAddress = address,
                         PaymentID = int.Parse(paymentMethod),
                     };
                     db.Orders.Add(newoder);
@@ -292,10 +293,10 @@ namespace Restaurant_QKA.Areas.User.Controllers
                             OrderID = newoder.OrderID,
                             Total = newoder.Total,
                             CreatedDate = DateTime.Now,
-                            Status = "0",
-                            PaymentID = 2,
+                            Status = "1",
+                            PaymentID = 1,
                         };
-                        newoder.Status = "1";
+                        
                         db.Entry(newoder).State = EntityState.Modified;
                         db.Invoices.Add(newinvoice);
                         db.SaveChanges();
@@ -308,8 +309,9 @@ namespace Restaurant_QKA.Areas.User.Controllers
                             Total = newoder.Total,
                             CreatedDate = DateTime.Now,
                             Status = "1",
-                            PaymentID = 1,
+                            PaymentID = 2,
                         };
+                        
                         db.Invoices.Add(newinvoice);
                         db.SaveChanges();
                     }
@@ -320,7 +322,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                             OrderID = newoder.OrderID,
                             Total = newoder.Total,
                             CreatedDate = DateTime.Now,
-                            Status = "1",
+                            Status = "0",
                             PaymentID = 3,
                         };
                         db.Invoices.Add(newinvoice);
