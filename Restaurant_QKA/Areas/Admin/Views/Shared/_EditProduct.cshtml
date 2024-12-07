@@ -1,80 +1,85 @@
-﻿@model D.Anthony_Restaurant_MVC.Models.Product
+﻿@model Restaurant_QKA.Models.MenuItem
 
-@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @id = "editProductForm", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "MenuItem", new { area = "Admin" }, FormMethod.Post, new { @id = "editProductForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.ProductID)
+    @Html.HiddenFor(m => m.ItemID)
 
     <div class="container mt-4">
-        <div class="card shadow-lg">
             <div class="card-body">
                 <div class="row g-3">
-                    <!-- Category Dropdown -->
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.CategoryID, "Category", htmlAttributes: new { @class = "form-label" })
-                        @if (ViewBag.Category != null)
-                        {
-                            @Html.DropDownList("CategoryId", new SelectList(ViewBag.Category, "CategoryID", "Name"), "Select a category", new { @class = "form-select" })
-                        }
-                        else
-                        {
-                            <p>No Categories Available</p>
-                        }
-                    </div>
-
-                    <!-- Name -->
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
-                    </div>
-
-                    <!-- Price -->
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.Price, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Price, " ", new { @class = "text-danger" })
-                    </div>
-
-                    <!-- Quantity -->
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.Quantity, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Quantity, " ", new { @class = "text-danger" })
-                    </div>
-
-                    <!-- IsActive Dropdown -->
-                    <div class="col-md-6">
-                        @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "form-label" })
-                        @Html.DropDownListFor(m => m.IsActive, new SelectList(new List<SelectListItem>
-                        {
-                            new SelectListItem { Text = "Not Set", Value = "" },
-                            new SelectListItem { Text = "Active", Value = "true" },
-                            new SelectListItem { Text = "Inactive", Value = "false" }
-                        }, "Value", "Text"), "Select Status", new { @class = "form-select" })
-                    </div>
-
-                    <!-- Image Upload -->
-                    <div class="col-md-6 text-center">
-                        @Html.LabelFor(m => m.ImageUrl, htmlAttributes: new { @class = "form-label" })
-                        <div class="mb-2">
-                            <img src="@Url.Content("~/Content/Images/Products_Img/" + Model.ImageUrl)" class="img-fluid rounded" alt="Product Image" style="max-height: 150px;" />
+                    <div class="row">
+                        <!-- Category Dropdown -->
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.CategoryID, "Category", htmlAttributes: new { @class = "form-label" })
+                            @if (ViewBag.Category != null)
+                            {
+                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Category, "CategoryID", "Name"), "Select a category", new { @class = "form-select" })
+                            }
+                            else
+                            {
+                                <p>No Categories Available</p>
+                            }
                         </div>
-                        <input type="file" name="ImageFile" class="form-control" />
-                        @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+
+                        <!-- Name -->
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- IsActive Dropdown -->
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.IsActive, new SelectList(new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Not Set", Value = "" },
+                                new SelectListItem { Text = "Active", Value = "true" },
+                                new SelectListItem { Text = "Inactive", Value = "false" }
+                            }, "Value", "Text"), "Select Status", new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Price -->
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Price, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Price, " ", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Quantity, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Quantity, " ", new { @class = "text-danger" })
+                        </div>
                     </div>
 
-                    <!-- Description -->
-                    <div class="col-12">
-                        @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 3 })
-                        @Html.ValidationMessageFor(m => m.Description, " ", new { @class = "text-danger" })
+                    <div class="row">
+                        <!-- Description -->
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style = "height: 200px !important", @rows = 3, @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Description, " ", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="col-md-6 text-center">
+                            @Html.LabelFor(m => m.ImageUrl, htmlAttributes: new { @class = "form-label" })
+                            <div class="mb-2">
+                                <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" class="img-fluid rounded" alt="Product Image" style="max-height: 150px;" />
+                            </div>
+                            <input type="file" name="ImageFile" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success">Save Changes</button>
+            <div class="row" style="margin-top: 5px">
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning">Save Changes</button>
+                </div>
             </div>
         </div>
-    </div>
 }

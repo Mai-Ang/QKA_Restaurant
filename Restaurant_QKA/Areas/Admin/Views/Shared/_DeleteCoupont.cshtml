@@ -1,34 +1,27 @@
-﻿@model D.Anthony_Restaurant_MVC.Models.Coupont
+﻿@model Restaurant_QKA.Models.Coupon
 
 <div class="card shadow-sm p-4 mb-4 bg-white rounded">
     <!-- Name -->
-    <h3 class="card-title text-center">@Model.CoupontName</h3>
+    <h3 class="card-title text-center">@Model.Name</h3>
 
-    <div class="row">
-        <!-- Description -->
-        <div class="form-group col-md-12">
-            <strong>Description:</strong>
-            <p class="form-control-plaintext">@Html.DisplayFor(m => m.Description)</p>
-        </div>
-    </div>
     <div class="row">
         <!-- Value -->
         <div class="form-group col-md-6">
-            <strong>Value:</strong>
+            <strong>Giá Trị Mã:</strong>
             <p class="form-control-plaintext">@Html.DisplayFor(m => m.Value)</p>
         </div>
     </div>
 
     <div class="row">
-        <!-- StartDate -->
+        <!-- CreatedDate -->
         <div class="form-group col-md-6">
-            <strong>StartDate:</strong>
-            <p class="form-control-plaintext">@Html.DisplayFor(m => m.StartDate)</p>
+            <strong>Ngày Tạo Mã:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.CreatedDate)</p>
         </div>
-        <!-- EndDate -->
+        <!-- CreatedManager -->
         <div class="form-group col-md-6">
-            <strong>StartDate:</strong>
-            <p class="form-control-plaintext">@Html.DisplayFor(m => m.EndDate)</p>
+            <strong>Người Tạo Mã:</strong>
+            <p class="form-control-plaintext">@Html.DisplayFor(m => m.CreatedManagerID)</p>
         </div>
     </div>
 

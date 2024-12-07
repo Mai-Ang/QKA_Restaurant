@@ -62,6 +62,14 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(MenuItem product, HttpPostedFileBase ImageFile)
         {
+            var allowedExtensions = new[] { ".jpg", ".png" };
+            var fileExtension = Path.GetExtension(ImageFile.FileName)?.ToLower();
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                return Json(new { success = false });
+            }
+
             if (ModelState.IsValid)
             {
                 if (ImageFile != null && ImageFile.ContentLength > 0)
@@ -72,11 +80,12 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
                     fileName = fileName + "_" + Guid.NewGuid() + extension;
 
                     // Đường dẫn lưu file
-                    var path = Path.Combine(Server.MapPath("~/Content/Images/Products_Img"), fileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/MenuItems"), fileName);
 
-                    // Lưu file vào thư mục
+                    // Lưu file vào thư mục 
                     ImageFile.SaveAs(path);
 
+                    product.CreatedDate = DateTime.Now;
                     // Gán đường dẫn file vào thuộc tính ImageUrl của Product
                     product.ImageUrl = fileName;
                 }
@@ -189,7 +198,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Areas/Admin/Views/Shared_DeleteProduct.cshtml", product);
+            return PartialView("~/Areas/Admin/Views/Shared/_DeleteProduct.cshtml", product);
         }
 
         // Post Method

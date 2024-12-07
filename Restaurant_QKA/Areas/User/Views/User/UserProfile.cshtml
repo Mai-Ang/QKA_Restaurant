@@ -30,14 +30,14 @@
                         </div>
                         <div class="card-body p-5">
                             <div class="form-group d-flex">
-                                <div class="form-outline mb-4 me-4 w-100" id="HoThucKhach" style="display: none;">
-                                    <label class="small mb-1" for="HoThucKhach">Họ Và Tên</label>
+                                <div class="form-outline mb-4 me-4 w-100" id="Name" style="display: none;">
+                                    <label class="small mb-1" for="Name">Họ Và Tên</label>
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "", disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <div class="form-outline mb-4 me-4 w-50">
-                                    <label class="small mb-1" for="TenTaiKhoan">Tên Tài Khoản</label>
+                                    <label class="small mb-1" for="UserName">Tên Tài Khoản</label>
                                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Enter your account", disabled = "disabled", @readonly = "readonly" })
                                 </div>
                                 <div class="form-outline mb-4 me-4 w-50">
@@ -66,7 +66,7 @@
                                     <button type="button" class="btn btn-danger" id="cancelButton" onclick="disableEdit()" style="display: none;">Hủy</button>
                                 </div>
                                 <div class="mb-4 me-4 w-25">
-                                    <button type="button" class="btn btn-warning" id="cancelButton" onclick="" style="width:180px">Đổi Mật Khẩu</button>
+                                    <a class="btn btn-warning" id="cancelButton" href="@Url.Action("ChangePass","User")"  style="width:180px">Đổi Mật Khẩu</a>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
      {
         <text>
          Swal.fire({
-             title: 'Thành công!',
+             title: 'Thành công',
              text: '@Html.Raw(TempData["SuccessMessage"])',
              icon: 'success',
              confirmButtonText: 'OK'
@@ -94,7 +94,7 @@
      {
         <text>
          Swal.fire({
-             title: 'Thất Bại!',
+             title: 'Thất Bại',
              text: '@Html.Raw(TempData["ErrorMessage"])',
              icon: 'error',
              confirmButtonText: 'OK'
@@ -104,30 +104,28 @@
     function enableEdit()
     {
         // Enable all input fields except UserName
-        var inputs = document.querySelectorAll('input[type="text"]:not([name="HoThucKhach"]), input[type="text"]:not([name="TenThucKhach"]), input[type="text"]:not([name="TenTaiKhoan"]), input[type="email"], input[type="tel"], input[type="date"]');
+        var inputs = document.querySelectorAll('input[type="text"]:not([name="Name"]), input[type="text"]:not([name="UserName"]), input[type="email"], input[type="tel"], input[type="date"]');
         inputs.forEach(function (input) {
             input.disabled = false;
         });
 
         // Hide edit button and show save button
         document.getElementById('editButton').style.display = 'none';
-        document.getElementById('HoThucKhach').style.display = 'block';
-        document.getElementById('TenThucKhach').style.display = 'block';
+        document.getElementById('Name').style.display = 'block';
         document.getElementById('saveButton').style.display = 'block';
         document.getElementById('cancelButton').style.display = 'block';
     }
     function disableEdit()
     {
         // Enable all input fields except UserName
-        var inputs = document.querySelectorAll('input[type="text"]:not([name="HoThucKhach"]), input[type="text"]:not([name="TenThucKhach"]),input[type="text"]:not([name="TenTaiKhoan"]), input[type="email"], input[type="tel"], input[type="date"]');
+        var inputs = document.querySelectorAll('input[type="text"]:not([name="Name"]), input[type="text"]:not([name="UserName"]), input[type="email"], input[type="tel"], input[type="date"]');
         inputs.forEach(function (input) {
             input.disabled = true;
         });
 
         // Hide edit button and show save button
-        document.getElementById('editButton').style.display = 'block'
-        document.getElementById('HoThucKhach').style.display = 'none';
-        document.getElementById('TenThucKhach').style.display = 'none';
+        document.getElementById('editButton').style.display = 'block';
+        document.getElementById('Name').style.display = 'none';
         document.getElementById('saveButton').style.display = 'none';
         document.getElementById('cancelButton').style.display = 'none';
     }

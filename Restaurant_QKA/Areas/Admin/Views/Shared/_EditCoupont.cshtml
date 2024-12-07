@@ -1,23 +1,23 @@
-﻿@model D.Anthony_Restaurant_MVC.Models.Coupont
+﻿@model Restaurant_QKA.Models.Coupon
 
-@using (Html.BeginForm("Edit", "Coupont", FormMethod.Post, new { @id = "editCoupontForm", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Coupon", new { area = "Admin"}, FormMethod.Post, new { @id = "editCoupontForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <!-- Hidden field to store Product ID -->
-    @Html.HiddenFor(m => m.CoupontID)
+    @Html.HiddenFor(m => m.CouponID)
 
     <div class="billboard">
         <div class="form-row row">
             <!-- Name -->
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m => m.CoupontName, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.CoupontName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CoupontName, " ", new { @class = "text-danger" })
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
             </div>
 
             <!-- Value -->
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(m => m.Value, htmlAttributes: new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.Value, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Value, " ", new { @class = "text-danger" })
@@ -25,27 +25,17 @@
         </div>
 
         <div class="form-row row">
-            <!-- StartDate -->
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m => m.StartDate, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.StartDate, " ", new { @class = "text-danger" })
+            <!-- CreatedDate -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.CreatedDate, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CreatedDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreatedDate, " ", new { @class = "text-danger" })
             </div>
-
-            <!-- EndDate -->
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m => m.EndDate, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.EndDate, " ", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-row row">
-            <!-- Description -->
-            <div class="form-group col-md-12">
-                @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @cols = 30, @rows = 2 })
-                @Html.ValidationMessageFor(m => m.Description, " ", new { @class = "text-danger" })
+            <!-- CreatedManager -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.CreatedManagerID, htmlAttributes: new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.CreatedManagerID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreatedManagerID, " ", new { @class = "text-danger" })
             </div>
         </div>
 

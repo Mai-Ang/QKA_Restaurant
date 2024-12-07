@@ -136,9 +136,14 @@
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
+    <Compile Include="Areas\StaffWareHouse\Controllers\HomeWareHouseController.cs" />
+    <Compile Include="Areas\StaffWareHouse\Controllers\SupplierController.cs" />
+    <Compile Include="Areas\StaffWareHouse\Controllers\TransactionController.cs" />
     <Compile Include="Areas\StaffWareHouse\StaffWareHouseAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\CartsController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
@@ -302,6 +307,7 @@
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\hoverable-collapse.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\jquery-file-upload.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\jquery.cookie.js" />
+    <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalcoupon.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalproducts.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalusers.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\off-canvas.js" />
@@ -898,6 +904,7 @@
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_footer.html" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_navbar.html" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_sidebar.html" />
+    <Content Include="Areas\User\Data\Image\QKA_Icon.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -934,7 +941,7 @@
     <Content Include="Content\Cus\face25.jpg" />
     <Content Include="Content\Cus\face26.jpg" />
     <Content Include="Content\Cus\face27.jpg" />
-    <Content Include="Content\Cus\face9.jpg" />
+    <Content Include="Content\Cus\maian.jpg" />
     <Content Include="Content\img\avatar.jpg" />
     <Content Include="Content\img\baner-1.png" />
     <Content Include="Content\img\banner-fruits.jpg" />
@@ -1339,6 +1346,13 @@
     <Content Include="Areas\Admin\Views\Shared\_EditProduct.cshtml" />
     <Content Include="Areas\User\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\User\Views\Carts\Checkout.cshtml" />
+    <Content Include="Areas\User\Views\User\ChangePass.cshtml" />
+    <Content Include="Areas\Admin\Views\Coupon\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_LayoutStaffWareHouse.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\HomeWareHouse\Index.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Supplier\Index.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Transaction\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1370,10 +1384,7 @@
     <Folder Include="Areas\StaffOrder\Controllers\" />
     <Folder Include="Areas\StaffOrder\Data\" />
     <Folder Include="Areas\StaffOrder\Views\Shared\" />
-    <Folder Include="Areas\StaffWareHouse\Controllers\" />
     <Folder Include="Areas\StaffWareHouse\Data\" />
-    <Folder Include="Areas\StaffWareHouse\Views\Shared\" />
-    <Folder Include="Areas\User\Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

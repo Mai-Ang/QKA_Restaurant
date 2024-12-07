@@ -1,10 +1,9 @@
 ﻿using Restaurant_QKA.Models;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Restaurant_QKA.Areas.User.Controllers
@@ -92,7 +91,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                    return RedirectToAction("Index", "HomeChef", new { Area = "Admin" });
                 }
                 // Kiểm tra quyền nhân viên order
                 else if (db.StaffOrders.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
@@ -100,7 +99,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                    return RedirectToAction("Index", "HomeOrder", new { Area = "Admin" });
                 }
                 // Kiểm tra quyền nhân viên kho
                 else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID != staff.StaffID) != null)
@@ -108,7 +107,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                    return RedirectToAction("Index", "HomeWareHouse", new { Area = "Admin" });
                 }
                 return View();
             }
@@ -120,7 +119,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 if (user != null)
                 {
                     // Đăng nhập thành công, có thể lưu thông tin người dùng vào Session
-                    ViewBag.SuccessLogin = true;
+                    ViewBag.Success = true;
                     Session["UserID"] = user.CusID;
                     Session["UserName"] = user.Name;
                     return View(); // Điều hướng đến trang chính hoặc trang khác
@@ -150,7 +149,73 @@ namespace Restaurant_QKA.Areas.User.Controllers
             }
             return View(user);
         }
+        //*********** Update Profile ***********
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProfile(Customer cus)
+        {
+            if (ModelState.IsValid)
+            {
+                var existuser = db.Customers.Find(cus.CusID);
+                if (cus != null)
+                {
+                    existuser.Name = cus.Name;
+                    existuser.Email = cus.Email;
+                    existuser.Phone = cus.Phone;
+                    existuser.DateOfBirth = cus.DateOfBirth;
+                    existuser.Address = cus.Address;
 
+                    try
+                    {
+                        db.Entry(existuser).State = EntityState.Modified;
+                        db.SaveChanges();
+                        TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
+                        TempData["ErrorMessage"] = null;
+                        return RedirectToAction("UserProfile");
+                    }
+                    catch (Exception)
+                    {
+                        TempData["SuccessMessage"] = null;
+                        TempData["ErrorMessage"] = "Cập nhật thông tin không thành công!";
+                    }
+                }
+            }
+            return View("UserProfile", cus);
+        }
+        //*********** Change Password ***********
+        public ActionResult ChangePass()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePass(string email, string oldpass, string newpass)
+        {
+            if (Session["UserID"] == null) return Redirect("Login");
+            if (ModelState.IsValid)
+            {
+                var existuser = db.Customers.Find(Session["UserID"]);
+                if (existuser != null)
+                {
+                    if(existuser.Email == email && existuser.HashPass == HashPassword(oldpass))
+                    {
+                        existuser.HashPass = HashPassword(newpass);
+                        db.Entry(existuser).State = EntityState.Modified;
+                        db.SaveChanges();
+                        ViewBag.Success = true;
+                        return View();
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.Success = false;
+            }
+            return View();
+        }
+
+        //*********** Logout ***********
         public ActionResult Logout()
         {
             Session.Clear();

@@ -58,19 +58,21 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    @if (@ViewBag.Success == true)
-{
+    @if (ViewBag.Success == true)
+    {
     <text>
-    Swal.fire({
-        title: 'Đăng nhập thành công!',
-        text: 'Chào mừng đến với Seft_Restaurant!',
-        icon: 'success',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        confirmButtonText: 'OK',
-        timer: 3000,
-    });
+            Swal.fire({
+                title: 'Đăng nhập thành công!',
+                text: 'Chào mừng đến với Seft_Restaurant!',
+                icon: 'success',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: 'OK',
+                timer: 3000,
+            }).then(() => {
+                window.location.href = '/Home/Index';
+            });
     </text>
-}
+    }
 </script>
 

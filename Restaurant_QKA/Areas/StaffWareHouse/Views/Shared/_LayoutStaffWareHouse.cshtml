@@ -52,7 +52,7 @@
                     <li class="nav-item fw-semibold d-none d-lg-block ms-0">
                         <h1 class="text" style="font-size:medium">Xin chào, <span class="text-success fw-bold">@Session["UserName"]</span></h1>
                         <h3 class="text" style="font-size:medium">Chúc bạn có một ngày làm việc vui vẻ!</h3>
-                        <h3 class="text" style="font-size:medium">Bạn đang đăng nhập dưới quyền quản lý!</h3>
+                        <h3 class="text" style="font-size:medium">Bạn đang đăng nhập dưới quyền nhân viên kho!</h3>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -122,39 +122,27 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #EEEEEE; margin-right:10px;">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">
+                        <a class="nav-link" href="@Url.Action("Index", "HomeWareHouse", new { area = "StaffWareHouse" })">
                             <i class="mdi mdi-bank menu-icon"></i>
-                            <span class="menu-title">Quản lý tài chính</span>
+                            <span class="menu-title">Quản lý kho</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "MenuItem", new { area = "Admin" })">
+                        <a class="nav-link" href="@Url.Action("Index", "Supplier", new { area = "StaffWareHouse" })">
                             <i class="mdi mdi-food menu-icon"></i>
-                            <span class="menu-title">Quản lý món</span>
+                            <span class="menu-title">Quản lý nhà cung cấp</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Customer", new { area = "Admin" })">
+                        <a class="nav-link" href="@Url.Action("Index", "Transaction", new { area = "StaffWareHouse" })">
                             <i class="mdi mdi-account menu-icon"></i>
-                            <span class="menu-title">Quản lý khách hàng</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Staff", new { area = "Admin" })">
-                            <i class="mdi mdi-account-multiple menu-icon"></i>
-                            <span class="menu-title">Quản lý nhân sự</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Coupon", new { area = "Admin" })">
-                            <i class="mdi mdi-ticket-percent menu-icon"></i>
-                            <span class="menu-title">Quản lý khuyến mãi</span>
+                            <span class="menu-title">Quản lý nhập kho</span>
                         </a>
                     </li>
                 </ul>
             </nav>
             <!-- partial -->
-            <div>
+            <div class="w-100">
                 @RenderBody()
             </div>
             <!-- main-panel ends -->

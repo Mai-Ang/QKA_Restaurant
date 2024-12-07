@@ -34,7 +34,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         // Thêm mới sản phẩm 
         public ActionResult Create()
         {
-            return PartialView("~/Areas/Admin/Views/Shared/_CreateCoupon.cshtml");
+            return PartialView("~/Areas/Admin/Views/Shared/_CreateCoupont.cshtml");
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
                 return Json(new { success = true });
 
             }
-            return PartialView("~/Areas/Admin/Views/Shared/_CreateCoupon.cshtml", Coupon);
+            return PartialView("~/Areas/Admin/Views/Shared/_CreateCoupont.cshtml", Coupon);
         }
 
         // Điều chỉnh Coupon
@@ -65,7 +65,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             };
-            return PartialView("~/Areas/Admin/Views/Shared/_EditCoupon.cshtml", Coupon);
+            return PartialView("~/Areas/Admin/Views/Shared/_EditCoupont.cshtml", Coupon);
         }
         // Post Method
         [HttpPost]
@@ -96,7 +96,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
                 }
 
                 // Nếu có lỗi validation
-                return PartialView("~/Areas/Admin/Views/Shared/_EditCoupon.cshtml", Coupon);
+                return PartialView("~/Areas/Admin/Views/Shared/_EditCoupont.cshtml", Coupon);
             }
             catch (Exception)
             {
@@ -117,7 +117,7 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Areas/Admin/Views/Shared/_DeleteCoupon.cshtml", Coupon);
+            return PartialView("~/Areas/Admin/Views/Shared/_DeleteCoupont.cshtml", Coupon);
         }
 
         // Post Method

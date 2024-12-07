@@ -1,0 +1,88 @@
+﻿@model List<Restaurant_QKA.Models.Staff>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="billboard container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tiêu đề và mô tả -->
+                    <div>
+                        <h4 class="card-title">Danh Sách Nhân Sự</h4>
+                        <p class="card-description text-muted">Tổng quan về toàn bộ nhân viên trong hệ thống</p>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm và chọn danh mục -->
+                <div class="d-flex justify-content-between mb-4">
+                    <!-- Tìm kiếm khách hàng -->
+                    <div class="search-container">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Customer")">
+                            <input type="search" class="form-control" name="query" placeholder="Tìm kiếm nhân viên..." title="Search here">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách người dùng  -->
+                <div class="table-responsive">
+                    <!-- Tiêu đề bảng -->
+                    <table class="table table-hover w-100">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <th>Tên Nhân Viên</th>
+                                <th>Tên Tài Khoản</th>
+                                <th>Chức Vụ</th>
+                                <th>Vị Trí Phụ Trách</th>
+                                <th>Lương Cơ Bản</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <!-- Giá trị từng dòng -->
+                        <tbody class="text-center">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
+                                    <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.UserName</td>
+                                    <td>@item.Role</td>
+                                    <td>@item.PositionID</td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@item.BasicSalary</td>
+                                    <!-- Các nút action -->
+                                    <td>
+                                        @Html.ActionLink("Điều chỉnh", "Edit", new { id = item.StaffID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-primary editProfileButton",
+                                                                             @data_id = item.StaffID,
+                                                                             id = "editProfileButton"
+                                                                         })
+                                        @Html.ActionLink("Đổi mật khẩu", "Edit", new { id = item.StaffID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-warning editUserButton",
+                                                                             @data_id = item.StaffID,
+                                                                             id = "editUserButton"
+                                                                         })
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.StaffID },
+                                                                             new
+                                                                             {
+                                                                                 @class = "btn btn-danger deleteUserButton",
+                                                                                 @data_id = item.StaffID,
+                                                                                 id = "deleteUserButton"
+                                                                             })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

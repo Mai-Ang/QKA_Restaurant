@@ -1,4 +1,4 @@
-﻿@model D.Anthony_Restaurant_MVC.Models.Product
+﻿@model Restaurant_QKA.Models.MenuItem
 
 <div class="card shadow-sm p-4 mb-4 rounded">
     <!-- Product Title -->
@@ -11,7 +11,7 @@
             <!-- Product Image -->
             <div class="col-md-6 text-center">
                 <strong>Product Image:</strong><br />
-                <img src="@Url.Content("~/Content/Images/Products_Img/" + Model.ImageUrl)" class="img-fluid rounded shadow" alt="Product Image" style="max-height: 300px;" />
+                <img src="@Url.Content("~/Content/MenuItems/" + Model.ImageUrl)" class="img-fluid rounded shadow" alt="Product Image" style="max-height: 300px;" />
             </div>
 
             <!-- Description -->
@@ -30,19 +30,13 @@
                     <span class="badge bg-danger">Inactive</span>
                 }
                 <br />
-                <!-- Price -->
-                <strong>Price:</strong>
-                <p class="form-control-plaintext text-muted">@Html.DisplayFor(m => m.Price)</p>
-                <!-- Quantity -->
-                <strong>Quantity:</strong>
-                <p class="form-control-plaintext text-muted">@Html.DisplayFor(m => m.Quantity)</p>
             </div>
         </div>
     </div>
 
     <!-- Delete Form -->
     <div class="card-footer text-center">
-        @using (Html.BeginForm("Delete", "Products", FormMethod.Post, new { id = "deleteProductForm" }))
+        @using (Html.BeginForm("Delete", "MenuItem", new { area = "Admin" }, FormMethod.Post, new { id = "deleteProductForm" }))
         {
             @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-danger">Delete Product</button>

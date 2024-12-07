@@ -12,10 +12,6 @@ namespace Restaurant_QKA.Areas.User.Controllers
     {
         Restaurant_Entities db = new Restaurant_Entities();
 
-
-
-
-
         public ActionResult AddToCart(int menuItemId, int quantity)
         {
             // Lấy iduser từ Session

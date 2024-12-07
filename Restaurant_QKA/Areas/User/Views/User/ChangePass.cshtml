@@ -1,0 +1,91 @@
+﻿@model Restaurant_QKA.Models.Customer
+@{
+    ViewBag.Title = "ChangePass";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="vh-120 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center">
+            <div class="col col-lg-9 col-xl-8">
+                <div class="card">
+                    <form onsubmit="return validatePasswordBeforeSubmit()" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.CusID)
+
+                        <h2 class="text-uppercase text-center mb-5">Đổi Mật Khẩu </h2>
+                        <div class="card-body p-5">
+                            <div class="form-group d-flex">
+                                <div data-mdb-input-init class="form-outline mb-4 me-3 w-50">
+                                    <input type="email" id="Email" name="Email" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="Email">Email</label>
+                                </div>
+                                <div data-mdb-input-init class="form-outline mb-4 me-3 w-50">
+                                    <input type="password" id="OldPass" name="OldPass" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="OldPass">Mật Khẩu Cũ</label>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div data-mdb-input-init class="form-outline mb-4 me-3 w-50">
+                                    <input type="password" id="NewPass" name="NewPass" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="NewPass">Mật Khẩu Mới</label>
+                                </div>
+
+                                <div data-mdb-input-init class="form-outline mb-4 w-50">
+                                    <input type="password" id="NhapLaiMatKhau" name="NhapLaiMatKhau" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="NhapLaiMatKhau">Nhập Lại Mật Khẩu Mới</label>
+
+                                    <div id="error-message-pass" class="text-danger text-center mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div class="mb-4 me-4 w-25">
+                                    <button type="submit" class="btn btn-success" style="width:180px">Đổi Mật Khẩu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if(ViewBag.Success == true)
+     {
+         <text>
+            Swal.fire({
+                title: 'Đăng nhập thành công!',
+                text: 'Chào mừng đến với Seft_Restaurant!',
+                icon: 'success',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: 'OK',
+                timer: 3000,
+            }).then(() => {
+                window.location.href = '/Home/Index';
+            });
+         </text>
+     }
+    function validatePasswordBeforeSubmit()
+    {
+        const oldPass = document.getElementById("oldPass").value.trim();
+        const nhapLaiMatKhau = document.getElementById("NhapLaiMatKhau").value.trim();
+
+        const errorMessagePass = document.getElementById("error-message-pass");
+
+        // Kiểm tra mật khẩu
+        if (newPass !== nhapLaiMatKhau) {
+            errorMessagePass.innerText = "Mật khẩu mới không trùng khớp. Vui lòng nhập lại.";
+            return false; // Ngăn chặn việc gửi form
+        }
+        else {
+            errorMessagePass.innerText = ""; // Xóa lỗi nếu kiểm tra đúng
+        }
+
+        return true; // Cho phép gửi form nếu tất cả kiểm tra đều hợp lệ
+    }
+</script>
