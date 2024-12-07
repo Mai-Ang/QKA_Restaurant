@@ -63,7 +63,7 @@ namespace Restaurant_QKA.Areas.StaffOrder.Controllers
 
             if (order != null)
             {
-                order.Status = "1"; // "2" là trạng thái đã giao
+                order.Status = "1"; 
                 order.DeliveryDate = DateTime.Now;
 
                 try
