@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Restaurant_QKA.Services;
+using System.Net;
 
 namespace Restaurant_QKA.Areas.User.Controllers
 {
@@ -211,7 +213,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
 
 
         [HttpPost]
-        public ActionResult Checkout(int? iduser, string paymentMethod, string valuecoupon, int? idcoupon)
+        public ActionResult Checkout(int? iduser, string paymentMethod, string valuecoupon, int? idcoupon, string address)
         {
             if (iduser == null) return RedirectToAction("Login", "User");
 
@@ -225,64 +227,40 @@ namespace Restaurant_QKA.Areas.User.Controllers
 
             if (cartitems.Count > 0)
             {
-                // Duyệt qua danh sách trong giỏ hàng kiểm tra số lượng hợp lệ
-
                 var flagquan = 0;
                 foreach (var item in cartitems)
                 {
-                    // Tìm sản phẩm theo MenuItemID
                     var pro = db.MenuItems.FirstOrDefault(p => p.ItemID == item.MenuItemID);
-
-                    // Kiểm tra nếu sản phẩm tồn tại (pro != null) và so sánh số lượng
                     if (pro != null && item.Quantity > pro.Quantity)
                     {
-                        flagquan++;  // Tăng flag nếu số lượng trong giỏ hàng lớn hơn số lượng tồn kho
+                        flagquan++;
                     }
                 }
 
-                // Nếu có sản phẩm nào vượt quá số lượng tồn kho
                 if (flagquan > 0)
                 {
-                    // Trả về thông báo lỗi
                     return Json(new { success = false, error = true, Flagquan = 1 });
                 }
-
                 else
                 {
-                    // Tính tổng tiền hàng và mã giảm giá 
-                    decimal sumitems = 0;
-                    decimal decreasevalue = 0;
-                    foreach (var item in cartitems)
-                    {
-                        sumitems += (decimal)item.Total;
-                    }
-
-                    if (String.IsNullOrEmpty(valuecoupon))
-                    {
-                        decreasevalue = 0;
-                    }
-                    else
-                    {
-                        decreasevalue = int.Parse(valuecoupon);
-                    }
+                    decimal sumitems = cartitems.Sum(item => (decimal)item.Total);
+                    decimal decreasevalue = string.IsNullOrEmpty(valuecoupon) ? 0 : int.Parse(valuecoupon);
                     sumitems = sumitems - ((decreasevalue * sumitems) / 100);
 
-                    // Tạo mới đơn hàng 
                     var newoder = new Order
                     {
                         CusID = iduser,
-                        CouponID = (idcoupon == null) ? null : idcoupon,
+                        CouponID = idcoupon,
                         Total = sumitems,
                         Status = "0",
                         OrderDate = DateTime.Now,
                         DeliveryDate = null,
-                        DeliveryAddress = null,
+                        DeliveryAddress = address,
                         PaymentID = int.Parse(paymentMethod),
                     };
                     db.Orders.Add(newoder);
                     db.SaveChanges();
 
-                    // Tạo mới chi tiết đơn 
                     foreach (var item in cartitems)
                     {
                         var neworderdetail = new OrderDetail
@@ -295,36 +273,16 @@ namespace Restaurant_QKA.Areas.User.Controllers
                         };
                         db.OrderDetails.Add(neworderdetail);
 
-                        // Điều chỉnh lại số lượng sản phẩm sau khi đặt hàng
                         var existproduct = db.MenuItems.FirstOrDefault(p => p.ItemID == item.MenuItemID);
                         existproduct.Quantity -= item.Quantity;
                         db.Entry(existproduct).State = EntityState.Modified;
                     }
-                    // Xóa giỏ hàng user 
+
                     ClearCart(iduser);
                     db.SaveChanges();
 
-                    // Tạo mới hóa đơn
                     int valuepayment = int.Parse(paymentMethod);
-
-                    //EWallet
                     if (valuepayment == 1)
-                    {
-                        var newinvoice = new Invoice
-                        {
-                            OrderID = newoder.OrderID,
-                            Total = newoder.Total,
-                            CreatedDate = DateTime.Now,
-                            Status = "0",
-                            PaymentID = 2,
-                        };
-                        newoder.Status = "1";
-                        db.Entry(newoder).State = EntityState.Modified;
-                        db.Invoices.Add(newinvoice);
-                        db.SaveChanges();
-                    }
-                    // Direct method
-                    else if (valuepayment == 2)
                     {
                         var newinvoice = new Invoice
                         {
@@ -334,11 +292,12 @@ namespace Restaurant_QKA.Areas.User.Controllers
                             Status = "1",
                             PaymentID = 1,
                         };
+                        
+                        db.Entry(newoder).State = EntityState.Modified;
                         db.Invoices.Add(newinvoice);
                         db.SaveChanges();
                     }
-                    // [CreditCard]
-                    else if (valuepayment == 3)
+                    else if (valuepayment == 2)
                     {
                         var newinvoice = new Invoice
                         {
@@ -346,11 +305,37 @@ namespace Restaurant_QKA.Areas.User.Controllers
                             Total = newoder.Total,
                             CreatedDate = DateTime.Now,
                             Status = "1",
+                            PaymentID = 2,
+                        };
+                        
+                        db.Invoices.Add(newinvoice);
+                        db.SaveChanges();
+                    }
+                    else if (valuepayment == 3)
+                    {
+                        var newinvoice = new Invoice
+                        {
+                            OrderID = newoder.OrderID,
+                            Total = newoder.Total,
+                            CreatedDate = DateTime.Now,
+                            Status = "0",
                             PaymentID = 3,
                         };
                         db.Invoices.Add(newinvoice);
                         db.SaveChanges();
                     }
+
+                    // Gửi email xác nhận
+                    var emailService = new EmailService();
+                    string subject = "Xác nhận đơn hàng từ QKA Restaurant";
+                    string body = $@"
+                        <h1>Cảm ơn bạn đã đặt hàng tại QKA Restaurant!</h1>
+                        <p>Mã đơn hàng của bạn là: <strong>{newoder.OrderID}</strong>.</p>
+                        <p>Tổng tiền: <strong>{newoder.Total:N0} VND</strong>.</p>
+                        <p>Chúng tôi sẽ giao hàng sớm nhất.</p>";
+                    var customerEmail = db.Customers.FirstOrDefault(u => u.CusID == iduser)?.Email;
+                    emailService.SendEmail(customerEmail, subject, body);
+
                     return Json(new { success = true });
                 }
             }
@@ -361,5 +346,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
         }
 
 
+
+        
     }
 }

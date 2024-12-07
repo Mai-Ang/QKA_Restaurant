@@ -1,0 +1,226 @@
+﻿@*@model IEnumerable<Restaurant_QKA.Models.Order>*@
+@{
+    ViewBag.Title = "Lịch Sử Đơn Hàng";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Lịch Sử Đơn Hàng</h2>
+
+    <!-- Tabs cho các trạng thái -->
+    <ul class="nav nav-tabs" id="orderTabs" role="tablist" style="width: 50%;">
+        <li class="nav-item">
+            <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab">Chờ Xác Nhận</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab">Chờ Giao</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab">Đã Giao</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="canceled-tab" data-toggle="tab" href="#canceled" role="tab">Đã Hủy</a>
+        </li>
+    </ul>
+
+    <!-- Nội dung của từng tab -->
+    <div class="tab-content" id="orderTabsContent">
+        <!-- Chờ xác nhận -->
+        <div class="tab-pane fade show active" id="pending" role="tabpanel">
+            @if (ViewBag.PendingOrders.Count > 0)
+            {
+                <div class="list-group mt-3">
+                    @foreach (var order in ViewBag.PendingOrders)
+                    {
+                        <div class="list-group-item p-3 mb-3 border rounded shadow-sm"  style="width: 33%;">
+                            <h5 class="font-weight-bold">Đơn Hàng ID: @order.OrderID</h5>
+                            <div class="order-details">
+                                @foreach (var orderDetail in order.OrderDetails)
+                                {
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!-- Ảnh món ăn -->
+                                        <div class="mr-3">
+                                            <img src="@Url.Content("~/Content/MenuItems/" + orderDetail.MenuItem.ImageUrl)"
+                                                 alt="@orderDetail.MenuItem.Name"
+                                                 class="img-fluid"
+                                                 style="height: 90px; width: 90px; object-fit: cover; border-radius: 8px;" />
+                                        </div>
+
+                                        <!-- Thông tin món ăn (Tên, Số lượng, Giá) -->
+                                        <div style="margin-left: 20px">
+                                            <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
+                                            <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
+                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="text-muted mb-0"><strong>Ngày đặt:</strong> @order.DeliveryDate</p>
+
+                            <!-- Nút hủy đơn -->
+                            <form method="post" action="@Url.Action("CancelOrder", "OrderHistory")">
+                                <input type="hidden" name="orderId" value="@order.OrderID" />
+                                <button type="submit" class="btn btn-danger btn-sm mt-2">Hủy Đơn</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mt-3">Không có đơn hàng nào đang chờ xác nhận.</p>
+            }
+        </div>
+
+
+
+        <!-- Chờ giao -->
+        <div class="tab-pane fade" id="shipping" role="tabpanel">
+            @if (ViewBag.ShippingOrders.Count > 0)
+            {
+                <div class="list-group mt-3  d-flex" >
+                    @foreach (var order in ViewBag.ShippingOrders)
+                    {
+                        <div class="list-group-item p-3 mb-3 border rounded shadow-sm"  style="width: 33%;">
+                            <h5 class="font-weight-bold">Đơn Hàng ID: @order.OrderID</h5>
+                            <div class="order-details">
+                                @foreach (var orderDetail in order.OrderDetails)
+                                {
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!-- Ảnh món ăn -->
+                                        <div class="mr-3">
+                                            <img src="@Url.Content("~/Content/MenuItems/" + orderDetail.MenuItem.ImageUrl)"
+                                                 alt="@orderDetail.MenuItem.Name"
+                                                 class="img-fluid"
+                                                 style="height: 90px; width: 90px; object-fit: cover; border-radius: 8px;" />
+                                        </div>
+
+                                        <!-- Thông tin món ăn (Tên, Số lượng, Giá) -->
+                                        <div  style="margin-left: 20px">
+                                            <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
+                                            <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
+                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="text-muted mb-0"><strong>Ngày đặt:</strong> @order.OrderDate.ToString("dd/MM/yyyy")</p>
+
+                            <!-- Nút xác nhận đã nhận hàng -->
+                            <form action="@Url.Action("ConfirmReceived", "OrderHistory")" method="post" style="display: inline;">
+                                <input type="hidden" name="orderId" value="@order.OrderID" />
+                                <button type="submit" class="btn btn-success mt-2">Xác nhận đã nhận hàng</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mt-3">Không có đơn hàng nào đang chờ giao.</p>
+            }
+        </div>
+
+
+
+        <!-- Đã giao -->
+        <div class="tab-pane fade" id="delivered" role="tabpanel">
+            @if (ViewBag.DeliveredOrders.Count > 0)
+            {
+                <div class="list-group mt-3">
+                    @foreach (var order in ViewBag.DeliveredOrders)
+                    {
+                        <div class="list-group-item p-3 mb-3 border rounded shadow-sm"  style="width: 33%;">
+                            <h5 class="font-weight-bold">Đơn Hàng ID: @order.OrderID</h5>
+                            <div class="order-details">
+                                @foreach (var orderDetail in order.OrderDetails)
+                                {
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!-- Ảnh món ăn -->
+                                        <div class="mr-3">
+                                            <img src="@Url.Content("~/Content/MenuItems/" + orderDetail.MenuItem.ImageUrl)"
+                                                 alt="@orderDetail.MenuItem.Name"
+                                                 class="img-fluid"
+                                                 style="height: 90px; width: 90px; object-fit: cover; border-radius: 8px;" />
+                                        </div>
+
+                                        <!-- Thông tin món ăn (Tên, Số lượng, Giá) -->
+                                        <div  style="margin-left: 20px">
+                                            <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
+                                            <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
+                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="text-muted mb-0"><strong>Ngày giao:</strong> @order.DeliveryDate</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mt-3">Không có đơn hàng nào đã giao.</p>
+            }
+        </div>
+
+
+        <!-- Đã hủy -->
+        <div class="tab-pane fade" id="canceled" role="tabpanel">
+            @if (ViewBag.CanceledOrders.Count > 0)
+            {
+                <div class="list-group mt-3 d-flex form-group"  >
+                    @foreach (var order in ViewBag.CanceledOrders)
+                    {
+                        <div class="list-group-item p-3 mb-3 border rounded shadow-sm" style="width: 33%;">
+                            <h5 class="font-weight-bold">Đơn Hàng ID: @order.OrderID</h5>
+                            <div class="order-details">
+                                @foreach (var orderDetail in order.OrderDetails)
+                                {
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!-- Ảnh món ăn -->
+                                        <div class="mr-3">
+                                            <img src="@Url.Content("~/Content/MenuItems/" + orderDetail.MenuItem.ImageUrl)"
+                                                 alt="@orderDetail.MenuItem.Name"
+                                                 class="img-fluid"
+                                                 style="height: 90px; width: 90px; object-fit: cover; border-radius: 8px;" />
+                                        </div>
+
+                                        <!-- Thông tin món ăn (Tên, Số lượng, Giá) -->
+                                        <div  style="margin-left: 20px">
+                                            <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
+                                            <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
+                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="text-muted mb-0"><strong>Ngày hủy:</strong> @order.OrderDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mt-3">Không có đơn hàng nào đã hủy.</p>
+            }
+        </div>
+
+    </div>
+</div>
+<!-- CSS của Bootstrap -->
+@*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- JS của Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

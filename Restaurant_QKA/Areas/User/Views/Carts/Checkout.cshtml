@@ -4,7 +4,7 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top: 20px">Checkout</h2>
+
 <div>
     <h3>Thông tin giỏ hàng</h3>
     <table class="table table-bordered">
@@ -63,14 +63,12 @@
             <label for="paymentMethod">Phương thức thanh toán</label>
             <select name="paymentMethod" id="paymentMethod" class="form-control" required>
                 <option value="">-- Chọn phương thức thanh toán --</option>
-                <option value="1">Ví điện tử</option>
-                <option value="2">Thanh toán trực tiếp</option>
-                <option value="3">Thẻ tín dụng</option>
+                <option value="1">Thẻ tín dụng</option>
+                <option value="2">Ví điện tử</option>
+                <option value="3">Thanh toán trực tiếp</option>
             </select>
-
-            <!-- Nút để mở Modal (cần ID #openModalButton) -->
-
         </div>
+
 
 
 
@@ -80,15 +78,22 @@
             <input type="text" name="valuecoupon" id="valuecoupon" class="form-control" placeholder="Nhập mã giảm giá nếu có" />
         </div>
 
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="" value="Thủ Dầu Một, Bình Dương" required />
+        </div>
+
+
         <!-- Hiển thị nút thanh toán nếu người dùng đã đăng nhập -->
         @if (Session["UserID"] != null)
         {
-            <button type="submit" class="btn btn-primary">Thanh toán</button>
+            <button type="button" class="btn btn-primary my-2" id="btnCheckout">Thanh toán</button>
         }
         else
         {
             <p>Bạn cần đăng nhập để thanh toán.</p>
         }
+
     </form>
 </div>
 
@@ -100,27 +105,161 @@
 
 
 
-<!-- Modal -->
-<div class="modal" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+<!-- Modal Ví điện tử -->
+<div class="modal fade" id="modalEWallet" tabindex="-1" role="dialog" aria-labelledby="modalEWalletLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalEWalletLabel">
+                    <i class="fas fa-wallet"></i> Thanh toán bằng Ví điện tử
+                </h5>
+                <button type="button" class="btn-close text-white" onclick="handleCloseModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Vui lòng quét mã QR để hoàn tất thanh toán.</p>
+                <img src="https://via.placeholder.com/150" alt="QR Code" class="img-fluid rounded shadow">
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .modal-header {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .modal-footer .btn {
+        min-width: 100px;
+    }
+
+    .modal-body img {
+        margin-top: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+
+<!-- Modal Thanh toán trực tiếp -->
+<div class="modal" id="modalDirect" tabindex="-1" role="dialog" aria-labelledby="modalDirectLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Chọn phương thức thanh toán</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="modalDirectLabel">Thanh toán trực tiếp</h5>
+                <button type="button" class="close" onclick="handleCloseModal()" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Đây là modal hiển thị khi bạn chọn phương thức thanh toán.
+                Đây là thông tin thanh toán trực tiếp.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
                 <button type="button" class="btn btn-primary">Xác nhận</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal Thẻ tín dụng -->
+<div class="modal" id="modalCreditCard" tabindex="-1" role="dialog" aria-labelledby="modalCreditCardLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCreditCardLabel">Thanh toán bằng Thẻ tín dụng</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="handleCloseModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Đây là thông tin thanh toán bằng thẻ tín dụng.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
+
+
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    @*<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-lg shadow-lg">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center w-[2px] h-[2px]">
+                Checkmark Icon
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                Success Message
+                <h4 class="text-sm font-semibold text-gray-800">Thanh toán thành công!</h4>
+            </div>
+
+
+
+        </div>
+
+    </div>*@
+</div>
+
+<!-- Custom CSS for Modal Styling -->
+<!--<style>
+    .modal-dialog {
+        max-width: 50px; /* Set width to 120px */
+        max-height: 20px; /* Set height to 70px */
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        border-radius: 10px;
+        height: 70px; /* Ensure content respects the set height */
+        width: 120px; /* Ensure content respects the set width */
+    }
+
+    .modal-header {
+        background-color: #f4f4f4;
+        border-bottom: 1px solid #ddd;
+        font-size: 12px; /* Reduce font size for small modal */
+    }
+
+    .modal-body {
+        padding: 15px; /* Reduce padding for a more compact layout */
+    }
+
+    .btn-close {
+        border: none;
+        background: transparent;
+        font-size: 1rem;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .modal-footer {
+        justify-content: center;
+        padding: 0; /* Remove extra padding */
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.7;
+    }
+</style>-->
 
 
 
@@ -129,16 +268,28 @@
 
 
 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    // Hàm kiểm tra khi nhấn nút thanh toán
-    function submitOrder(iduser, valuecoupon, idcoupon) {
-        // Lấy giá trị phương thức thanh toán được chọn
-        const paymentSelect = document.getElementById('payment');
-        const paymentMethod = paymentSelect.value;
+    function handleCloseModal() {
+        $('.modal').modal('hide');
+    }
+</script>
+
+
+
+<!-- Thêm link Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('btnCheckout').addEventListener('click', async function () {
+        const paymentMethod = document.getElementById('paymentMethod').value;
 
         if (!paymentMethod) {
-            // Hiển thị thông báo lỗi nếu chưa chọn phương thức thanh toán
             Swal.fire({
                 icon: 'error',
                 title: 'Lỗi',
@@ -147,133 +298,123 @@
             return;
         }
 
-        processOrder(iduser, paymentMethod, valuecoupon, idcoupon).then(flagsuccess => {
-            if (flagsuccess) {
-                if (paymentMethod == 1) {
-                    // Hiển thị modal và bắt đầu countdown
-                    const qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
-                    const countdownElement = document.getElementById('countdown');
-                    let countdown = 10; // Số giây đếm ngược
+        // Hiển thị modal tương ứng
+        let modalID = '';
+        switch (paymentMethod) {
+            case '1':
+                modalID = 'modalEWallet'; // Ví điện tử
+                break;
+            case '2':
+                modalID = 'modalDirect'; // Thanh toán trực tiếp
+                break;
+            case '3':
+                modalID = 'modalCreditCard'; // Thẻ tín dụng
+                break;
+            default:
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Phương thức thanh toán không hợp lệ!',
+                });
+                return;
+        }
 
-                    qrModal.show(); // Hiển thị modal
-                    countdownElement.textContent = countdown;
+        // Hiển thị modal và bắt đầu đếm ngược
+        const modal = new bootstrap.Modal(document.getElementById(modalID));
+        const countdownElement = document.createElement('div');
+        countdownElement.classList.add('alert', 'alert-info', 'mt-3');
+        countdownElement.textContent = 'Modal sẽ tự động đóng sau 20 giây.';
+        document.getElementById(modalID).querySelector('.modal-body').appendChild(countdownElement);
 
-                    const interval = setInterval(() => {
-                        countdown -= 1;
-                        countdownElement.textContent = countdown;
+        modal.show();
 
-                        if (countdown <= 0) {
-                            clearInterval(interval);
-                            qrModal.hide(); // Tắt modal sau khi countdown kết thúc
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Thành công',
-                                text: 'Đơn hàng đã được tạo thành công!',
-                            }).then(() => {
-                                // Làm mới trang hoặc chuyển hướng sau khi xử lý xong
-                                window.location.reload();
-                            });
-                        }
-                    }, 1000)
-                }
+        // Bắt đầu countdown
+        let countdown = 2;
+        const interval = setInterval(() => {
+            countdown -= 1;
+            countdownElement.textContent = `Modal sẽ tự động đóng sau ${countdown} giây.`;
 
+            if (countdown <= 0) {
+                clearInterval(interval);
+                modal.hide();
+
+                // Gửi yêu cầu thanh toán đến server
+                handleCheckout(paymentMethod);
             }
-        });
-    }
+        }, 1000);
+    });
 
+    async function handleCheckout(paymentMethod) {
+        const iduser = document.querySelector('input[name="iduser"]').value;
+        const valuecoupon = document.querySelector('input[name="valuecoupon"]').value;
+        const address = document.querySelector('input[name="address"]').value;
 
-    // Gửi yêu cầu đến backend
-    function processOrder(iduser, paymentMethod, valuecoupon, idcoupon) {
-        return fetch('/Carts/Checkout', {
+        const response = await fetch('/Carts/Checkout', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
             },
             body: JSON.stringify({
                 iduser: iduser,
                 paymentMethod: paymentMethod,
                 valuecoupon: valuecoupon,
-                idcoupon: idcoupon
+                idcoupon: null, // Add coupon code if needed
+                address: address,
             })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (paymentMethod == 1) {
-                        // Với thanh toán Momo, không hiển thị thông báo Swal.fire
-                        return true;
-                    } else {
-                        // Hiển thị thông báo thành công cho các phương thức khác
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thành công',
-                            text: 'Đơn hàng đã được tạo thành công!',
-                        }).then(() => {
-                            // Làm mới trang hoặc chuyển hướng sau khi xử lý xong
-                            window.location.reload();
-                        });
-                        return true;
-                    }
-                } else if (data.error && data.Flagquan === 1) {
-                    // Thông báo lỗi do số lượng không đủ
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Số lượng tồn không hợp lệ. Vui lòng kiểm tra lại!',
-                    });
-                    return false;
-                } else {
-                    // Thông báo lỗi khác từ backend
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Giỏ hàng trống. Vui lòng mua thêm sản phẩm!',
-                    });
-                    return false;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Hiển thị thông báo lỗi nếu có sự cố trong quá trình xử lý
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+
+            // If ViewBag.Success is true, show a custom SweetAlert message and redirect
+            if (result.success) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Không thể xử lý yêu cầu của bạn. Vui lòng thử lại sau!',
+                    title: 'Thanh toán thành công!',
+                    text: 'Chào mừng đến với Seft_Restaurant!',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    confirmButtonText: 'OK',
+                    //timer: 3000
+                }).then(() => {
+                    window.location.href = '/Home/Index';
                 });
-                return false;
+            }
+
+            // Redirect after 3 seconds if success
+            setTimeout(() => {
+                window.location.href = "/Home/Index";
+            }, 30000000);
+        } else if (result.Flagquan === 1) {
+            // Handle quantity error
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Số lượng tồn không hợp lệ. Vui lòng kiểm tra lại!',
             });
+        } else {
+            // Handle checkout failure
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Thanh toán không thành công. Vui lòng thử lại!',
+            });
+        }
     }
 
-    $("#checkoutForm").on("submit", function (e) {
-        e.preventDefault();
 
-        var form = $(this);
-        var token = $("input[name='__RequestVerificationToken']").val();  // Lấy token từ form
 
-        $.ajax({
-            type: "POST",
-            url: form.attr("action"),
-            data: form.serialize() + "&__RequestVerificationToken=" + token,  // Thêm token vào dữ liệu
-            success: function (response) {
-                if (response.success) {
-                    alert("Đặt hàng thành công!");
-                    window.location.href = '/User/Home/Index';
-                } else if (response.error && response.Flagquan === 1) {
-                    alert("Số lượng sản phẩm không đủ trong kho. Vui lòng kiểm tra lại!");
-                } else {
-                    alert("Có lỗi xảy ra. Vui lòng thử lại!");
-                }
-            },
-            error: function () {
-                alert("Không thể gửi yêu cầu. Vui lòng thử lại sau.");
-            }
-        });
-    });
 </script>
 
 
+
 <!-- Thêm CSS của Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">*@
 
 <!-- Thêm jQuery đầy đủ (không phải slim) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -281,3 +422,14 @@
 <!-- Thêm JavaScript của Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- Bootstrap CSS -->
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">*@
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
