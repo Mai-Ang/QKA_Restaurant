@@ -140,6 +140,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
+    <Compile Include="Areas\StaffOrder\Controllers\HomeOrderController.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
     <Compile Include="Areas\StaffWareHouse\StaffWareHouseAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\CartsController.cs" />
@@ -1346,6 +1347,8 @@
     <Content Include="Areas\User\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\User\Views\Carts\Checkout.cshtml" />
     <Content Include="Areas\User\Views\OrderHistory\Index.cshtml" />
+    <Content Include="Areas\StaffOrder\Views\Shared\_LayoutStaffOrder.cshtml" />
+    <Content Include="Areas\StaffOrder\Views\HomeOrder\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1374,9 +1377,8 @@
     <Folder Include="Areas\StaffChef\Controllers\" />
     <Folder Include="Areas\StaffChef\Data\" />
     <Folder Include="Areas\StaffChef\Views\Shared\" />
-    <Folder Include="Areas\StaffOrder\Controllers\" />
     <Folder Include="Areas\StaffOrder\Data\" />
-    <Folder Include="Areas\StaffOrder\Views\Shared\" />
+    <Folder Include="Areas\StaffOrder\Views\Orders\" />
     <Folder Include="Areas\StaffWareHouse\Controllers\" />
     <Folder Include="Areas\StaffWareHouse\Data\" />
     <Folder Include="Areas\StaffWareHouse\Views\Shared\" />

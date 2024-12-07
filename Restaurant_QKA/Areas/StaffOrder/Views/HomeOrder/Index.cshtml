@@ -1,0 +1,338 @@
+﻿@model IEnumerable<Restaurant_QKA.Models.Order>
+@{
+    ViewBag.Title = "Lịch Sử Đơn Hàng";
+    Layout = "~/Areas/StaffOrder/Views/Shared/_LayoutStaffOrder.cshtml";
+}
+
+<div class="container mt-4 w-100">
+    <h2 class="mb-4">Quản lý Đơn Hàng</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <!-- Tabs cho các trạng thái -->
+    <ul class="nav nav-tabs" id="orderTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab">Chờ Xác Nhận</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab">Chờ Giao</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab">Đã Giao</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="canceled-tab" data-toggle="tab" href="#canceled" role="tab">Đã Hủy</a>
+        </li>
+    </ul>
+
+    <!-- Nội dung của từng tab -->
+    <div class="tab-content" id="orderTabsContent">
+
+        <!-- Chờ xác nhận -->
+        <div class="tab-pane fade show active" id="pending" role="tabpanel">
+            @if (ViewBag.PendingOrders != null && ViewBag.PendingOrders.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered mt-1" style="width: 100%;">
+                        <!-- Đặt chiều rộng của bảng 100% -->
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Thông Tin Món</th>
+                                <th>Tổng Tiền</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Ngày Đặt</th>
+                                @*<th>Địa chỉ giao</th>*@
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in ViewBag.PendingOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>
+                                        @foreach (var orderDetail in order.OrderDetails)
+                                        {
+                                            <p><strong>@orderDetail.MenuItem.Name</strong></p>
+                                        }
+                                    </td>
+                                    <td>@order.Total.ToString("C")</td>
+                                    <td>@order.Payment.Name</td>
+                                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                    @*<td>@order.DeliveryAddress</td>*@
+                                    <td>
+                                        <!-- Nút Hủy Đơn -->
+                                        <button type="button" class="btn btn-danger btn-sm delete-order-btn" data-toggle="modal" data-target="#confirmCancelModal" data-orderid="@order.OrderID">
+                                            <i class="fas fa-times"></i> Hủy Đơn
+                                        </button>
+
+                                        <!-- Form Xác Nhận Đơn Hàng -->
+                                        <form method="post" action="@Url.Action("ConfirmReceived", "HomeOrder")" style="display: inline;">
+                                            <input type="hidden" name="orderId" value="@order.OrderID" />
+                                            <!-- Nút Xác Nhận -->
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#confirmReceivedModal" data-orderid="@order.OrderID">
+                                                <i class="fas fa-check"></i> Xác Nhận
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    Không có đơn hàng nào đang chờ xác nhận.
+                </div>
+            }
+        </div>
+
+        <!-- Chờ giao -->
+        <div class="tab-pane fade" id="shipping" role="tabpanel">
+            @if (ViewBag.ShippingOrders != null && ViewBag.ShippingOrders.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered mt-3" style="width: 100%;">
+                        <!-- Đặt chiều rộng của bảng 100% -->
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Đơn Hàng ID</th>
+                                <th>Thông Tin Món</th>
+                                <th>Tổng Tiền</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Ngày Đặt</th>
+                                <th>Địa chỉ giao</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in ViewBag.ShippingOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>
+                                        @foreach (var orderDetail in order.OrderDetails)
+                                        {
+                                            <p><strong>@orderDetail.MenuItem.Name</strong></p>
+                                        }
+                                    </td>
+                                    <td>@order.Total.ToString("C")</td>
+                                    <td>@order.Payment.Name</td>
+                                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@order.DeliveryAddress</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    Không có đơn hàng nào đang chờ giao.
+                </div>
+            }
+        </div>
+
+        <!-- Đã giao -->
+        <div class="tab-pane fade" id="delivered" role="tabpanel">
+            @if (ViewBag.DeliveredOrders != null && ViewBag.DeliveredOrders.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered mt-3" style="width: 100%;">
+                        <!-- Đặt chiều rộng của bảng 100% -->
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Đơn Hàng ID</th>
+                                <th>Thông Tin Món</th>
+                                <th>Tổng Tiền</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Ngày Đặt</th>
+                                <th>Địa chỉ giao</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in ViewBag.DeliveredOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>
+                                        @foreach (var orderDetail in order.OrderDetails)
+                                        {
+                                            <p><strong>@orderDetail.MenuItem.Name</strong></p>
+                                        }
+                                    </td>
+                                    <td>@order.Total.ToString("C")</td>
+                                    <td>@order.Payment.Name</td>
+                                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@order.DeliveryAddress</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    Không có đơn hàng nào đã giao.
+                </div>
+            }
+        </div>
+
+        <!-- Đã hủy -->
+        <div class="tab-pane fade" id="canceled" role="tabpanel">
+            @if (ViewBag.CanceledOrders != null && ViewBag.CanceledOrders.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered mt-3" style="width: 100%;">
+                        <!-- Đặt chiều rộng của bảng 100% -->
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Đơn Hàng ID</th>
+                                <th>Thông Tin Món</th>
+                                <th>Tổng Tiền</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Ngày Đặt</th>
+                                <th>Địa chỉ giao</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in ViewBag.CanceledOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>
+                                        @foreach (var orderDetail in order.OrderDetails)
+                                        {
+                                            <p><strong>@orderDetail.MenuItem.Name</strong></p>
+                                        }
+                                    </td>
+                                    <td>@order.Total.ToString("C")</td>
+                                    <td>@order.Payment.Name</td>
+                                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@order.DeliveryAddress</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    Không có đơn hàng nào đã hủy.
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="confirmCancelModal" tabindex="-1" role="dialog" aria-labelledby="confirmCancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmCancelModalLabel">Xác Nhận Hủy Đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn hủy đơn hàng này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmCancelButton">Xác Nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirmReceivedModal" tabindex="-1" role="dialog" aria-labelledby="confirmReceivedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmReceivedModalLabel">Xác Nhận Đã Nhận Hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xác nhận rằng đơn hàng này đã được nhận?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-success" id="confirmReceivedButton">Xác Nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Thêm Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- jQuery và Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var orderIdToDelete = null;
+
+        // Khi người dùng nhấn nút "Hủy Đơn", lấy OrderID và gán vào biến orderIdToDelete
+        $(".delete-order-btn").click(function() {
+            orderIdToDelete = $(this).data("orderid");
+        });
+
+        // Khi người dùng nhấn "Xác Nhận" trong modal
+        $("#confirmCancelButton").click(function() {
+            if (orderIdToDelete !== null) {
+                // Gửi form hủy đơn khi người dùng xác nhận
+                var form = $("<form method='post' action='@Url.Action("CancelOrder", "HomeOrder")'></form>");
+                form.append('<input type="hidden" name="orderId" value="' + orderIdToDelete + '" />');
+                $("body").append(form);
+                form.submit();
+            }
+        });
+    });
+
+
+
+
+    $(document).ready(function() {
+    var orderIdToConfirm = null;
+
+    // Khi người dùng nhấn nút "Xác nhận đã nhận hàng", lưu OrderID
+    $(".btn-success.mt-2").click(function() {
+        orderIdToConfirm = $(this).data("orderid");
+    });
+
+    // Khi người dùng nhấn "Xác Nhận" trong modal
+    $("#confirmReceivedButton").click(function() {
+        if (orderIdToConfirm !== null) {
+            // Tạo form động và gửi đi
+            var form = $("<form method='post' action='@Url.Action("ConfirmReceived", "HomeOrder")'></form>");
+            form.append('<input type="hidden" name="orderId" value="' + orderIdToConfirm + '" />');
+            $("body").append(form);
+            form.submit();
+        }
+    });
+});
+
+
+</script>
