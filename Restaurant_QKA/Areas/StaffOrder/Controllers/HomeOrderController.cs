@@ -12,6 +12,7 @@ namespace Restaurant_QKA.Areas.StaffOrder.Controllers
         Restaurant_Entities db = new Restaurant_Entities();
         public ActionResult Index()
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
             // Lấy danh sách đơn hàng từ cơ sở dữ liệu
             var orders = db.Orders.ToList();
 
@@ -28,6 +29,7 @@ namespace Restaurant_QKA.Areas.StaffOrder.Controllers
         [HttpPost]
         public ActionResult CancelOrder(int orderId)
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
             var order = db.Orders.FirstOrDefault(o => o.OrderID == orderId);
 
             if (order != null)

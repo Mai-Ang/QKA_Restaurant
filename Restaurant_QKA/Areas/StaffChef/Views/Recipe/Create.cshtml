@@ -1,0 +1,33 @@
+﻿@model List<Restaurant_QKA.Models.WareHouse>
+
+@{
+    ViewBag.Title = "Thêm công thức cho món ăn";
+    Layout = "~/Areas/StaffChef/Views/Shared/_LayoutStaffChef.cshtml";
+}
+
+<h2>@ViewBag.MenuItemName</h2>
+
+@using (Html.BeginForm("Create", "Recipe", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="material">Chọn nguyên liệu:</label>
+        <select id="material" name="MaterialID" class="form-control">
+            @foreach (var item in Model)
+            {
+                if (!ViewBag.UsedMaterials.Contains(item.MaterialID))
+                {
+                    <option value="@item.MaterialID">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Số lượng:</label>
+        <input type="number" id="quantity" name="Quantity" class="form-control" required />
+    </div>
+
+    <input type="hidden" name="ItemID" value="@ViewBag.MenuItemId" />
+
+    <button type="submit" class="btn btn-primary">Thêm công thức</button>
+}

@@ -52,7 +52,7 @@
                     <li class="nav-item fw-semibold d-none d-lg-block ms-0">
                         <h1 class="text" style="font-size:medium">Xin chào, <span class="text-success fw-bold">@Session["UserName"]</span></h1>
                         <h3 class="text" style="font-size:medium">Chúc bạn có một ngày làm việc vui vẻ!</h3>
-                        <h3 class="text" style="font-size:medium">Bạn đang đăng nhập dưới quyền nhân viên duyệt đơn!</h3>
+                        <h3 class="text" style="font-size:medium">Bạn đang đăng nhập dưới quyền nhân viên bếp!</h3>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -122,16 +122,24 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #EEEEEE; margin-right:10px;">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">
+                        <a class="nav-link" href="@Url.Action("Index", "Menu", new { area = "StaffChef" })">
                             <i class="mdi mdi-bank menu-icon"></i>
-                            <span class="menu-title">Quản lý đơn hàng</span>
+                            <span class="menu-title">Quản lý món</span>
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "WareHouse", new { area = "StaffChef" })">
+                            <i class="mdi mdi-bank menu-icon"></i>
+                            <span class="menu-title">Kho hàng</span>
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Recipe", new { area = "StaffChef" })">
+                            <i class="mdi mdi-bank menu-icon"></i>
+                            <span class="menu-title">Công thức món ăn</span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </nav>
             <!-- partial -->
-            <div class="w-100">
+            <div class="w-100 mx-1">
                 @RenderBody()
             </div>
             <!-- main-panel ends -->
