@@ -54,7 +54,7 @@
                                                     <i class="fas fa-star text-warning"></i>
                                                     <i class="fas fa-star text-muted"></i>
                                                 </div>
-                                                <h4 class="mb-3 text-success" style="font-weight: bold; font-size: 1.2rem;">@item.Price.ToString()</h4> <!-- Hiển thị giá dưới dạng tiền tệ -->
+                                                <h4 class="mb-3 text-success" style="font-weight: bold; font-size: 1.2rem;">@String.Format("{0:N2}", @item.Price) VND</h4> <!-- Hiển thị giá dưới dạng tiền tệ -->
                                                 <!-- Thêm vào giỏ hàng -->
                                                 <a href="@Url.Action("AddToCart", "Carts", new { menuItemId = item.ItemID, quantity = 1 })" class="btn btn-primary rounded-pill mt-3" style="font-size: 1rem; padding: 10px 20px;">
                                                     Thêm vào giỏ hàng

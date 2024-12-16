@@ -4,7 +4,7 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
+<div class="container" style="margin-top:200px">
     <h2 class="mb-4">Lịch Sử Đơn Hàng</h2>
 
     <!-- Tabs cho các trạng thái -->
@@ -50,13 +50,16 @@
                                         <div style="margin-left: 20px">
                                             <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
                                             <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
-                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                            <p class="mb-0">
+                                                <strong>Giá:</strong>
+                                                @String.Format("{0:N2}", @orderDetail.Price) VND
+                                            </p>
                                         </div>
                                     </div>
                                 }
                             </div>
                             <hr />
-                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @String.Format("{0:N2}", @order.Total) VND</p>
                             <p class="text-muted mb-0"><strong>Ngày đặt:</strong> @order.DeliveryDate</p>
 
                             <!-- Nút hủy đơn -->
@@ -101,13 +104,13 @@
                                         <div  style="margin-left: 20px">
                                             <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
                                             <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
-                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                            <p class="mb-0"><strong>Giá:</strong>@String.Format("{0:N2}", @orderDetail.Price) VND</p>
                                         </div>
                                     </div>
                                 }
                             </div>
                             <hr />
-                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @String.Format("{0:N2}", @order.Total) VND</p>
                             <p class="text-muted mb-0"><strong>Ngày đặt:</strong> @order.OrderDate.ToString("dd/MM/yyyy")</p>
 
                             <!-- Nút xác nhận đã nhận hàng -->
@@ -152,13 +155,13 @@
                                         <div  style="margin-left: 20px">
                                             <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
                                             <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
-                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                            <p class="mb-0"><strong>Giá:</strong>@String.Format("{0:N2}", @orderDetail.Price) VND</p>
                                         </div>
                                     </div>
                                 }
                             </div>
                             <hr />
-                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="mb-1"><strong>Tổng tiền:</strong>@String.Format("{0:N2}", @order.Total) VND</p>
                             <p class="text-muted mb-0"><strong>Ngày giao:</strong> @order.DeliveryDate</p>
                         </div>
                     }
@@ -196,13 +199,13 @@
                                         <div  style="margin-left: 20px">
                                             <p class="mb-0"><strong>Tên món ăn:</strong> @orderDetail.MenuItem.Name</p>
                                             <p class="mb-0"><strong>Số lượng:</strong> @orderDetail.Quantity</p>
-                                            <p class="mb-0"><strong>Giá:</strong> @orderDetail.Price.ToString("C")</p>
+                                            <p class="mb-0"><strong>Giá:</strong>@String.Format("{0:N2}", @orderDetail.Price) VND</p>
                                         </div>
                                     </div>
                                 }
                             </div>
                             <hr />
-                            <p class="mb-1"><strong>Tổng tiền:</strong> @order.Total.ToString("C")</p>
+                            <p class="mb-1"><strong>Tổng tiền:</strong>@String.Format("{0:N2}", @order.Total) VND</p>
                             <p class="text-muted mb-0"><strong>Ngày hủy:</strong> @order.OrderDate.ToString("dd/MM/yyyy")</p>
                         </div>
                     }

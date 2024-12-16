@@ -51,12 +51,12 @@
                         <td>@index</td>
                         <td class="menu-name">@item.Name</td>
                         <td class="text-truncate" style="max-width: 200px;">@item.Description</td>
-                        <td>@item.Price.ToString()</td>
+                        <td>@String.Format("{0:N2}", @item.Price) VND</td>
                         <td>@item.Quantity</td>
                         <td>
                             @if (!string.IsNullOrEmpty(item.ImageUrl))
                             {
-                                <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail" style="max-width: 80px;">
+                                <img src="@Url.Content("~/Content/MenuItems/" + item.ImageUrl)" alt="@item.Name" class="img-thumbnail" style="max-width: 80px;">
                             }
                             else
                             {

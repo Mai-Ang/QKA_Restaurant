@@ -83,6 +83,9 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
+                    Session["Img"] = staffname.ImageUrl;
+                    Session["Email"] = staffname.Email;
+
                     return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
                 }
                 // Kiểm tra quyền đầu bếp
@@ -90,7 +93,10 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 {
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
+                    Session["Img"] = staffname.ImageUrl;
                     Session["UserName"] = staffname.Name;
+                    Session["Email"] = staffname.Email;
+
                     return RedirectToAction("Index", "Menu", new { Area = "StaffChef" });
                 }
                 // Kiểm tra quyền nhân viên order
@@ -99,6 +105,9 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
+                    Session["Img"] = staffname.ImageUrl;
+                    Session["Email"] = staffname.Email;
+
                     return RedirectToAction("Index", "HomeOrder", new { Area = "StaffOrder" });
                 }
                 // Kiểm tra quyền nhân viên kho
@@ -106,7 +115,10 @@ namespace Restaurant_QKA.Areas.User.Controllers
                 {
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
-                    Session["UserName"] = staffname.Name;
+                    Session["UserName"] = staffname.Name; 
+                    Session["Img"] = staffname.ImageUrl;
+                    Session["Email"] = staffname.Email;
+
                     return RedirectToAction("Index", "HomeWareHouse", new { Area = "StaffWareHouse" });
                 }
                 return View();
@@ -122,6 +134,8 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     ViewBag.Success = true;
                     Session["UserID"] = user.CusID;
                     Session["UserName"] = user.Name;
+                    Session["Img"] = user.ImageUrl;
+
                     return View(); // Điều hướng đến trang chính hoặc trang khác
                 }
                 else

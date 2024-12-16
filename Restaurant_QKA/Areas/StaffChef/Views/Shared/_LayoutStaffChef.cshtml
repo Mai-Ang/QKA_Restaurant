@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>QKA_Restaurant</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="~/Areas/Admin/Data/DesignForAdmin/assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="~/Areas/Admin/Data/DesignForAdmin/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -97,17 +97,17 @@
                     </li>
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="img-xs rounded-circle" src="~/Areas/Admin/Data/DesignForAdmin/assets/images/faces/face8.jpg" alt="Profile image">
+                            <img class="img-xs rounded-circle" src="@Url.Content("~/Content/Staffs/" + Session["Img"])" alt="Profile image">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <div class="dropdown-header text-center">
-                                <img class="img-md rounded-circle" src="~/Areas/Admin/Data/DesignForAdmin/assets/images/faces/face8.jpg" alt="Profile image">
-                                <p class="mb-1 mt-3 fw-semibold">Allen Moreno</p>
-                                <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+                                <img class="img-md rounded-circle" src="@Url.Content("~/Content/Staffs/" + Session["Img"])" alt="Profile image">
+                                <p class="mb-1 mt-3 fw-semibold">@Session["UserName"]</p>
+                                <p class="fw-light text-muted mb-0">@Session["Email"]</p>
                             </div>
-                            <a href="@Url.Action("UserProfile", "User", new { Area = "User"})" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
-                            <a href="@Url.Action("Logout", "User", new { Area = "User"})" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+                            <a href="@Url.Action("UserProfile", "User", new { Area = "User"})" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>Thông Tin <span class="badge badge-pill badge-danger">1</span></a>
+                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Tin Nhắn</a>
+                            <a href="@Url.Action("Logout", "User", new { Area = "User"})" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Đăng Xuất </a>
                         </div>
                     </li>
                 </ul>

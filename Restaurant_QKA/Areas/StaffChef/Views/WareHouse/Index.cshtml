@@ -31,7 +31,9 @@
                             <td class="text-truncate" style="max-width: 200px;">@item.Name</td>
                             <td class="text-center">@item.Quantity</td>
                             <td class="text-center">@item.Unit</td>
-                            <td class="text-center">@item.ImportPrice.ToString()</td>
+                            <td class="text-center">
+                                @String.Format("{0:N2}",@item.ImportPrice) VND
+                            </td>
                             @*<td class="text-center">
                                 @(item.IsActive.HasValue && item.IsActive.Value ?
                                     "<span class='badge bg-success'>Hoạt động</span>" :

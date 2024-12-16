@@ -8,8 +8,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon"  href="~/Areas/User/Data/Image/QKA_Icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="~/Areas/User/Data/Image/QKA_Icon.ico" />
 
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
@@ -36,7 +35,7 @@
     <!-- Spinner End -->
     <!-- Navbar start -->
     <div class="container-fluid fixed-top rounded-bottom">
-        <div class="container topbar bg-primary d-none d-lg-block" style="background-color: #DA8359">
+        <div class="container topbar bg-primary d-none d-lg-block" style="background-color: #990012">
             <div class="d-flex justify-content-between">
                 <div class="top-info ps-2">
                     <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Trần Văn Ơn, Phú Hòa, TPTDM, Bình Dương</a></small>
@@ -51,7 +50,11 @@
         </div>
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand"><h1 class="text-primary display-6">Seft_Restaurant</h1></a>
+                <div>
+                    <a class="navbar-brand brand-logo" href="@Url.Action("Index", "Home")">
+                        <img src="~/Areas/Admin/Data/DesignForAdmin/assets/images/QKA_RESTAURANT_LOGO.png" style="width:400px; height:auto" alt="logo" />
+                    </a>
+                </div>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars text-primary"></span>
                 </button>
@@ -64,25 +67,25 @@
                     <div class="d-flex align-items-center m-3 me-0">
                         <!-- Nút tìm kiếm -->
                         @*<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-                                <i class="fas fa-search text-primary"></i>
-                            </button>*@
+            <i class="fas fa-search text-primary"></i>
+        </button>*@
 
                         <!-- Giỏ hàng -->
                         @if (Session["UserID"] != null)
                         {
                             <a href="@Url.Action("Index", "Carts", new { area = "User" })" class="position-relative me-4 d-flex align-items-center">
-                                <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
+                                <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl" style="color: #990012;"></i>
                                 @if (ViewBag.TotalItemsInCart > 0)
                                 {
                                     <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                          style="top: -22px; left: 17px; height: 20px; min-width: 20px;">
                                         @ViewBag.TotalItemsInCart
                                     </span>
                                 }
                                 else
                                 {
                                     <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                          style="top: -10px; left: 17px; height: 20px; min-width: 20px;">
+                                          style="top: -22px; left: 17px; height: 20px; min-width: 20px;">
                                         0
                                     </span>
                                 }
@@ -91,29 +94,37 @@
                         }
 
                         <!-- Tài khoản người dùng -->
-                        <div class="nav-item dropdown d-flex align-items-center">
-                            <a href="@Url.Action("Login", "User")">
-                                <i class="fa-solid fa-user fa-xl"></i>
-                            </a>
+                        <div class="nav-item dropdown d-flex align-items-center position-relative">
                             @if (Session["UserID"] != null)
                             {
-                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="@Url.Action("UserProfile", "User")" class="dropdown-item">Thông Tin</a>
-                                    <a href="@Url.Action("Index", "OrderHistory")" class="dropdown-item">Lịch sử đơn hàng</a>
-                                    <a href="@Url.Action("Logout", "User")" class="dropdown-item">Đăng Xuất</a>
-                                </div>
+                                <!-- Nút dropdown -->
+                                <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user fa-xl" style="color: #990012;"></i>
+                                </a>
+
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu dropdown-menu-end bg-secondary rounded-0" aria-labelledby="userDropdown">
+                                    <li><a href="@Url.Action("UserProfile", "User")" class="dropdown-item">Thông Tin</a></li>
+                                    <li><a href="@Url.Action("Index", "OrderHistory")" class="dropdown-item">Lịch sử đơn hàng</a></li>
+                                    <li><a href="@Url.Action("Logout", "User")" class="dropdown-item">Đăng Xuất</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Login", "User")" class="nav-link">
+                                    <i class="fa-solid fa-user fa-xl" style="color: #990012;"></i>
+                                </a>
                             }
                         </div>
+
                     </div>
                 </div>
             </nav>
         </div>
     </div>
     <!-- Body -->
-    <div class="container-fluid fruite py-5" style="margin-top:130px">
-        <div class="container py-0">
+    <div class="w-100">
             @RenderBody()
-        </div>
     </div>
 
     <!-- Body -->
