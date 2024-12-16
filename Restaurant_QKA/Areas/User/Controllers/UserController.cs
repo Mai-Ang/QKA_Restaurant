@@ -91,7 +91,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeChef", new { Area = "Admin" });
+                    return RedirectToAction("Index", "Menu", new { Area = "StaffChef" });
                 }
                 // Kiểm tra quyền nhân viên order
                 else if (db.StaffOrders.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
@@ -99,7 +99,7 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeOrder", new { Area = "Admin" });
+                    return RedirectToAction("Index", "HomeOrder", new { Area = "StaffOrder" });
                 }
                 // Kiểm tra quyền nhân viên kho
                 else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)

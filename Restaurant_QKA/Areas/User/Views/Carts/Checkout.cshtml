@@ -63,9 +63,9 @@
             <label for="paymentMethod">Phương thức thanh toán</label>
             <select name="paymentMethod" id="paymentMethod" class="form-control" required>
                 <option value="">-- Chọn phương thức thanh toán --</option>
-                <option value="1">Thẻ tín dụng</option>
-                <option value="2">Ví điện tử</option>
-                <option value="3">Thanh toán trực tiếp</option>
+                <option value="1">Ví điện tử</option>
+                <option value="2">Thanh toán trực tiếp</option>
+                <option value="3">Thẻ tín dụng</option>
             </select>
         </div>
 
@@ -117,12 +117,12 @@
             </div>
             <div class="modal-body text-center">
                 <p>Vui lòng quét mã QR để hoàn tất thanh toán.</p>
-                <img src="https://via.placeholder.com/150" alt="QR Code" class="img-fluid rounded shadow">
+                <img src="~/Content/img/QRCODEMOMO.jpg" alt="QR Code" class="img-fluid rounded shadow w-50">
             </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
-                <button type="button" class="btn btn-primary">Xác nhận</button>
-            </div>
+            @*<div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </div>*@
         </div>
     </div>
 </div>
@@ -157,56 +157,71 @@
             <div class="modal-body">
                 Đây là thông tin thanh toán trực tiếp.
             </div>
-            <div class="modal-footer">
+            @*<div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
                 <button type="button" class="btn btn-primary">Xác nhận</button>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
 
 <!-- Modal Thẻ tín dụng -->
 <div class="modal" id="modalCreditCard" tabindex="-1" role="dialog" aria-labelledby="modalCreditCardLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalCreditCardLabel">Thanh toán bằng Thẻ tín dụng</h5>
-                <button type="button" class="close" data-dismiss="modal" onclick="handleCloseModal()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalEWalletLabel">
+                    <i class="fas fa-wallet"></i> Thanh toán bằng thẻ tín dụng
+                </h5>
+                <button type="button" class="btn-close text-white" onclick="handleCloseModal()" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Đây là thông tin thanh toán bằng thẻ tín dụng.
+            <div class="modal-body text-center">
+                <p>Vui lòng quét mã QR để hoàn tất thanh toán.</p>
+                <img src="~/Content/img/QRCOde.jpg" alt="QR Code" class="img-fluid rounded shadow w-50">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
-
-
-                <button type="button" class="btn btn-primary">Xác nhận</button>
-            </div>
+            @*<div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" onclick="handleCloseModal()">Đóng</button>
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </div>*@
         </div>
     </div>
 </div>
+<style>
+    .modal-header {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .modal-footer .btn {
+        min-width: 100px;
+    }
+
+    .modal-body img {
+        margin-top: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     @*<div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-lg shadow-lg">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content rounded-lg shadow-lg">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center w-[2px] h-[2px]">
+                    Checkmark Icon
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                    Success Message
+                    <h4 class="text-sm font-semibold text-gray-800">Thanh toán thành công!</h4>
+                </div>
+
+
+
             </div>
-            <div class="modal-body text-center w-[2px] h-[2px]">
-                Checkmark Icon
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
-                Success Message
-                <h4 class="text-sm font-semibold text-gray-800">Thanh toán thành công!</h4>
-            </div>
 
-
-
-        </div>
-
-    </div>*@
+        </div>*@
 </div>
 
 <!-- Custom CSS for Modal Styling -->

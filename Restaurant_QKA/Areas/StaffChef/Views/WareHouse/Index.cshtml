@@ -1,0 +1,54 @@
+﻿@model List<Restaurant_QKA.Models.WareHouse>
+
+@{
+    ViewBag.Title = "Danh sách kho";
+    Layout = "~/Areas/StaffChef/Views/Shared/_LayoutStaffChef.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Danh sách kho</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tên vật liệu</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center">Đơn vị</th>
+                    <th class="text-center">Giá nhập</th>
+                    @*<th class="text-center">Trạng thái</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int index = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@index</td>
+                            <td class="text-truncate" style="max-width: 200px;">@item.Name</td>
+                            <td class="text-center">@item.Quantity</td>
+                            <td class="text-center">@item.Unit</td>
+                            <td class="text-center">@item.ImportPrice.ToString()</td>
+                            @*<td class="text-center">
+                                @(item.IsActive.HasValue && item.IsActive.Value ?
+                                    "<span class='badge bg-success'>Hoạt động</span>" :
+                                    "<span class='badge bg-danger'>Ngừng hoạt động</span>")
+                            </td>*@
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Không có thông tin kho nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -80,7 +80,7 @@
                                         <form method="post" action="@Url.Action("ConfirmReceived", "HomeOrder")" style="display: inline;">
                                             <input type="hidden" name="orderId" value="@order.OrderID" />
                                             <!-- Nút Xác Nhận -->
-                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#confirmReceivedModal" data-orderid="@order.OrderID">
+                                            <button type="button" class="btn btn-success btn-sm mt-0" data-toggle="modal" data-target="#confirmReceivedModal" data-orderid="@order.OrderID">
                                                 <i class="fas fa-check"></i> Xác Nhận
                                             </button>
                                         </form>
@@ -318,7 +318,7 @@
     var orderIdToConfirm = null;
 
     // Khi người dùng nhấn nút "Xác nhận đã nhận hàng", lưu OrderID
-    $(".btn-success.mt-2").click(function() {
+    $(".btn-success.mt-0").click(function() {
         orderIdToConfirm = $(this).data("orderid");
     });
 

@@ -137,6 +137,9 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
+    <Compile Include="Areas\StaffChef\Controllers\MenuController.cs" />
+    <Compile Include="Areas\StaffChef\Controllers\RecipeController.cs" />
+    <Compile Include="Areas\StaffChef\Controllers\WareHouseController.cs" />
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
     <Compile Include="Areas\StaffOrder\Controllers\HomeOrderController.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
@@ -972,6 +975,8 @@
     <Content Include="Content\img\hero-img-2.jpg" />
     <Content Include="Content\img\hero-img.jpg" />
     <Content Include="Content\img\payment.png" />
+    <Content Include="Content\img\QRCOde.jpg" />
+    <Content Include="Content\img\QRCODEMOMO.jpg" />
     <Content Include="Content\img\single-item.jpg" />
     <Content Include="Content\img\testimonial-1.jpg" />
     <Content Include="Content\img\vegetable-item-1.jpg" />
@@ -1377,6 +1382,14 @@
     <Content Include="Areas\Admin\Views\Shared\_EditProfileStaff.cshtml" />
     <Content Include="Areas\Admin\Views\Staff\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ChangeSalary.cshtml" />
+    <Content Include="Areas\StaffOrder\Views\HomeOrder\Index.cshtml" />
+    <Content Include="Areas\User\Views\OrderHistory\Index.cshtml" />
+    <Content Include="Areas\StaffOrder\Views\Shared\_LayoutStaffOrder.cshtml" />
+    <Content Include="Areas\StaffChef\Views\Shared\_LayoutStaffChef.cshtml" />
+    <Content Include="Areas\StaffChef\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\StaffChef\Views\WareHouse\Index.cshtml" />
+    <Content Include="Areas\StaffChef\Views\Recipe\Index.cshtml" />
+    <Content Include="Areas\StaffChef\Views\Recipe\Create.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1402,11 +1415,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\StaffChef\Controllers\" />
     <Folder Include="Areas\StaffChef\Data\" />
     <Folder Include="Areas\StaffChef\Views\Shared\" />
+    <Folder Include="Areas\StaffOrder\Controllers\" />
     <Folder Include="Areas\StaffOrder\Data\" />
     <Folder Include="Areas\StaffOrder\Views\Shared\" />
+    <Folder Include="Areas\StaffWareHouse\Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
