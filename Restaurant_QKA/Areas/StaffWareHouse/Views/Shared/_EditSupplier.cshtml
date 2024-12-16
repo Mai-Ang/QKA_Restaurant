@@ -1,0 +1,49 @@
+﻿@model Restaurant_QKA.Models.Supplier
+
+@using (Html.BeginForm("Edit", "Supplier", new { area = "StaffWareHouse" }, FormMethod.Post, new { @id = "editSupplierForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.SupplierID)
+
+    <div class="container mt-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="row">
+                    <!-- Name -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+                    </div>
+                    <!-- Phone -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", style = "form-control", @required = "required", @type = "tel" })
+                        @Html.ValidationMessageFor(m => m.Phone, " ", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Email -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "form-control", @required = "required", @type = "email" })
+                        @Html.ValidationMessageFor(m => m.Email, " ", new { @class = "text-danger" })
+                    </div>
+                    <!-- Address -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Address, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", style = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.Address, " ", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="text-end">
+                <button type="submit" class="btn btn-warning">Lưu Thay Đổi</button>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -206,16 +206,16 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Delete Failed!',
-                                text: 'Product could not be found.'
+                                title: 'Xóa Không Thành Công!',
+                                text: 'Không Tìm Thấy Sản Phẩm.'
                             });
                         }
                     },
                     error: function () {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error!',
-                            text: 'An error occurred during deletion.'
+                            title: 'Lỗi!',
+                            text: 'Có Lỗi Xảy Ra Trong Quá Trình Xóa.'
                         });
                     }
                 });
@@ -249,16 +249,16 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Update Failed!',
-                                text: 'Please check your input and try again.'
+                                title: 'Cập Nhật Không Thành Công!',
+                                text: 'Hãy kiểm tra lại thông tin.'
                             });
                         }
                     },
                     error: function () {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error!',
-                            text: 'An error occurred while submitting the form.'
+                            title: 'Lỗi!',
+                            text: 'Có lỗi trong quá trình xử lý. Vui lòng thử lại.'
                         });
                     }
                 });

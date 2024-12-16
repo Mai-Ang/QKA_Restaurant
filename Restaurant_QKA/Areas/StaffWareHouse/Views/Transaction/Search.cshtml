@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Restaurant_QKA.Models.InventoryTransaction>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Areas/StaffWareHouse/Views/Shared/_LayoutStaffWareHouse.cshtml";
+}
+
+<section class="billboard container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tiêu đề và mô tả -->
+                    <div>
+                        <h4 class="card-title">Lịch Sử Nhập Nguyên Liệu</h4>
+                        <p class="card-description text-success">Bạn đang tìm kiếm các lịch sử nhập nguyên liệu với từ khóa: @ViewBag.Query</p>
+                    </div>
+                    <!-- Nút thêm sản phẩm mới -->
+                    <div>
+                        <button type="button" class="btn btn-warning newTransactionButton" id="newTransactionButton">
+                            Tạo Phiếu Nhập Nguyên Liệu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm và chọn danh mục -->
+                <div class="d-flex justify-content-between mb-4">
+                    <!-- Tìm kiếm sản phẩm -->
+                    <div class="search-container">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Transaction")">
+                            <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Bảng danh sách nguyên liệu  -->
+            <div class="table-responsive">
+                <!-- Tiêu đề bảng -->
+                <table class="table table-hover">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Mã Đơn</th>
+                            <th>Tên Nguyên Liệu</th>
+                            <th>Nhân Viên Nhập Kho</th>
+                            <th>Số Lượng Nhập</th>
+                            <th>Tổng Tiền Nhập</th>
+                            <th>Ngày Nhập</th>
+                        </tr>
+                    </thead>
+                    <!-- Giá trị từng dòng -->
+                    <tbody class="text-center">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="max-width: 150px; word-wrap: break-word;">@item.ITID</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">
+                                    @foreach (var material in ViewBag.Material)
+                                    {
+                                        if (material.MaterialID == item.MaterialID)
+                                        {
+                                            <p>@material.Name</p>
+                                        }
+                                    }
+                                </td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">
+                                    @foreach (var staff in ViewBag.Staff)
+                                    {
+                                        if (staff.StaffID == item.StaffID)
+                                        {
+                                            <p>@staff.Name</p>
+                                        }
+                                    }
+                                </td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Quantity</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.TotalPrice</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.TransactionDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- Phân trang -->
+                <!--<div class="pagination-container">-->
+                @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.Categories }))*@
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Transaction -->
+<div class="modal fade" id="TransactionModal" tabindex="-1" aria-labelledby="TransactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTransactionLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalTransactionContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

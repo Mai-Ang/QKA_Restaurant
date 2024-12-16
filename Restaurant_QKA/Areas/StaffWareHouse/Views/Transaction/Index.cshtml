@@ -11,13 +11,13 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <!-- Tiêu đề và mô tả -->
                     <div>
-                        <h4 class="card-title">Lịch Sử Các Giao Dịch</h4>
-                        <p class="card-description text-muted">Tổng quan về các giao dịch nhập kho gần đây</p>
+                        <h4 class="card-title">Lịch Sử Nhập Nguyên Liệu</h4>
+                        <p class="card-description text-muted">Tổng quan về các phiếu nhập nguyên liệu gần đây</p>
                     </div>
                     <!-- Nút thêm sản phẩm mới -->
                     <div>
-                        <button type="button" class="btn btn-warning newMaterialButton" id="newSupplierButton">
-                            Tạo mới đơn nhập kho
+                        <button type="button" class="btn btn-warning newTransactionButton" id="newTransactionButton">
+                            Tạo Phiếu Nhập Nguyên Liệu
                         </button>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="d-flex justify-content-between mb-4">
                     <!-- Tìm kiếm sản phẩm -->
                     <div class="search-container">
-                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","HomeWareHouse")">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Transaction")">
                             <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
                         </form>
                     </div>
@@ -40,11 +40,11 @@
                     <thead class="text-center">
                         <tr>
                             <th>Mã Đơn</th>
-                            <th>Mã Nguyên Liệu</th>
-                            <th>Mã Nhân Viên Nhập Kho</th>
+                            <th>Tên Nguyên Liệu</th>
+                            <th>Nhân Viên Nhập Kho</th>
                             <th>Số Lượng Nhập</th>
+                            <th>Tổng Tiền Nhập</th>
                             <th>Ngày Nhập</th>
-                            <th>Thao Tác</th>
                         </tr>
                     </thead>
                     <!-- Giá trị từng dòng -->
@@ -53,27 +53,27 @@
                         {
                             <tr>
                                 <td style="max-width: 150px; word-wrap: break-word;">@item.ITID</td>
-                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.MaterialID</td>
-                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.StaffID</td>
-                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Quantity</td>
-                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.TransactionDate</td>
-                                <!-- Các nút action -->
-                                <td>
-                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ITID },
-                                                                     new
-                                                                     {
-                                                                         @class = "btn btn-warning editProductButton",
-                                                                         @data_id = item.ITID,
-                                                                         id = "editProductButton"
-                                                                     })
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.ITID },
-                                                                         new
-                                                                         {
-                                                                             @class = "btn btn-danger deleteProductButton",
-                                                                             @data_id = item.ITID,
-                                                                             id = "deleteProductButton"
-                                                                         })
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">
+                                    @foreach (var material in ViewBag.Material)
+                                    {
+                                        if (material.MaterialID == item.MaterialID)
+                                        {
+                                            <p>@material.Name</p>
+                                        }
+                                    }
                                 </td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">
+                                    @foreach(var staff in ViewBag.Staff)
+                                    {
+                                        if (staff.StaffID == item.StaffID)
+                                        {
+                                            <p>@staff.Name</p>
+                                        }
+                                    }
+                                </td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Quantity</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.TotalPrice</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.TransactionDate</td>
                             </tr>
                         }
                     </tbody>
@@ -87,3 +87,24 @@
     </div>
 </section>
 
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Transaction -->
+<div class="modal fade" id="TransactionModal" tabindex="-1" aria-labelledby="TransactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTransactionLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalTransactionContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

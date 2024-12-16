@@ -14,31 +14,41 @@
                         <h4 class="card-title">Danh Sách Nhân Sự</h4>
                         <p class="card-description text-muted">Tổng quan về toàn bộ nhân viên trong hệ thống</p>
                     </div>
+                    <!-- Nút thêm nhân viên -->
+                    <div>
+                        <button type="button" class="btn btn-warning newStaffButton" id="newStaffButton">
+                            Tạo Mới Tài Khoản Nhân Viên
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Thanh tìm kiếm và chọn danh mục -->
                 <div class="d-flex justify-content-between mb-4">
                     <!-- Tìm kiếm khách hàng -->
                     <div class="search-container">
-                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Customer")">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Staff")">
                             <input type="search" class="form-control" name="query" placeholder="Tìm kiếm nhân viên..." title="Search here">
                         </form>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
                     </div>
                 </div>
 
                 <!-- Bảng danh sách người dùng  -->
                 <div class="table-responsive">
                     <!-- Tiêu đề bảng -->
-                    <table class="table table-hover w-100">
+                    <table class="table table-hover">
                         <thead class="text-center">
                             <tr>
                                 <th>Mã Nhân Viên</th>
                                 <th>Tên Nhân Viên</th>
                                 <th>Tên Tài Khoản</th>
-                                <th>Chức Vụ</th>
+                                <th>Phòng Ban Phụ Trách</th>
                                 <th>Vị Trí Phụ Trách</th>
-                                <th>Lương Cơ Bản</th>
-                                <th>Thao Tác</th>
+                                <th>Lương Hiện Tại</th>
+                                <th id="labelaction" style="display: none">Thao Tác</th>
                             </tr>
                         </thead>
                         <!-- Giá trị từng dòng -->
@@ -47,33 +57,38 @@
                             {
                                 <tr>
                                     <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
-                                    <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
+                                    <td style="max-width: 150px; word-wrap: break-word;">
+                                        @foreach (var staff in ViewBag.Staff)
+                                        {
+                                            if (staff.StaffID == item.StaffID)
+                                            {
+                                                <p>@staff.Name</p>
+                                            }
+                                        }
+                                    </td>
                                     <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.UserName</td>
                                     <td>@item.Role</td>
                                     <td>@item.PositionID</td>
-                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@item.BasicSalary</td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@String.Format("{0:N2}", item.Salary)</td>
                                     <!-- Các nút action -->
-                                    <td>
-                                        @Html.ActionLink("Điều chỉnh", "Edit", new { id = item.StaffID },
+                                    <td id="contentaction" style="display:none">
+                                        <a class="btn btn-outline-twitter" 
+                                           href="@Url.Action("Detail","Staff", new {id = item.StaffID, area = "Admin"})">
+                                           Xem Thông Tin 
+                                        </a>
+                                        @Html.ActionLink("Điều Chỉnh Lương", "Edit", new { id = item.StaffID },
                                                                          new
                                                                          {
-                                                                             @class = "btn btn-primary editProfileButton",
+                                                                             @class = "btn btn-outline-facebook editStaffButton",
                                                                              @data_id = item.StaffID,
-                                                                             id = "editProfileButton"
-                                                                         })
-                                        @Html.ActionLink("Đổi mật khẩu", "Edit", new { id = item.StaffID },
-                                                                         new
-                                                                         {
-                                                                             @class = "btn btn-warning editUserButton",
-                                                                             @data_id = item.StaffID,
-                                                                             id = "editUserButton"
+                                                                             id = "editStaffButton"
                                                                          })
                                         @Html.ActionLink("Xóa", "Delete", new { id = item.StaffID },
                                                                              new
                                                                              {
-                                                                                 @class = "btn btn-danger deleteUserButton",
+                                                                                 @class = "btn btn-outline-pinterest deleteStaffButton",
                                                                                  @data_id = item.StaffID,
-                                                                                 id = "deleteUserButton"
+                                                                                 id = "deleteStaffButton"
                                                                              })
                                     </td>
                                 </tr>
@@ -86,3 +101,24 @@
     </div>
 </section>
 
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Staff -->
+<div class="modal fade" id="StaffModal" tabindex="-1" aria-labelledby="StaffModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalStaffLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalStaffContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

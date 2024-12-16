@@ -1,0 +1,73 @@
+﻿@model Restaurant_QKA.Models.InventoryTransaction
+
+@using (Html.BeginForm("Create", "Transaction", new { area = "StaffWareHouse" }, FormMethod.Post, new { @id = "createTransactionForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container mt-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="row">
+                    <!-- Material Dropdown -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.MaterialID, "Material", htmlAttributes: new { @class = "control-label" })
+
+                        @if (ViewBag.Material != null)
+                        {
+                            <select class="form-control" id="materialDropdown" required>
+                                @foreach (var material in ViewBag.Material)
+                                {
+                                    <option value="@material.MaterialID" value-idsupp ="@material.SupplierID">
+                                        @material.Name
+                                    </option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p>Không Có Nguyên Liệu Nào</p>
+                        }
+                    </div>
+
+                    <!-- Div hiển thị tên nhà cung cấp -->
+                    <div class="form-group col-md-6">
+                        <p class="form-control" id="namesupplier">Chọn Sản Phẩm Để Xem Nhà Cung Cấp</p>
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <!-- Quantity -->
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(m => m.Quantity, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", style = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Quantity, " ", new { @class = "text-danger" })
+                        </div>
+                        <!-- Total Price -->
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(m => m.TotalPrice, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.TotalPrice, new { @class = "form-control", style = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.TotalPrice, " ", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Thêm Mới Nguyên Liệu</button>
+        </div>
+    </div>
+}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function ()
+    {
+        const materialDropdown = document.getElementById("materialDropdown");
+        const namesupplier = document.getElementById("namesupplier");
+        // Lắng nghe sự kiện khi chọn nguyên liệu
+        materialDropdown.addEventListener("change", function ()
+        {
+            const selectedMaterialID = materialDropdown.value; // Lấy MaterialID được chọn
+            
+        });
+    });
+</script>

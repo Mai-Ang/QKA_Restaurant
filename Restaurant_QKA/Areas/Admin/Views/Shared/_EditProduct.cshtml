@@ -14,11 +14,11 @@
                             @Html.LabelFor(m => m.CategoryID, "Category", htmlAttributes: new { @class = "form-label" })
                             @if (ViewBag.Category != null)
                             {
-                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Category, "CategoryID", "Name"), "Select a category", new { @class = "form-select" })
+                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Category, "CategoryID", "Name"), "Chọn nhà cung cấp", new { @class = "form-select" })
                             }
                             else
                             {
-                                <p>No Categories Available</p>
+                                <p>Không có danh mục nào</p>
                             }
                         </div>
 

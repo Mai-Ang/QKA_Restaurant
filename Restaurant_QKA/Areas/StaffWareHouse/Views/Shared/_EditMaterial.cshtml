@@ -1,0 +1,52 @@
+﻿@model Restaurant_QKA.Models.WareHouse
+
+@using (Html.BeginForm("Edit", "HomeWareHouse", new { area = "StaffWareHouse" }, FormMethod.Post, new { @id = "editMaterialForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MaterialID)
+
+    <div class="container mt-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="row">
+                    <!-- Category Dropdown -->
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.SupplierID, "Supplier", htmlAttributes: new { @class = "form-label" })
+                        @if (ViewBag.Supplier != null)
+                        {
+                            @Html.DropDownList("SupplierID", new SelectList(ViewBag.Supplier, "SupplierID", "Name"), "Select a category", new { @class = "form-select" })
+                        }
+                        else
+                        {
+                            <p>Không Có Nhà Cung Cấp Nào</p>
+                        }
+                    </div>
+
+                    <!-- Name -->
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- IsActive Dropdown -->
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "form-label" })
+                        @Html.DropDownListFor(m => m.IsActive, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Not Set", Value = "" },
+                            new SelectListItem { Text = "Active", Value = "true" },
+                            new SelectListItem { Text = "Inactive", Value = "false" }
+                        }, "Value", "Text"), "Select Status", new { @class = "form-select" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="text-end">
+                <button type="submit" class="btn btn-warning">Lưu Thay Đổi</button>
+            </div>
+        </div>
+    </div>
+}
+

@@ -11,19 +11,19 @@
                 <div class="col-lg-12">
                     <div class="statistics-details d-flex align-items-center justify-content-between w-100">
                         <div>
-                            <p class="statistics-title">Total Orders:</p>
+                            <p class="statistics-title">Tổng Số Đơn Hàng Đã Được Tạo:</p>
                             <h3 class="rate-percentage">@ViewBag.CountTotalOrders</h3>
                         </div>
                         <div>
-                            <p class="statistics-title">Total Orders Success:</p>
+                            <p class="statistics-title">Tổng Số Đơn Hàng Thành Công:</p>
                             <h3 class="rate-percentage">@ViewBag.CountSuccessOrders</h3>
                         </div>
                         <div>
-                            <p class="statistics-title">Total Customers:</p>
+                            <p class="statistics-title">Tổng Số Tài Khoản Khách Hàng:</p>
                             <h3 class="rate-percentage">@ViewBag.CountCus</h3>
                         </div>
                         <div class="d-none d-md-block">
-                            <p class="statistics-title">Total Products:</p>
+                            <p class="statistics-title">Tổng Số Món Trong Hệ Thống:</p>
                             <h3 class="rate-percentage">@ViewBag.CountProducts</h3>
                         </div>
                     </div>
@@ -39,13 +39,22 @@
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-start">
                                     <div>
-                                        <h4 class="card-title card-title-dash">Total Revenue:</h4>
-                                        <p class="card-subtitle card-subtitle-dash">this is a sum of all order where have status are success</p>
+                                        <h4 class="card-title card-title-dash">Tổng Doanh Thu:</h4>
+                                        <p class="card-subtitle card-subtitle-dash">Đây là tổng danh thu với những đơn hàng có trạng thái thành công</p>
                                     </div>
                                 </div>
                                 <div class="d-sm-flex align-items-center mt-1 justify-content-between">
                                     <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-                                        <h2 class="me-2 fw-bold">@ViewBag.Revenue</h2>
+                                            @if (ViewBag.Revenue == null)
+                                             {
+                                                    <h2 class="me-2 fw-bold">0</h2>
+                                             }
+                                            else
+                                            {
+                                               <h2>
+                                                    @String.Format("{0:N2}", @ViewBag.Revenue)
+                                               </h2>
+                                            }
                                         <h4 class="me-2">VND</h4>
                                     </div>
                                     <div class="me-3">
@@ -64,10 +73,10 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>InvoiceID</th>
-                        <th>OrderID</th>
-                        <th>Total</th>
-                        <th>Payment Date</th>
+                        <th>Mã Hóa Đơn</th>
+                        <th>Mã Đơn Hàng</th>
+                        <th>Tổng Tiền</th>
+                        <th>Ngày Giao Dịch</th>
                     </tr>
                 </thead>
                 <tbody>

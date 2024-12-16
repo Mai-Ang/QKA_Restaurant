@@ -1,0 +1,41 @@
+﻿@model Restaurant_QKA.Models.Supplier
+<div class="card shadow-sm p-4 mb-4 rounded">
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="row">
+                <!-- Name -->
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                    <p class="form-control">@Model.Name</p>
+                </div>
+                <!-- Phone -->
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "control-label" })
+                    <p class="form-control">@Model.Phone</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Email -->
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label" })   
+                    <p class="form-control">@Model.Email</p>
+                </div>
+                <!-- Address -->
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.Address, htmlAttributes: new { @class = "control-label" })
+                    <p class="form-control">@Model.Address</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Form -->
+    <div class="card-footer text-center">
+        @using (Html.BeginForm("Delete", "Supplier", new { area = "StaffWareHouse" }, FormMethod.Post, new { id = "deleteSupplierForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Xóa Nhà Cung Cấp</button>
+        }
+    </div>
+</div>
+

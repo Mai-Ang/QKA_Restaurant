@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="billboard container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tiêu đề và mô tả -->
+                    <div>
+                        <h4 class="card-title">Danh Sách Nhân Sự</h4>
+                        <p class="card-description text-muted">Danh Sách Nhân Viên Với Từ Khóa: @ViewBag.Query</p>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm và chọn danh mục -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tìm kiếm sản phẩm -->
+                    <div class="search-container flex-grow-1 me-3">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","MenuItem")">
+                            <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
+                        </form>
+                    </div>
+
+                    <!-- Chọn danh mục -->
+                    <div class="dropdown flex-grow-1 me-3">
+                        <a class="btn btn-outline-dark dropdown-toggle w-25" id="categoryDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            Danh Mục
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            @if (ViewBag.Categories != null)
+                            {
+                                foreach (var category in ViewBag.Categories)
+                                {
+                                    <a class="dropdown-item" href="@Url.Action("ProductsByCategory", "MenuItem", new { CategoryID = category.CategoryID})">@category.Name</a>
+                                }
+                            }
+                            else
+                            {
+                                <a class="dropdown-item disabled">Không tìm thấy danh mục để hiển thị</a>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Nút chỉnh sửa -->
+                    <div class="d-flex flex-column align-items-end">
+                        <button class="btn btn-primary mb-2" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách người dùng  -->
+                <div class="table-responsive">
+                    <!-- Tiêu đề bảng -->
+                    <table class="table table-hover w-100">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <th>Tên Nhân Viên</th>
+                                <th>Tên Tài Khoản</th>
+                                <th>Chức Vụ</th>
+                                <th>Vị Trí Phụ Trách</th>
+                                <th>Lương Cơ Bản</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <!-- Giá trị từng dòng -->
+                        <tbody class="text-center">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.StaffID</td>
+                                    <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.UserName</td>
+                                    <td>@item.Role</td>
+                                    <td>@item.PositionID</td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@item.BasicSalary</td>
+                                    <!-- Các nút action -->
+                                    <td>
+                                        @Html.ActionLink("Điều chỉnh", "Edit", new { id = item.StaffID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-primary editProfileButton",
+                                                                             @data_id = item.StaffID,
+                                                                             id = "editProfileButton"
+                                                                         })
+                                        @Html.ActionLink("Đổi mật khẩu", "Edit", new { id = item.StaffID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-warning editUserButton",
+                                                                             @data_id = item.StaffID,
+                                                                             id = "editUserButton"
+                                                                         })
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.StaffID },
+                                                                             new
+                                                                             {
+                                                                                 @class = "btn btn-danger deleteUserButton",
+                                                                                 @data_id = item.StaffID,
+                                                                                 id = "deleteUserButton"
+                                                                             })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

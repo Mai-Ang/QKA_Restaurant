@@ -1,0 +1,88 @@
+﻿@model Restaurant_QKA.Models.Staff
+
+@using (Html.BeginForm("Create", "Staff", new { area = "Admin" }, FormMethod.Post, new { @id = "createStaffForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container mt-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="row">
+                    <!-- UserName -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.UserName, " ", new { @class = "text-danger" })
+                    </div>
+                    <!-- Pass -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(m => m.Password, new { @class = "form-control", style = "form-control", @required = "required", @type = "password" })
+                        @Html.ValidationMessageFor(m => m.Password, " ", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Role Dropdown -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Role, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(m => m.Role, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Quản Lý", Value = "QuanLy" },
+                            new SelectListItem { Text = "Bếp", Value = "Bep" },
+                            new SelectListItem { Text = "Kho", Value = "Kho" },
+                            new SelectListItem { Text = "Kinh Doanh", Value = "KinhDoanh" },
+
+                        }, "Value", "Text"), "Chọn Bộ Phận Phụ Trách", new { @class = "form-control" })
+                    </div>
+                    <!-- Position Dropdown -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.PositionID, "Position", htmlAttributes: new { @class = "control-label" })
+
+                        @if (ViewBag.Position != null)
+                        {
+                            @Html.DropDownList("PositionID", new SelectList(ViewBag.Position, "PositionID", "Name"), "Chọn Chức Vụ Phụ Trách", new { @class = "form-control", @required = "required" })
+                        }
+                        else
+                        {
+                            <p>Không Có Chức Vụ Nào </p>
+                        }
+                    </div>
+                </div>
+                    <div class="row">
+                        <!-- Basic Salary Dropdown -->
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(m => m.BasicSalaryID, "Position", htmlAttributes: new { @class = "control-label" })
+
+                            @if (ViewBag.BasicSalary != null)
+                            {
+                                <select id="BasicSalaryID" name="BasicSalaryID" class="form-control" required>
+                                    <option value=""> Chọn Mức Lương Cơ Bản </option>
+                                    @if (ViewBag.BasicSalary != null)
+                                    {
+                                        foreach (var basicsalary in ViewBag.BasicSalary)
+                                        {
+                                            <option value="@basicsalary.BasicSalaryID">
+                                                Mức: @String.Format("{0:N2}", @basicsalary.BasicSalary1)
+                                            </option>
+                                        }
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <p>Không Có Mức Lương Cơ Bản Nào</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Thêm Mới Tài Khoản Này</button>
+        </div>
+    </div>
+
+}
+
+
+

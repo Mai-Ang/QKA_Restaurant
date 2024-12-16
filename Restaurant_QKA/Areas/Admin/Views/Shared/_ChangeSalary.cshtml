@@ -1,0 +1,75 @@
+﻿@model Restaurant_QKA.Models.Staff
+
+@using (Html.BeginForm("ChangeSalary", "Staff", new { area = "Admin" }, FormMethod.Post, new { @id = "editStaffForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Hidden field to store Staff ID -->
+    @Html.HiddenFor(m => m.StaffID)
+
+    <div class="billboard">
+        <p>Bạn đang điều chỉnh lương của:</p>
+        <p class="text-primary">@ViewBag.CurrentName.Name</p>
+        <p> Hệ số lương hiện tại: </p> 
+        <p class="text-primary">@ViewBag.CurrentGrading.SalaryGrading</p>
+        <p>Chức vụ: </p>
+        <p class="text-primary">@ViewBag.CurrentGrading.Name</p>
+        <p>Mức lương cơ bản hiện tại: </p> 
+        <p class="text-primary"> @String.Format("{0:N2}", @ViewBag.Salary.BasicSalary1)</p>
+        <div class="form-row row">
+            <!-- Position Dropdown -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.PositionID, "Position", htmlAttributes: new { @class = "control-label" })
+
+                @if (ViewBag.Position != null)
+                {
+                    <select id="PositionID" name="PositionID" class="form-control" required>
+                        <option value="">Chọn Chức Vụ Phụ Trách</option>
+                        @if (ViewBag.Position != null)
+                        {
+                            foreach (var position in ViewBag.Position)
+                            {
+                                <option value="@position.PositionID">@position.Name, Hệ Số Lương: @position.SalaryGrading</option>
+                            }
+                        }
+                    </select>
+                }
+                else
+                {
+                    <p>Không Có Chức Vụ Nào </p>
+                }
+            </div>
+            <!-- Basic Salary Dropdown -->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.BasicSalaryID, "BasicSalary", htmlAttributes: new { @class = "control-label" })
+
+                @if (ViewBag.BasicSalary != null)
+                 {
+                    <select id="BasicSalaryID" name="BasicSalaryID" class="form-control" required>
+                        <option value=""> Chọn Mức Lương Cơ Bản </option>
+                        @if(ViewBag.BasicSalary != null)
+                        {
+                            foreach(var basicsalary in ViewBag.BasicSalary)
+                            {
+                                <option value="@basicsalary.BasicSalaryID">
+                                    Mức: @String.Format("{0:N2}", @basicsalary.BasicSalary1)
+                                </option>
+                            }
+                        }
+                    </select>
+                 }
+                else
+                {
+                    <p>Không Có Mức Lương Cơ Bản Nào</p>
+                }
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-warning btn-block">Lưu Thay Đổi</button>
+        </div>
+    </div>
+}
+
+

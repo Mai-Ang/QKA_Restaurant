@@ -7,7 +7,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<section class="billboard container-fluid" style="width: 1280px">
+<section class="billboard container-fluid">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -20,31 +20,31 @@
                     <!-- Nút thêm sản phẩm mới -->
                     <div>
                         <button type="button" class="btn btn-warning newProductButton" id="newProductButton">
-                            Tạo Mới Món
+                            Thêm Món Mới
                         </button>
                     </div>
                 </div>
 
                 <!-- Thanh tìm kiếm và chọn danh mục -->
-                <div class="d-flex justify-content-between mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
                     <!-- Tìm kiếm sản phẩm -->
-                    <div class="search-container">
-                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Products")">
+                    <div class="search-container flex-grow-1 me-3">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","MenuItem")">
                             <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
                         </form>
                     </div>
 
                     <!-- Chọn danh mục -->
-                    <div class="dropdown">
-                        <a class="btn btn-outline-dark dropdown-toggle" id="categoryDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown flex-grow-1 me-3">
+                        <a class="btn btn-outline-dark dropdown-toggle w-25" id="categoryDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             Danh Mục
                         </a>
-                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="categoryDropdown">
+                        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                             @if (ViewBag.Categories != null)
                             {
                                 foreach (var category in ViewBag.Categories)
                                 {
-                                    <a class="dropdown-item" href="@Url.Action("ProductsByCategory", "Products", new { CategoryID = category.CategoryID})">@category.Name</a>
+                                    <a class="dropdown-item" href="@Url.Action("ProductsByCategory", "MenuItem", new { CategoryID = category.CategoryID})">@category.Name</a>
                                 }
                             }
                             else
@@ -53,12 +53,18 @@
                             }
                         </div>
                     </div>
+
+                    <!-- Nút chỉnh sửa -->
+                    <div class="d-flex flex-column align-items-end">
+                        <button class="btn btn-primary mb-2" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
+                    </div>
                 </div>
                 <!-- Bảng danh sách sản phẩm  -->
                 <div class="table-responsive">
                     <!-- Tiêu đề bảng -->
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th>Tên Món</th>
                                 <th>Hình Ảnh</th>
@@ -67,11 +73,11 @@
                                 <th>Số Lượng</th>
                                 <th>Trạng Thái</th>
                                 <th>Ngày Tạo</th>
-                                <th>Thao Tác</th>
+                                <th id="labelaction" style="display: none">Thao Tác</th>
                             </tr>
                         </thead>
                         <!-- Giá trị từng dòng -->
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach (var item in Model)
                             {
                                 <tr>
@@ -80,7 +86,9 @@
                                         <img src="@Url.Content("~/Content/MenuItems/" + item.ImageUrl)" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />
                                     </td>
                                     <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Description</td>
-                                    <td>@item.Price</td>
+                                    <td>
+                                        @String.Format("{0:N2}", @item.Price) VND
+                                    </td>
                                     <td>
                                         @if (item.Quantity < 10)
                                         {
@@ -94,20 +102,22 @@
                                     <td>
                                         @if (item.IsActive == true)
                                         {
-                                            <span class="badge bg-success">Active</span>
+                                            <span class="badge bg-success">Hoạt động</span>
                                         }
                                         else
                                         {
-                                            <span class="badge bg-danger">Inactive</span>
+                                            <span class="badge bg-danger">Tạm Dừng</span>
                                         }
                                     </td>
-                                    <td>@item.CreatedDate.ToString()</td>
-                                    <!-- Các nút action -->
                                     <td>
+                                        @(item.CreatedDate != null ? String.Format("{0:dd/MM/yyyy}", item.CreatedDate) : "N/A")
+                                    </td>
+                                    <!-- Các nút action -->
+                                    <td id="contentaction" style="display:none" class="py-md">
                                         @Html.ActionLink("Sửa", "Edit", new { id = item.ItemID },
                                                                          new
                                                                          {
-                                                                             @class = "btn btn-warning editProductButton",
+                                                                             @class = "btn btn-outline-facebook editProductButton",
                                                                              @data_id = item.ItemID,
                                                                              id = "editProductButton"
                                                                          })
@@ -136,7 +146,7 @@
 @*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
 <!-- Modal Create Product -->
 <div class="modal fade" id="ProductModal" tabindex="-1" aria-labelledby="ProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered custom-modal-width">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1280px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalProductLabel">Title Modal</h5>
@@ -155,31 +165,8 @@
     </div>
 </div>
 
-<script>
-    $('#newProductButton').on('click', function () {
-        $.ajax({
-            url: '/MenuItem/Create', // URL đến action Create trong controller
-            type: 'GET',
-            success: function (data) {
-                $('#modalProductLabel').text('Create Product');
-                $('#modalProductContent').html(data); // Load nội dung form vào modal
-                $('#ProductModal').modal('show'); // Hiển thị modal
-                bindCreateForm() // Gọi hàm bind lại sự kiện submit form
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Failed to load create form.'
-                });
-            }
-        });
-    });
-</script>
+
 <style>
-    .custom-modal-width {
-        max-width: 1400px; /* Điều chỉnh kích thước theo tỷ lệ phần trăm hoặc pixel */
-    }
     .pagination-container {
         display: flex;
         justify-content: center;

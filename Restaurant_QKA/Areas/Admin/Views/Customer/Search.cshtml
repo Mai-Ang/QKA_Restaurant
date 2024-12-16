@@ -37,6 +37,7 @@
                         <table class="table table-hover w-100">
                             <thead>
                                 <tr>
+                                    <th>Mã Khách Hàng</th>
                                     <th>Tên Khách Hàng</th>
                                     <th>Avatar</th>
                                     <th>Email</th>
@@ -52,6 +53,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
+                                        <td style="max-width: 150px; word-wrap: break-word;">@item.CusID</td>
                                         <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
                                         <td class="py-md">
                                             <img src="@Url.Content("~/Content/Images/User_Img/" + item.ImageUrl)" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QKA_ResModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QKA_ResModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BasicSalary">
           <Key>
             <PropertyRef Name="BasicSalaryID" />
@@ -207,7 +207,7 @@
           <Key>
             <PropertyRef Name="StaffID" />
           </Key>
-          <Property Name="StaffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Phone" Type="varchar" MaxLength="10" />
@@ -858,8 +858,7 @@
             <End Role="WareHouse" EntitySet="WareHouse" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QKA_ResModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1106,20 +1105,6 @@
           <NavigationProperty Name="EWallets" Relationship="Self.FK_EWallet_Payment" FromRole="Payment" ToRole="EWallet" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Payment" FromRole="Payment" ToRole="Orders" />
         </EntityType>
-        <EntityType Name="PersonnelFile">
-          <Key>
-            <PropertyRef Name="StaffID" />
-          </Key>
-          <Property Name="StaffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="StartingDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_PersonnelFile_Staff" FromRole="PersonnelFile" ToRole="Staff" />
-        </EntityType>
         <EntityType Name="Position">
           <Key>
             <PropertyRef Name="PositionID" />
@@ -1154,11 +1139,11 @@
           <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="BasicSalary" Relationship="Self.FK_Staff_BasicSalary" FromRole="Staff" ToRole="BasicSalary" />
           <NavigationProperty Name="Manager" Relationship="Self.FK_Manager_Staff" FromRole="Staff" ToRole="Manager" />
-          <NavigationProperty Name="PersonnelFile" Relationship="Self.FK_PersonnelFile_Staff" FromRole="Staff" ToRole="PersonnelFile" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Staff_Position" FromRole="Staff" ToRole="Position" />
           <NavigationProperty Name="StaffChef" Relationship="Self.FK_StaffChef_Staff" FromRole="Staff" ToRole="StaffChef" />
           <NavigationProperty Name="StaffOrder" Relationship="Self.FK_StaffOrder_Staff" FromRole="Staff" ToRole="StaffOrder" />
           <NavigationProperty Name="StaffWareHouse" Relationship="Self.FK_StaffWareHouse_Staff" FromRole="Staff" ToRole="StaffWareHouse" />
+          <NavigationProperty Name="PersonnelFile" Relationship="QKA_ResModel.FK_PersonnelFile_Staff" FromRole="Staff" ToRole="PersonnelFile" />
         </EntityType>
         <EntityType Name="StaffChef">
           <Key>
@@ -1535,18 +1520,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonnelFile_Staff">
-          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
-          <End Role="PersonnelFile" Type="Self.PersonnelFile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Staff">
-              <PropertyRef Name="StaffID" />
-            </Principal>
-            <Dependent Role="PersonnelFile">
-              <PropertyRef Name="StaffID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Staff_Position">
           <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
@@ -1639,7 +1612,6 @@
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
-          <EntitySet Name="PersonnelFiles" EntityType="Self.PersonnelFile" />
           <EntitySet Name="Positions" EntityType="Self.Position" />
           <EntitySet Name="Recipes" EntityType="Self.Recipe" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
@@ -1753,10 +1725,6 @@
             <End Role="Payment" EntitySet="Payments" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonnelFile_Staff" Association="Self.FK_PersonnelFile_Staff">
-            <End Role="Staff" EntitySet="Staffs" />
-            <End Role="PersonnelFile" EntitySet="PersonnelFiles" />
-          </AssociationSet>
           <AssociationSet Name="FK_Staff_Position" Association="Self.FK_Staff_Position">
             <End Role="Position" EntitySet="Positions" />
             <End Role="Staff" EntitySet="Staffs" />
@@ -1781,7 +1749,38 @@
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="WareHouse" EntitySet="WareHouses" />
           </AssociationSet>
+          <EntitySet Name="PersonnelFiles" EntityType="QKA_ResModel.PersonnelFile" />
+          <AssociationSet Name="FK_PersonnelFile_Staff" Association="QKA_ResModel.FK_PersonnelFile_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="PersonnelFile" EntitySet="PersonnelFiles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PersonnelFile">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StartingDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Staff" Relationship="QKA_ResModel.FK_PersonnelFile_Staff" FromRole="PersonnelFile" ToRole="Staff" />
+        </EntityType>
+        <Association Name="FK_PersonnelFile_Staff">
+          <End Type="QKA_ResModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="QKA_ResModel.PersonnelFile" Role="PersonnelFile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="PersonnelFile">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2002,20 +2001,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PersonnelFiles">
-            <EntityTypeMapping TypeName="QKA_ResModel.PersonnelFile">
-              <MappingFragment StoreEntitySet="PersonnelFile">
-                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Positions">
             <EntityTypeMapping TypeName="QKA_ResModel.Position">
               <MappingFragment StoreEntitySet="Position">
@@ -2105,6 +2090,20 @@
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ImportPrice" ColumnName="ImportPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonnelFiles">
+            <EntityTypeMapping TypeName="QKA_ResModel.PersonnelFile">
+              <MappingFragment StoreEntitySet="PersonnelFile">
+                <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

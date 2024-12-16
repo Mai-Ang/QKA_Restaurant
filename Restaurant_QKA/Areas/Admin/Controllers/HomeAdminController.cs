@@ -13,10 +13,12 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+
             ViewBag.CountProducts = db.MenuItems.Count();
             ViewBag.CountTotalOrders = db.Orders.Count();
             ViewBag.CountCus = db.Customers.Count();
-            ViewBag.CountSuccessOrders = db.Orders.Count(m => m.Status != null && m.DeliveryDate != null);
+            ViewBag.CountSuccessOrders = db.Orders.Count(m => m.Status == "1");
 
             ViewBag.Revenue = db.Invoices.Sum(m => m.Total);
             List<Invoice> invoices = db.Invoices.ToList();

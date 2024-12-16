@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    // Khi nhấn vào nút "Edit Product", modal sẽ hiện ra và load form qua Ajax
+    // Khi nhấn vào nút "Edit Coupon", modal sẽ hiện ra và load form qua Ajax
     $(document).on('click', '.editCoupontButton', function (e) {
         e.preventDefault();
         var cusId = $(this).data('id'); // Lấy ID sản phẩm từ thuộc tính data-id
@@ -167,7 +167,7 @@
                                                 Swal.fire({
                                                     icon: 'error',
                                                     title: 'Delete Failed!',
-                                                    text: 'Product could not be found.'
+                                                    text: 'Coupon could not be found.'
                                                 });
                                             }
                                         },
@@ -199,14 +199,14 @@
             }
         });
     });
-    // Khi nhấn vào nút "New Product", modal sẽ hiện ra và load form qua Ajax
+    // Khi nhấn vào nút "New Coupon", modal sẽ hiện ra và load form qua Ajax
     $(document).on('click', '.newCoupontButton', function (e) {
         e.preventDefault();
 
         // Hiển thị SweetAlert
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want to create new coupont?",
+            text: "bạn có muốn thêm mới coupon?",
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Yes',
@@ -225,6 +225,7 @@
                         $('#modaCoupontLabel').text('Create Coupont');
                         $('#modalCoupontContent').html(data); // Load nội dung form vào modal
                         $('#CoupontModal').modal('show'); // Hiển thị modal
+                        bindCreateForm() // Gọi hàm bind lại sự kiện submit form
 
                         // Thêm sự kiện submit vào form trong modal để xóa thông tin người dùng
                         $('#createCoupontForm').off('submit').on('submit', function (event) {
@@ -234,8 +235,7 @@
                             // Hiển thị hộp thoại xác nhận trước khi create
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Are you sure?',
-                                text: "Do you really want to create new coupont?",
+                                title: 'Tiếp Tục?',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
@@ -298,4 +298,46 @@
             }
         });
     });
+    // Hàm bind sự kiện submit cho form Create 
+    function bindCreateForm() {
+        $('#createCouponForm').off('submit').on('submit', function (event) {
+            event.preventDefault(); // Ngăn form submit mặc định
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'), // URL của action Create
+                type: form.attr('method'), // Phương thức POST
+                data: new FormData(this), // Sử dụng FormData để gửi dữ liệu form
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Thành Công!",
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#CouponModal').modal('hide');
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thất Bại!',
+                            text: 'Hãy kiểm tra lại thông tin.'
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: 'Có lỗi trong quá trình xử lý. Vui lòng thử lại.'
+                    });
+                }
+            });
+        });
+    }
 });

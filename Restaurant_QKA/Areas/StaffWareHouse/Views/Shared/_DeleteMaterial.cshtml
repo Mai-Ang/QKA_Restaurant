@@ -1,0 +1,48 @@
+﻿@model Restaurant_QKA.Models.WareHouse
+<div class="card shadow-sm p-4 mb-4 rounded">
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="row">
+                <!-- Category Dropdown -->
+                <div class="col-md-4">
+                    <p class="form-label">Nhà Cung Cấp</p>
+                    @foreach (var item in ViewBag.Supplier)
+                    {
+                        if (item.SupplierID == Model.SupplierID)
+                        {
+                            <p class="form-control">@item.Name</p>
+                        }
+                    }
+                </div>
+
+                <!-- Name -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "form-label" })
+                    <p class="form-control">@Model.Name</p>
+                </div>
+
+                <!-- IsActive Dropdown -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "form-label" })
+                    @if (Model.IsActive == true)
+                    {
+                        <p class="form-control">Đang hoạt động</p>
+                    }
+                    else
+                    {
+                        <p class="form-control">Ngưng hoạt động</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Form -->
+    <div class="card-footer text-center">
+        @using (Html.BeginForm("Delete", "HomeWareHouse", new { area = "StaffWareHouse" }, FormMethod.Post, new { id = "deleteMaterialForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Xóa Nguyên Liệu</button>
+        }
+    </div>
+</div>

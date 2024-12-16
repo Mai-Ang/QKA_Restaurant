@@ -24,7 +24,6 @@
         <EntityTypeShape EntityType="QKA_ResModel.OrderDetail" Width="1.5" PointX="18" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Order" Width="1.5" PointX="12.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Payment" Width="1.5" PointX="10.5" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QKA_ResModel.PersonnelFile" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Position" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Recipe" Width="1.5" PointX="9.75" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QKA_ResModel.Staff" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
@@ -60,13 +59,14 @@
         <AssociationConnector Association="QKA_ResModel.FK_Recipe_MenuItems" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_Orders_Payment" ManuallyRouted="false" />
-        <AssociationConnector Association="QKA_ResModel.FK_PersonnelFile_Staff" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_Staff_Position" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_Recipe_WareHouse" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_StaffChef_Staff" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_StaffOrder_Staff" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_StaffWareHouse_Staff" ManuallyRouted="false" />
         <AssociationConnector Association="QKA_ResModel.FK_WareHouse_Supplier" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QKA_ResModel.PersonnelFile" Width="1.5" PointX="5.25" PointY="7.5" />
+        <AssociationConnector Association="QKA_ResModel.FK_PersonnelFile_Staff" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -102,12 +102,12 @@ namespace Restaurant_QKA.Areas.User.Controllers
                     return RedirectToAction("Index", "HomeOrder", new { Area = "Admin" });
                 }
                 // Kiểm tra quyền nhân viên kho
-                else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID != staff.StaffID) != null)
+                else if (db.StaffWareHouses.FirstOrDefault(x => x.StaffID == staff.StaffID) != null)
                 {
                     Session["UserID"] = staff.StaffID;
                     var staffname = db.PersonnelFiles.FirstOrDefault(x => x.StaffID == staff.StaffID);
                     Session["UserName"] = staffname.Name;
-                    return RedirectToAction("Index", "HomeWareHouse", new { Area = "Admin" });
+                    return RedirectToAction("Index", "HomeWareHouse", new { Area = "StaffWareHouse" });
                 }
                 return View();
             }

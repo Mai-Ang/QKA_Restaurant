@@ -1,0 +1,122 @@
+﻿@model Restaurant_QKA.Models.PersonnelFile
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="vh-120 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center">
+            <div class="col col-lg-9 col-xl-8">
+                <div class="card">
+                    @using (Html.BeginForm("Edit", "Staff", new { area = "Admin" }, FormMethod.Post, new { id = "editForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.StaffID);
+
+                        <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:230px;">
+                            <div class="ms-5 mt-6 d-flex flex-column" style="width: 150px;">
+                                <img src="@Url.Content("~/Content/Staff/" + Model.ImageUrl)"
+                                     alt="Avatar image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                     style="width: 150px; z-index: 1">
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn text-white" id="editButton" onclick="enableEditProfile()" style="background-color: #C5705D; width: 150px">Chỉnh Sửa</button>
+                                    <button type="submit" class="btn btn-success" id="saveButton" style="display: none; width:150px">Lưu Thay Đổi</button>
+                                </div>
+                            </div>
+                            <div class="ms-3" style="margin-top: 30px;">
+                                <span>Thông tin cá nhân của: @Model.Name</span>
+                                <p>Vị Trí Phòng Ban: @(@ViewBag.CurrentRole != null ? @ViewBag.CurrentRole : "N/A" )</p>
+                                <p>Chức Vụ: @(ViewBag.CurrentPosition != null ? ViewBag.CurrentPosition.Name : "N/A" )</p>
+                                <p>Ngày Bắt Đầu Làm: @(Model.StartingDate != null ? String.Format("{0:dd/MM/yyyy}", Model.StartingDate) : "N/A") </p>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-5">
+                            <div class="form-group d-flex">
+                                <div class="form-outline mb-4 me-4 w-100" id="Name" style="display: none;">
+                                    <label class="small mb-1" for="Name">Họ Và Tên</label>
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div class="form-outline mb-4 me-4 w-50">
+                                    <label class="small mb-1" for="Email">Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", placeholder = "Enter your email", disabled = "disabled" })
+                                </div>
+                                <div class="form-outline mb-4 me-4 w-50">
+                                    <label class="small mb-1" for="Phone">SDT</label>
+                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", type = "tel", placeholder = "Enter your phone number", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div class="form-outline mb-4 me-4 w-50">
+                                    <label class="small mb-1" for="Birthday">Ngày Sinh</label>
+                                    @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", disabled = "disabled" })
+                                </div>
+                                <div class="form-outline mb-4 me-4 w-100">
+                                    <label class="small mb-1" for="Address">Địa Chỉ</label>
+                                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Enter your address", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div class="mb-4 me-4 w-75">
+                                    <button type="button" class="btn btn-danger" id="cancelButton" onclick="disableEditProfile()" style="display: none;">Hủy</button>
+                                </div>
+                                <div class="mb-4 me-4 w-25">
+                                    <a class="btn btn-warning" id="cancelButton" href="@Url.Action("ChangePass","User")" style="width:180px">Đổi Phòng Ban</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Gửi form bằng AJAX và hiển thị SweetAlert
+    document.getElementById("editForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Chặn submit mặc định
+
+        const formData = new FormData(this);
+        fetch('@Url.Action("Edit", "Staff", new { area = "Admin" })', {
+            method: 'POST',
+            headers: {
+                'RequestVerificationToken': document.querySelector('[name="__RequestVerificationToken"]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    title: "Thành công!",
+                    text: "Thông tin đã được cập nhật.",
+                    icon: "success"
+                }).then(() => {
+                    location.reload(); // Reload lại trang nếu cần
+                });
+            } else {
+                Swal.fire({
+                    title: "Lỗi!",
+                    text: "Có lỗi xảy ra, vui lòng thử lại.",
+                    icon: "error"
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi:", error);
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Không thể kết nối với máy chủ.",
+                icon: "error"
+            });
+        });
+    });
+</script>

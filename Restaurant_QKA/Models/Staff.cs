@@ -24,10 +24,10 @@ namespace Restaurant_QKA.Models
     
         public virtual BasicSalary BasicSalary { get; set; }
         public virtual Manager Manager { get; set; }
-        public virtual PersonnelFile PersonnelFile { get; set; }
         public virtual Position Position { get; set; }
         public virtual StaffChef StaffChef { get; set; }
         public virtual StaffOrder StaffOrder { get; set; }
         public virtual StaffWareHouse StaffWareHouse { get; set; }
+        public virtual PersonnelFile PersonnelFile { get; set; }
     }
 }

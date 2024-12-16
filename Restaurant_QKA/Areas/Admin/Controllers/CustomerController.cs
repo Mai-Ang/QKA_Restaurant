@@ -37,6 +37,8 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         // GET: Admin/Customer
         public ActionResult Index()
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+
             List<Customer> cus = db.Customers.ToList();
             return View(cus);
         }

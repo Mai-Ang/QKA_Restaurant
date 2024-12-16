@@ -28,7 +28,7 @@
         });
     });
 
-    // Khi nhấn vào nút "Edit Product", modal sẽ hiện ra và load form qua Ajax
+    // Khi nhấn vào nút "Edit User", modal sẽ hiện ra và load form qua Ajax
     $(document).on('click', '#editUserButton', function () {
         var productId = $(this).data('id'); // Lấy ID sản phẩm từ thuộc tính data-id
 

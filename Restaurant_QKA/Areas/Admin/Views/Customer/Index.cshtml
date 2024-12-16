@@ -26,10 +26,14 @@
                 <!-- Thanh tìm kiếm và chọn danh mục -->
                 <div class="d-flex justify-content-between mb-4">
                     <!-- Tìm kiếm khách hàng -->
-                    <div class="search-container">
+                    <div class="search-container w-50">
                         <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Customer")">
                             <input type="search" class="form-control" name="query" placeholder="Tìm kiếm khách hàng..." title="Search here">
                         </form>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
                     </div>
                 </div>
 
@@ -37,45 +41,49 @@
                 <div class="table-responsive">
                     <!-- Tiêu đề bảng -->
                     <table class="table table-hover w-100">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
+                                <th>Mã Khách Hàng</th>
                                 <th>Tên Khách Hàng</th>
-                                <th>Avatar</th>
                                 <th>Email</th>
                                 <th>Điện Thoại</th>
                                 <th>Ngày Sinh</th>
                                 <th>Địa Chỉ</th>
                                 <th>Ngày Tạo Tài Khoản</th>
-                                <th>Thao Tác</th>
+                                <th id="labelaction" style="display: none">Thao Tác</th>
                             </tr>
                         </thead>
                         <!-- Giá trị từng dòng -->
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.CusID</td>
                                     <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
-                                    <td class="py-md">
-                                        <img src="@Url.Content("~/Content/Images/User_Img/" + item.ImageUrl)" alt="Customer Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />
-                                    </td>
-                                    <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.Email</td>
+                                    <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Email</td>
                                     <td>@item.Phone</td>
-                                    <td>@item.DateOfBirth.ToString()</td>
-                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@item.Address</td>
-                                    <td>@item.CreatedDate.ToString()</td>
-                                    <!-- Các nút action -->
                                     <td>
-                                        @Html.ActionLink("Reset Pass", "Edit", new { id = item.CusID },
+                                        @(item.DateOfBirth != null ? String.Format("{0:dd/MM/yyyy}", item.DateOfBirth) : "N/A")
+                                    </td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">
+                                        @(item.Address != null ? item.Address : "N/A")
+                                    </td>
+                                    <td>
+                                        @(item.CreatedDate != null ? String.Format("{0:dd/MM/yyyy}", item.CreatedDate) : "N/A")
+                                    </td>
+                                    <!-- Các nút action -->
+                                    <td id="contentaction" style="display:none">
+                                        @Html.ActionLink("Cấp Lại Mật Khẩu", "Edit", new { id = item.CusID },
                                                                          new
                                                                          {
-                                                                             @class = "btn btn-warning editUserButton",
+                                                                             @class = "btn btn-outline-facebook editUserButton",
                                                                              @data_id = item.CusID,
                                                                              id = "editUserButton"
                                                                          })
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.CusID },
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.CusID },
                                                                              new
                                                                              {
-                                                                                 @class = "btn btn-danger deleteUserButton",
+                                                                                 @class = "btn btn-outline-pinterest deleteUserButton",
                                                                                  @data_id = item.CusID,
                                                                                  id = "deleteUserButton"
                                                                              })

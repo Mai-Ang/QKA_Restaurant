@@ -30,87 +30,114 @@
                             <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
                         </form>
                     </div>
-
+                    <div>
+                        <button class="btn btn-primary" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
                     </div>
                 </div>
-                <!-- Bảng danh sách nguyên liệu  -->
-                <div class="table-responsive">
-                    <!-- Tiêu đề bảng -->
-                    <table class="table table-hover">
-                        <thead class="text-center">
+            </div>
+            <!-- Bảng danh sách nguyên liệu  -->
+            <div class="table-responsive">
+                <!-- Tiêu đề bảng -->
+                <table class="table table-hover">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Tên Nguyên Liệu</th>
+                            <th>Số Lượng Tồn</th>
+                            <th>Nhà Cung Cấp</th>
+                            <th>Giá Nhập</th>
+                            <th>Đơn Vị Tính</th>
+                            <th>Trạng Thái</th>
+                            <th id="labelaction" style="display: none">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <!-- Giá trị từng dòng -->
+                    <tbody class="text-center">
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>Tên Nguyên Liệu</th>
-                                <th>Số Lượng Tồn</th>
-                                <th>Nhà Cung Cấp</th>
-                                <th>Giá Nhập</th>
-                                <th>Đơn Vị Tính</th>
-                                <th>Trạng Thái</th>
-                                <th>Thao Tác</th>
-                            </tr>
-                        </thead>
-                        <!-- Giá trị từng dòng -->
-                        <tbody class="text-center">
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
-                                    <td>
-                                        @if (item.Quantity < 10)
-                                        {
-                                            <span class="badge bg-warning">@item.Quantity</span>
-                                        }
-                                        else
-                                        {
-                                            <span>@item.Quantity</span>
-                                        }
-                                    </td>
-                                    @foreach(var sup in ViewBag.Suppliers)
+                                <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
+                                <td>
+                                    @if (item.Quantity < 10)
                                     {
-                                        if (sup.SupplierID == item.SupplierID)
-                                        {
-                                            <td>@sup.Name</td>
-                                        }
+                                        <span class="badge bg-warning">@item.Quantity</span>
                                     }
-                                    <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.ImportPrice</td>
-                                    <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Unit</td>
-                                    <td>
-                                        @if (item.IsActive == true)
-                                        {
-                                            <span class="badge bg-success">Active</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-danger">Inactive</span>
-                                        }
-                                    </td>
-                                    <!-- Các nút action -->
-                                    <td>
-                                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaterialID },
+                                    else
+                                    {
+                                        <span>@item.Quantity</span>
+                                    }
+                                </td>
+                                @foreach (var sup in ViewBag.Suppliers)
+                                {
+                                    if (sup.SupplierID == item.SupplierID)
+                                    {
+                                        <td>@sup.Name</td>
+                                    }
+                                }
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.ImportPrice</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Unit</td>
+                                <td>
+                                    @if (item.IsActive == true)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </td>
+                                <!-- Các nút action -->
+                                <td id="contentaction" style="display:none">
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.MaterialID },
+                                                                     new
+                                                                     {
+                                                                         @class = "btn btn-outline-warning editMaterialButton text-dark",
+                                                                         @data_id = item.MaterialID,
+                                                                         id = "editMaterialButton"
+                                                                     })
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaterialID },
                                                                          new
                                                                          {
-                                                                             @class = "btn btn-warning editProductButton",
+                                                                             @class = "btn btn-outline-danger deleteMaterialButton text-dark",
                                                                              @data_id = item.MaterialID,
-                                                                             id = "editProductButton"
+                                                                             id = "deleteMaterialButton"
                                                                          })
-                                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaterialID },
-                                                                             new
-                                                                             {
-                                                                                 @class = "btn btn-danger deleteProductButton",
-                                                                                 @data_id = item.MaterialID,
-                                                                                 id = "deleteProductButton"
-                                                                             })
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <!-- Phân trang -->
-                    <!--<div class="pagination-container">-->
-                        @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.Categories }))*@
-                    <!--</div>-->
-                </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- Phân trang -->
+                <!--<div class="pagination-container">-->
+                @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.Categories }))*@
+                <!--</div>-->
             </div>
         </div>
+    </div>
 </section>
+
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Material -->
+<div class="modal fade" id="MaterialModal" tabindex="-1" aria-labelledby="MaterialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMaterialLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalMaterialContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

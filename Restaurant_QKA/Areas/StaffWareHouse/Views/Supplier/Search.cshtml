@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Restaurant_QKA.Models.Supplier>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Areas/StaffWareHouse/Views/Shared/_LayoutStaffWareHouse.cshtml";
+}
+<section class="billboard container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- Tiêu đề và mô tả -->
+                    <div>
+                        <h4 class="card-title">Danh Sách Nhà Cung Cấp Nguyên Liệu</h4>
+                        <p class="card-description text-success">Bạn đang tìm kiếm các nhà cung cấp nguyên liệu với từ khóa: @ViewBag.Query</p>
+                    </div>
+                    <!-- Nút thêm sản phẩm mới -->
+                    <div>
+                        <button type="button" class="btn btn-warning newSupplierButton" id="newSupplierButton">
+                            Thêm Nhà Cung Cấp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm và chọn danh mục -->
+                <div class="d-flex justify-content-between mb-4">
+                    <!-- Tìm kiếm sản phẩm -->
+                    <div class="search-container">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Supplier")">
+                            <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
+                        </form>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Bảng danh sách nguyên liệu  -->
+            <div class="table-responsive">
+                <!-- Tiêu đề bảng -->
+                <table class="table table-hover">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Tên Nhà Cung Cấp</th>
+                            <th>SDT</th>
+                            <th>Email</th>
+                            <th>Địa Chỉ</th>
+                            <th id="labelaction" style="display: none">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <!-- Giá trị từng dòng -->
+                    <tbody class="text-center">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Phone</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Email</td>
+                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Address</td>
+                                <!-- Các nút action -->
+                                <td id="contentaction" style="display:none">
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.SupplierID },
+                                                                     new
+                                                                     {
+                                                                         @class = "btn btn-outline-warning text-dark editSupplierButton",
+                                                                         @data_id = item.SupplierID,
+                                                                         id = "editSupplierButton"
+                                                                     })
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.SupplierID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-outline-danger text-dark deleteSupplierButton",
+                                                                             @data_id = item.SupplierID,
+                                                                             id = "deleteSupplierButton"
+                                                                         })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- Phân trang -->
+                <!--<div class="pagination-container">-->
+                @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.Categories }))*@
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+@*Tạo Modal cho chung cho form (Create, Edit, Delete)*@
+<!-- Modal Create Supplier -->
+<div class="modal fade" id="SupplierModal" tabindex="-1" aria-labelledby="SupplierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSupplierLabel">Title Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung form tạo sản phẩm sẽ được load vào đây -->
+                <div id="modalSupplierContent">
+                    Loading...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

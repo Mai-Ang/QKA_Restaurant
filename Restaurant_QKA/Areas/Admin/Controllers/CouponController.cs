@@ -15,7 +15,10 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         // GET: Admin/Coupon
         public ActionResult Index()
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+
             List<Coupon> coupon = db.Coupons.ToList();
+            ViewBag.Manager = db.PersonnelFiles.Find((int)Session["UserID"]);
             return View(coupon);
         }
         // Tìm kiếm Coupon 
@@ -43,7 +46,10 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+
                 Coupon.CreatedDate = DateTime.Now;
+                Coupon.CreatedManagerID = (int)Session["UserID"];
                 db.Coupons.Add(Coupon);
                 db.SaveChanges();
                 return Json(new { success = true });

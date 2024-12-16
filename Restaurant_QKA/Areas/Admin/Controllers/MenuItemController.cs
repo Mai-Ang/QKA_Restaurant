@@ -17,6 +17,8 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
         // Hiển thị danh sách tất cả sản phẩm
         public ActionResult Index(int? page)
         {
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+
             int pagesize = 5;
             int pagenumber = (page ?? 1);
             ViewBag.Categories = db.Categories.ToList();
@@ -31,7 +33,9 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
             int pagesize = 5;
             int pagenumber = (page ?? 1);
             ViewBag.CurrentId = categoryId;
+            ViewBag.CurrentCate = db.Categories.Find(categoryId);
             ViewBag.Categories = db.Categories.ToList();
+            //ViewBag.Category = db.Categories.Select(p => p.Name).Where(p => p.Id).ToList();
 
             var productswcategory = db.MenuItems.Where(p => p.CategoryID == categoryId).OrderBy(p => p.CategoryID).ToPagedList(pagenumber, pagesize);
             return View(productswcategory);
@@ -183,7 +187,6 @@ namespace Restaurant_QKA.Areas.Admin.Controllers
                 return Json(new { success = false });
             }
         }
-
 
         // Xóa sản phẩm 
         // Get Method

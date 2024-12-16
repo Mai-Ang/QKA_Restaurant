@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\StaffChef\StaffChefAreaRegistration.cs" />
+    <Compile Include="Areas\StaffOrder\Controllers\HomeOrderController.cs" />
     <Compile Include="Areas\StaffOrder\StaffOrderAreaRegistration.cs" />
     <Compile Include="Areas\StaffWareHouse\Controllers\HomeWareHouseController.cs" />
     <Compile Include="Areas\StaffWareHouse\Controllers\SupplierController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Areas\User\Controllers\CartsController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
+    <Compile Include="Areas\User\Controllers\OrderHistoryController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
@@ -254,6 +256,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\css\light\common.css" />
@@ -309,6 +312,7 @@
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\jquery.cookie.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalcoupon.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalproducts.js" />
+    <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalstaff.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\logicmodalusers.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\off-canvas.js" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\assets\js\select.dataTables.min.css" />
@@ -904,6 +908,9 @@
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_footer.html" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_navbar.html" />
     <Content Include="Areas\Admin\Data\DesignForAdmin\partials\_sidebar.html" />
+    <Content Include="Areas\StaffWareHouse\Data\DesignForStaffWareHouse\js\logicmodalmaterial.js" />
+    <Content Include="Areas\StaffWareHouse\Data\DesignForStaffWareHouse\js\logicmodalsupplier.js" />
+    <Content Include="Areas\StaffWareHouse\Data\DesignForStaffWareHouse\js\logicmodaltransaction.js" />
     <Content Include="Areas\User\Data\Image\QKA_Icon.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -1353,6 +1360,23 @@
     <Content Include="Areas\StaffWareHouse\Views\HomeWareHouse\Index.cshtml" />
     <Content Include="Areas\StaffWareHouse\Views\Supplier\Index.cshtml" />
     <Content Include="Areas\StaffWareHouse\Views\Transaction\Index.cshtml" />
+    <Content Include="Areas\User\Views\OrderHistory\Index.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_CreateMaterial.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_EditMaterial.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_DeleteMaterial.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\HomeWareHouse\Search.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_CreateSupplier.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_EditSupplier.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_DeleteSupplier.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Supplier\Search.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Shared\_CreateTransaction.cshtml" />
+    <Content Include="Areas\StaffWareHouse\Views\Transaction\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Coupon\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_CreateStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditProfileStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ChangeSalary.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1381,10 +1405,8 @@
     <Folder Include="Areas\StaffChef\Controllers\" />
     <Folder Include="Areas\StaffChef\Data\" />
     <Folder Include="Areas\StaffChef\Views\Shared\" />
-    <Folder Include="Areas\StaffOrder\Controllers\" />
     <Folder Include="Areas\StaffOrder\Data\" />
     <Folder Include="Areas\StaffOrder\Views\Shared\" />
-    <Folder Include="Areas\StaffWareHouse\Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<section class="billboard container-fluid" style="width:1200px">
+<section class="billboard container-fluid">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -12,37 +12,36 @@
                     <!-- Tiêu đề và mô tả -->
                     <div>
                         <h4 class="card-title">Danh Sách Món</h4>
-                        <p class="card-description text-muted text-success">Sản phẩm với từ khóa tìm kiếm: @ViewBag.Query</p>
+                        <p class="card-description text-muted text-success">danh sách món với từ khóa tìm kiếm: @ViewBag.Query</p>
                     </div>
                     <!-- Nút thêm sản phẩm mới -->
                     <div>
                         <button type="button" class="btn btn-warning newProductButton" id="newProductButton">
-                            Tạo Mới Món
+                            Thêm Món Mới
                         </button>
                     </div>
                 </div>
 
                 <!-- Thanh tìm kiếm và chọn danh mục -->
-                <div class="d-flex justify-content-between mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
                     <!-- Tìm kiếm sản phẩm -->
-                    <div class="search-container">
-                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","Products")">
-                            <input type="search" class="form-control" name="query" placeholder="Search products..." title="Search here">
-                            <i class="mdi mdi-magnify icon-search"></i>
+                    <div class="search-container flex-grow-1 me-3">
+                        <form class="search-form d-flex align-items-center" method="get" action="@Url.Action("Search","MenuItem")">
+                            <input type="search" class="form-control" name="query" placeholder="Nhập từ khóa....." title="Search here">
                         </form>
                     </div>
 
                     <!-- Chọn danh mục -->
-                    <div class="dropdown">
-                        <a class="btn btn-outline-dark dropdown-toggle" id="categoryDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Category
+                    <div class="dropdown flex-grow-1 me-3">
+                        <a class="btn btn-outline-dark dropdown-toggle w-25" id="categoryDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            Danh Mục
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="categoryDropdown">
+                        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                             @if (ViewBag.Categories != null)
                             {
                                 foreach (var category in ViewBag.Categories)
                                 {
-                                    <a class="dropdown-item" href="@Url.Action("ProductsByCategory", "Products", new { CategoryID = category.CategoryID})">@category.Name</a>
+                                    <a class="dropdown-item" href="@Url.Action("ProductsByCategory", "MenuItem", new { CategoryID = category.CategoryID})">@category.Name</a>
                                 }
                             }
                             else
@@ -51,84 +50,84 @@
                             }
                         </div>
                     </div>
+
+                    <!-- Nút chỉnh sửa -->
+                    <div class="d-flex flex-column align-items-end">
+                        <button class="btn btn-primary mb-2" id="editbutton" onclick="enableEdit()">Chỉnh Sửa</button>
+                        <button class="btn btn-danger" id="cancelbutton" onclick="disableEdit()" style="display:none">Hủy</button>
+                    </div>
                 </div>
                 <!-- Bảng danh sách sản phẩm  -->
                 <div class="table-responsive">
-
-                    @if (!Model.Any())
-                    {
-                        <p>No suitable products found</p>
-                    }
-                    else
-                    {
-                        <!-- Tiêu đề bảng -->
-                        <table class="table table-hover">
-                            <thead>
+                    <!-- Tiêu đề bảng -->
+                    <table class="table table-hover">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Tên Món</th>
+                                <th>Hình Ảnh</th>
+                                <th>Mô Tả</th>
+                                <th>Giá Bán</th>
+                                <th>Số Lượng</th>
+                                <th>Trạng Thái</th>
+                                <th>Ngày Tạo</th>
+                                <th id="labelaction" style="display: none">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <!-- Giá trị từng dòng -->
+                        <tbody class="text-center">
+                            @foreach (var item in Model)
+                            {
                                 <tr>
-                                    <th>Tên Món</th>
-                                    <th>Hình Ảnh</th>
-                                    <th>Mô Tả</th>
-                                    <th>Giá Bán</th>
-                                    <th>Số Lượng</th>
-                                    <th>Trạng Thái</th>
-                                    <th>Ngày Tạo</th>
-                                    <th>Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <!-- Giá trị từng dòng -->
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
-                                        <td class="py-md">
-                                            <img src="@Url.Content("~/Content/Images/Products_Img/" + item.ImageUrl)" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />
-                                        </td>
-                                        <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Description</td>
-                                        <td>@item.Price</td>
-                                        <td>
-                                            @if (item.Quantity < 10)
-                                            {
-                                                <span class="badge bg-warning">@item.Quantity</span>
-                                            }
-                                            else
-                                            {
-                                                <span>@item.Quantity</span>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (item.IsActive == true)
-                                            {
-                                                <span class="badge bg-success">Active</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-danger">Inactive</span>
-                                            }
-                                        </td>
-                                        <td>@item.CreatedDate.ToString()</td>
-                                        <!-- Các nút action -->
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ItemID },
+                                    <td style="max-width: 150px; word-wrap: break-word;">@item.Name</td>
+                                    <td class="py-md">
+                                        <img src="@Url.Content("~/Content/MenuItems/" + item.ImageUrl)" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;" />
+                                    </td>
+                                    <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Description</td>
+                                    <td>
+                                        @String.Format("{0:N2}", @item.Price)
+                                    </td>
+                                    <td>
+                                        @if (item.Quantity < 10)
+                                        {
+                                            <span class="badge bg-warning">@item.Quantity</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.Quantity</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsActive == true)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Inactive</span>
+                                        }
+                                    </td>
+                                    <td>@item.CreatedDate.ToString()</td>
+                                    <!-- Các nút action -->
+                                    <td id="contentaction" style="display:none">
+                                        @Html.ActionLink("Sửa", "Edit", new { id = item.ItemID },
+                                                                         new
+                                                                         {
+                                                                             @class = "btn btn-outline-facebook editProductButton",
+                                                                             @data_id = item.ItemID,
+                                                                             id = "editProductButton"
+                                                                         })
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.ItemID },
                                                                              new
                                                                              {
-                                                                                 @class = "btn btn-warning editProductButton",
+                                                                                 @class = "btn btn-danger deleteProductButton",
                                                                                  @data_id = item.ItemID,
-                                                                                 id = "editProductButton"
+                                                                                 id = "deleteProductButton"
                                                                              })
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ItemID },
-                                                                                 new
-                                                                                 {
-                                                                                     @class = "btn btn-danger deleteProductButton",
-                                                                                     @data_id = item.ItemID,
-                                                                                     id = "deleteProductButton"
-                                                                                 })
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -139,7 +138,7 @@
 @*Tạo Modal cho chung cho form (Create, Edit)*@
 <!-- Modal Create Product -->
 <div class="modal fade" id="ProductModal" tabindex="-1" aria-labelledby="ProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1280px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalProductLabel">Title Modal</h5>

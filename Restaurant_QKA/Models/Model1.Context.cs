@@ -44,7 +44,6 @@ namespace Restaurant_QKA.Models
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<PersonnelFile> PersonnelFiles { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Recipe> Recipes { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
@@ -54,5 +53,6 @@ namespace Restaurant_QKA.Models
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
+        public virtual DbSet<PersonnelFile> PersonnelFiles { get; set; }
     }
 }

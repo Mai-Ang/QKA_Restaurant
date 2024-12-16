@@ -1,0 +1,59 @@
+﻿@model Restaurant_QKA.Models.WareHouse
+
+@using (Html.BeginForm("Create", "HomeWareHouse", new { area = "StaffWareHouse" }, FormMethod.Post, new { @id = "createMaterialForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container mt-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="row">
+                    <!-- Category Dropdown -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.SupplierID, "Supplier", htmlAttributes: new { @class = "control-label" })
+
+                        @if (ViewBag.Supplier != null)
+                        {
+                            @Html.DropDownList("SupplierID", new SelectList(ViewBag.Supplier, "SupplierID", "Name"), "Chọn nhà cung cấp", new { @class = "form-control", @required = "required" })
+                        }
+                        else
+                        {
+                            <p>Không Có Nhà Cung Cấp Nào</p>
+                        }
+                    </div>
+                    <!-- Name -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.Name, " ", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Unit -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Unit, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(m => m.Unit, new { @class = "form-control", style = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.Unit, " ", new { @class = "text-danger" })
+                    </div>
+                    <!-- IsActive Dropdown -->
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.IsActive, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(m => m.IsActive, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Not Set", Value = "" },
+                            new SelectListItem { Text = "Active", Value = "true" },
+                            new SelectListItem { Text = "Inactive", Value = "false" }
+                        }, "Value", "Text"), "Select Status", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Thêm Mới Nguyên Liệu</button>
+        </div>
+    </div>
+
+}
+
+
