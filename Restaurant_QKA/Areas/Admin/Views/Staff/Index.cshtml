@@ -1,4 +1,5 @@
-﻿@model List<Restaurant_QKA.Models.Staff>
+﻿@using System.Globalization
+@model List<Restaurant_QKA.Models.Staff>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -69,12 +70,12 @@
                                     <td style="max-width: 100px; word-wrap: break-word; white-space: normal;">@item.UserName</td>
                                     <td>@item.Role</td>
                                     <td>@item.PositionID</td>
-                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@String.Format("{0:N2}", item.Salary)</td>
+                                    <td style="max-width: 500px; word-wrap: break-word; white-space: normal;">@String.Format(new CultureInfo("vi-VN"), "{0:N0} VND", item.Salary)</td>
                                     <!-- Các nút action -->
                                     <td id="contentaction" style="display:none">
-                                        <a class="btn btn-outline-twitter" 
+                                        <a class="btn btn-outline-twitter"
                                            href="@Url.Action("Detail","Staff", new {id = item.StaffID, area = "Admin"})">
-                                           Xem Thông Tin 
+                                            Xem Thông Tin
                                         </a>
                                         @Html.ActionLink("Điều Chỉnh Lương", "Edit", new { id = item.StaffID },
                                                                          new

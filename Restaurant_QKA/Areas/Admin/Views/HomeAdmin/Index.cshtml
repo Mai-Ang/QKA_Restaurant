@@ -1,4 +1,6 @@
 ﻿@model List<Restaurant_QKA.Models.Invoice>
+@using System.Globalization
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -45,17 +47,16 @@
                                 </div>
                                 <div class="d-sm-flex align-items-center mt-1 justify-content-between">
                                     <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-                                            @if (ViewBag.Revenue == null)
-                                             {
-                                                    <h2 class="me-2 fw-bold">0</h2>
-                                             }
-                                            else
-                                            {
-                                               <h2>
-                                                    @String.Format("{0:N2}", @ViewBag.Revenue)
-                                               </h2>
-                                            }
-                                        <h4 class="me-2">VND</h4>
+                                        @if (ViewBag.Revenue == null)
+                                        {
+                                            <h2 class="me-2 fw-bold">0</h2>
+                                        }
+                                        else
+                                        {
+                                            <h2>
+                                                @String.Format(new CultureInfo("vi-VN"), "{0:N0} VND", @ViewBag.Revenue)
+                                            </h2>
+                                        }
                                     </div>
                                     <div class="me-3">
                                         <div id="marketingOverview-legend"></div>

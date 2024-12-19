@@ -36,7 +36,7 @@ namespace Restaurant_QKA.Areas.StaffWareHouse.Controllers
         // Thêm mới nhà cung cấp
         public ActionResult Create(int? idsupplier)
         {
-            ViewBag.Material = db.WareHouses.ToList();
+            ViewBag.Material = db.WareHouses.Where( m => m.IsActive == true).ToList();
             if(idsupplier != null)
             {
                 ViewBag.Supplier = db.Suppliers.FirstOrDefault(sup => sup.SupplierID == idsupplier);
@@ -52,6 +52,7 @@ namespace Restaurant_QKA.Areas.StaffWareHouse.Controllers
             if (ModelState.IsValid)
             {
                 it.StaffID = (int)Session["UserID"];
+                it.TotalPrice = it.TotalPrice * it.Quantity;
                 it.TransactionDate = DateTime.Now;
                 db.InventoryTransactions.Add(it);
                 db.SaveChanges();

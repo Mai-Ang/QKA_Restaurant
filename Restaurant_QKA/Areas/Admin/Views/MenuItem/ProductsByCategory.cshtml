@@ -1,6 +1,8 @@
 ﻿@model IPagedList<Restaurant_QKA.Models.MenuItem>
 @using PagedList.Mvc
 @using PagedList
+@using System.Globalization
+
 @{
     ViewBag.Title = "ProductsByCategory";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -86,7 +88,7 @@
                                     </td>
                                     <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Description</td>
                                     <td>
-                                        @String.Format("{0:N2}", @item.Price)
+                                        @String.Format(new CultureInfo("vi-VN"), "{0:N0} VND", item.Price)
                                     </td>
                                     <td>
                                         @if (item.Quantity < 10)

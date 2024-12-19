@@ -1401,6 +1401,8 @@
     <Content Include="Areas\StaffChef\Views\WareHouse\Index.cshtml" />
     <Content Include="Areas\StaffChef\Views\Recipe\Index.cshtml" />
     <Content Include="Areas\StaffChef\Views\Recipe\Create.cshtml" />
+    <None Include="Properties\PublishProfiles\qkahosting2024-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\qkahosting2024-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

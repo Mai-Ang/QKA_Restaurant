@@ -15,8 +15,12 @@ namespace Restaurant_QKA.Areas.User.Controllers
         public ActionResult Index()
         {
             var iduser = Session["UserID"];
-            var menuItems = db.MenuItems.Where(m => m.IsActive ?? false).ToList();
+            var menuItems = db.MenuItems.Where(m => m.IsActive ?? false).Take(8).ToList();
             ViewBag.TotalItemsInCart = GetTotalItemsInCart((int?)iduser);
+
+            ViewBag.Totalcus = db.Customers.Count();
+            ViewBag.Totalstaffs = db.Staffs.Count();
+            ViewBag.Totalitems = db.MenuItems.Count();
             return View(menuItems);
         }
 

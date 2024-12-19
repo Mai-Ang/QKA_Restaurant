@@ -1,4 +1,6 @@
 ﻿@model List<Restaurant_QKA.Models.WareHouse>
+@using System.Globalization
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/StaffWareHouse/Views/Shared/_LayoutStaffWareHouse.cshtml";
@@ -74,7 +76,7 @@
                                         <td>@sup.Name</td>
                                     }
                                 }
-                                <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.ImportPrice</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@String.Format(new CultureInfo("vi-VN"), "{0:N0} VND", item.ImportPrice)</td>
                                 <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@item.Unit</td>
                                 <td>
                                     @if (item.IsActive == true)

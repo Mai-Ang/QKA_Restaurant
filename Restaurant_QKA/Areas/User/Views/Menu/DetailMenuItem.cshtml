@@ -1,4 +1,5 @@
-﻿@model Restaurant_QKA.Models.MenuItem
+﻿@using System.Globalization
+@model Restaurant_QKA.Models.MenuItem
 
 @{
     ViewBag.Title = "Chi Tiết Món";
@@ -21,7 +22,7 @@
                             <h2 class="card-title text-dark mb-3 display-1" style="font-size:60px">@Model.Name</h2>
 
                             <p class="card-text text-muted">@Model.Description</p>
-                            <p style="font-size:30px"><strong>Giá:</strong> <span class="text-success" style="font-weight:bold">@String.Format("{0:N2}", Model.Price) VND</span></p> <!-- Định dạng tiền tệ -->
+                            <p style="font-size:30px"><strong>Giá:</strong> <span class="text-success" style="font-weight:bold">@String.Format(new CultureInfo("vi-VN"), "{0:N0} VND", Model.Price)</span></p> <!-- Định dạng tiền tệ -->
 
                             <div class="d-flex justify-content-between mt-4" style="font-size:30px">
                                 <!-- Add to Cart Button -->
