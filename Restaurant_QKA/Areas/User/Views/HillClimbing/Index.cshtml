@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="container-fluid fruite" style="background-color: #EEEEEE; border-radius:30px; margin-top:150px">
+        <div class="container py-5">
+            <div class="tab-class text-center">
+                <div class="row g-4">
+                    <div class="col-lg-7 text-start">
+                        <h1>Lọc Thông Minh</h1>
+                    </div>
+                    <div class="col-lg-5 text-end d-flex justify-content-lg-end h-25">
+                        @if (Session["UserID"] != null)
+                        {
+                            <div class="d-flex gap-3">
+                                <form action="@Url.Action("Filter", "HillClimbing")" method="post" class="d-flex gap-3">
+                                    <!-- Combobox khoảng giá -->
+                                    <select name="priceRange" class="form-select" style="width: 200px;">
+                                        <option value="">Chọn khoảng giá</option>
+                                        <option value="50000-200000">50K - 200K</option>
+                                        <option value="200000-500000">200K - 500K</option>
+                                        <option value="500000+">Trên 500K</option>
+                                    </select>
+
+                                    <!-- Combobox khẩu vị -->
+                                    <select name="taste" class="form-select" style="width: 150px;">
+                                        <option value="">Chọn khẩu vị</option>
+                                        <option value="ngot">Ngọt</option>
+                                        <option value="man">Mặn</option>
+                                        <option value="chua">Chua</option>
+                                        <option value="cay">Cay</option>
+                                    </select>
+
+                                    <button type="submit" class="btn" style="font-size: 1rem; padding: 10px 20px;">
+                                        <i class="fa-solid fa-filter"></i>
+                                        Lọc
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row g-4" id="menuItemsContainer">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-body text-center p-3">
+                                            <img src="@Url.Content("~/Content/MenuItems/" + item.MenuItem.ImageUrl)" class="rounded-2 img-fluid" style="width: 100%; height: 200px; object-fit: cover;" alt="@item.MenuItem.Name">
+                                        </div>
+                                        <h5 class="card-title">@item.MenuItem.Name</h5>
+                                        <p class="card-text">Giá: @item.MenuItem.Price.ToString("N0") VNĐ</p>
+                                        <p class="card-text">Mô tả: @item.MenuItem.Description</p>
+                                        <p class="card-text">Điểm số: @item.Score.ToString("F2")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Hãy chọn để tìm kiếm món ăn phù hợp nhất với bạn</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -47,31 +47,58 @@ namespace Restaurant_QKA.Areas.StaffWareHouse.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(InventoryTransaction it)
         {
-            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login", "User", new { area = "User" });
 
             if (ModelState.IsValid)
             {
-                it.StaffID = (int)Session["UserID"];
-                it.TotalPrice = it.TotalPrice * it.Quantity;
-                it.TransactionDate = DateTime.Now;
-                db.InventoryTransactions.Add(it);
-                db.SaveChanges();
-
-                var existmaterial = db.WareHouses.FirstOrDefault(m => m.MaterialID == it.MaterialID);
-                if (existmaterial != null)
+                // Sử dụng transaction
+                using (var transaction = db.Database.BeginTransaction())
                 {
-                    existmaterial.Quantity = existmaterial.Quantity + it.Quantity;
-                    existmaterial.ImportPrice = it.TotalPrice / it.Quantity;
-                    db.Entry(existmaterial).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Json(new { success = true });
+                    try
+                    {
+                        // 1. Gán thông tin cần thiết và thêm giao dịch nhập kho
+                        it.StaffID = (int)Session["UserID"];
+                        it.TotalPrice = it.TotalPrice * it.Quantity;
+                        it.TransactionDate = DateTime.Now;
+                        db.InventoryTransactions.Add(it);
+                        db.SaveChanges();
+
+                        // 2. Kiểm tra sản phẩm có tồn tại hay không và cập nhật kho
+                        var existmaterial = db.WareHouses.FirstOrDefault(m => m.MaterialID == it.MaterialID);
+                        if (existmaterial != null)
+                        {
+                            existmaterial.Quantity += it.Quantity;
+                            existmaterial.ImportPrice = it.TotalPrice / it.Quantity;
+
+                            db.Entry(existmaterial).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            // 3. Commit transaction nếu không có lỗi
+                            transaction.Commit();
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            // Rollback transaction nếu sản phẩm không tồn tại
+                            transaction.Rollback();
+                            return Json(new { success = false, message = "Sản phẩm không tồn tại trong kho!" });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback transaction nếu có lỗi xảy ra
+                        transaction.Rollback();
+                        return Json(new { success = false, message = ex.Message });
+                    }
                 }
-                return Json(new { success = false });
             }
-            // Nếu xảy ra lỗi vẫn load lại danh sách 
+
+            // Nếu có lỗi, vẫn load lại danh sách vật tư và nhà cung cấp
             ViewBag.Material = db.WareHouses.ToList();
             ViewBag.Supplier = db.Suppliers.ToList();
             return PartialView("~/Areas/StaffWareHouse/Views/Shared/_CreateTransaction.cshtml", it);
         }
+
     }
 }

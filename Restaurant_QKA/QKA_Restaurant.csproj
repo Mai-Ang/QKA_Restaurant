@@ -148,6 +148,7 @@
     <Compile Include="Areas\StaffWareHouse\Controllers\TransactionController.cs" />
     <Compile Include="Areas\StaffWareHouse\StaffWareHouseAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\CartsController.cs" />
+    <Compile Include="Areas\User\Controllers\HillClimbingController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\MenuController.cs" />
     <Compile Include="Areas\User\Controllers\OrderHistoryController.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Models\MenuItem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MenuItemWithScore.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1401,6 +1403,7 @@
     <Content Include="Areas\StaffChef\Views\WareHouse\Index.cshtml" />
     <Content Include="Areas\StaffChef\Views\Recipe\Index.cshtml" />
     <Content Include="Areas\StaffChef\Views\Recipe\Create.cshtml" />
+    <Content Include="Areas\User\Views\HillClimbing\Index.cshtml" />
     <None Include="Properties\PublishProfiles\qkahosting2024-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\qkahosting2024-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />

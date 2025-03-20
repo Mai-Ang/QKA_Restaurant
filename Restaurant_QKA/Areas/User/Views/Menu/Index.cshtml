@@ -14,7 +14,15 @@
                         <h1>Menu</h1>
                     </div>
                     <div class="col-lg-5 text-end d-flex justify-content-lg-end h-25">
-                        <!-- Search and Sort Controls -->
+                        <!-- HillClimbing -->
+                        @if (Session["UserID"] != null)
+                        {
+                            <div class="d-flex gap-3">
+                                <a href="@Url.Action("Index", "HillClimbing", new { area = "User" })" class="btn">
+                                    <i class="fa-solid fa-filter"></i> Lọc
+                                </a>
+                            </div>
+                        }
                         <div class="d-flex gap-3">
                             <!-- Sort By Dropdown -->
                             <select id="sortBy" class="form-select" onchange="applySortAndSearch()">

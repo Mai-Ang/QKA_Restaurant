@@ -169,6 +169,7 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="ProductionCost" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -1059,6 +1060,7 @@
           <NavigationProperty Name="StaffChef" Relationship="Self.FK_MenuItems_StaffChef" FromRole="MenuItems" ToRole="StaffChef" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_MenuItems" FromRole="MenuItems" ToRole="OrderDetails" />
           <NavigationProperty Name="Recipes" Relationship="Self.FK_Recipe_MenuItems" FromRole="MenuItems" ToRole="Recipe" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -1951,6 +1953,7 @@
           <EntitySetMapping Name="MenuItems">
             <EntityTypeMapping TypeName="QKA_ResModel.MenuItem">
               <MappingFragment StoreEntitySet="MenuItems">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

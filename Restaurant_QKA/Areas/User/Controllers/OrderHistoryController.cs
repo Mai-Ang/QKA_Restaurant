@@ -17,14 +17,10 @@ namespace Restaurant_QKA.Areas.User.Controllers
             // Lấy UserID từ session, giả sử là integer
             var userId = Session["UserID"] as int?;
 
-            // Kiểm tra nếu không có UserID trong session thì chuyển hướng đến trang đăng nhập
-            if (!userId.HasValue)
-            {
-                return RedirectToAction("Login", "User");
-            }
+            if (Session["UserID"] == null) return RedirectToAction("Login", "User", new { area = "User" });
 
             // Lấy danh sách đơn hàng của khách hàng hiện tại từ database
-            var orders = db.Orders.Where(o => o.CusID == userId).ToList(); // Lọc theo UserId
+            var orders = db.Orders.Where(o => o.CusID == userId).ToList();
 
             // Phân loại đơn hàng theo trạng thái
             var pendingOrders = orders.Where(o => o.Status == "0").ToList(); // Chờ xác nhận

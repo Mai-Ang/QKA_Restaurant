@@ -34,6 +34,7 @@ namespace Restaurant_QKA.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public Nullable<decimal> ProductionCost { get; set; }
+        public Nullable<decimal> Weight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }
